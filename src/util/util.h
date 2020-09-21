@@ -6,6 +6,7 @@
 namespace XGK::MATH::UTIL {
 
   void makeBezierCurve3Point (
+
     const float,
     const float,
     const float,
@@ -19,6 +20,7 @@ namespace XGK::MATH::UTIL {
   );
 
   void makeBezierCurve3Sequence (
+
     const float,
     const float,
     const float,
@@ -32,12 +34,13 @@ namespace XGK::MATH::UTIL {
   );
 
   void makeBezierCurve3Sequence2 (
+
+    float*,
     const float,
     const float,
     const float,
     const float,
-    const uint64_t,
-    float*
+    const uint64_t
   );
 
   void makeBezierCurve2Point3D (
