@@ -1,13 +1,3 @@
-#if defined(__linux__)
-
-  #define INLINE __attribute__((always_inline)) inline
-#else
-
-  #define INLINE inline
-#endif
-
-
-
 #define SET32(\
   matrix_addr_float,\
   \
@@ -112,33 +102,22 @@
 
 
 
-// #include <cstdint>
+#include <cstdint>
 #include <cstring>
 #include <cmath>
-
-#include "data/const.h"
 
 
 
 namespace XGK::DATA::MAT4 {
 
-  // namespace {
-
-  //   static const uint8_t FLOAT_SIZE_3 = sizeof(float) * 3;
-  //   static const uint8_t FLOAT_SIZE_4 = sizeof(float) * 4;
-  //   static const uint8_t FLOAT_SIZE_12 = sizeof(float) * 12;
-
-  //   alignas(16) static const float IDENT[12] = {
-
-  //     1.0f, 0.0f, 0.0f, 0.0f,
-  //     0.0f, 1.0f, 0.0f, 0.0f,
-  //     0.0f, 0.0f, 1.0f, 0.0f
-  //   };
-  // };
+  extern const uint8_t FLOAT_SIZE_3;
+  extern const uint8_t FLOAT_SIZE_4;
+  extern const uint8_t FLOAT_SIZE_12;
+  alignas(16) extern const float IDENT_12[12];
 
 
 
-  INLINE void set32 (
+  void set32 (
 
     void* dst,
 
@@ -162,7 +141,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void premul32 (void* dst_matrix_addr, void* src_matrix_addr) {
+  void premul32 (void* dst_matrix_addr, void* src_matrix_addr) {
 
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
     float* src_matrix_addr_float = (float*) src_matrix_addr;
@@ -172,7 +151,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void postmul32 (void* dst_matrix_addr, void* src_matrix_addr) {
+  void postmul32 (void* dst_matrix_addr, void* src_matrix_addr) {
 
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
     float* src_matrix_addr_float = (float*) src_matrix_addr;
@@ -182,7 +161,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void makeTrans32 (void* dst_matrix_addr, void* vector_addr) {
+  void makeTrans32 (void* dst_matrix_addr, void* vector_addr) {
 
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
 
@@ -191,7 +170,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void preTrans32 (void* dst_matrix_addr, void* vector_addr) {
+  void preTrans32 (void* dst_matrix_addr, void* vector_addr) {
 
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
     float* vector_addr_float = (float*) vector_addr;
@@ -203,7 +182,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void postTrans32 (void* dst_matrix_addr, void* vector_addr) {
+  void postTrans32 (void* dst_matrix_addr, void* vector_addr) {
 
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
     float* vector_addr_float = (float*) vector_addr;
@@ -215,7 +194,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void makeTransValue32 (void* dst_matrix_addr, void* vector_addr, const float value) {
+  void makeTransValue32 (void* dst_matrix_addr, void* vector_addr, const float value) {
 
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
     float* vector_addr_float = (float*) vector_addr;
@@ -225,7 +204,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void preTransValue32 (void* dst_matrix_addr, void* vector_addr, const float value) {
+  void preTransValue32 (void* dst_matrix_addr, void* vector_addr, const float value) {
 
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
     alignas(16) float src_matrix_addr_float[16];
@@ -238,7 +217,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void postTransValue32 (void* dst_matrix_addr, void* vector_addr, const float value) {
+  void postTransValue32 (void* dst_matrix_addr, void* vector_addr, const float value) {
 
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
     alignas(16) float src_matrix_addr_float[16];
@@ -251,7 +230,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void makeRotQuat32 (void* dst_matrix_addr, void* quaternion_addr) {
+  void makeRotQuat32 (void* dst_matrix_addr, void* quaternion_addr) {
 
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
     float* quaternion_addr_float = (float*) quaternion_addr;
@@ -261,7 +240,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void preRotQuat32 (void* dst_matrix_addr, void* quaternion_addr) {
+  void preRotQuat32 (void* dst_matrix_addr, void* quaternion_addr) {
 
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
     alignas(16) float left_matrix_addr_float[12];
@@ -292,7 +271,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void postRotQuat32 (void* dst_matrix_addr, void* quaternion_addr) {
+  void postRotQuat32 (void* dst_matrix_addr, void* quaternion_addr) {
 
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
     alignas(16) float right_matrix_addr_float[12];
@@ -323,7 +302,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void transp32 (void* dst) {
+  void transp32 (void* dst) {
 
     float* dst_32_ptr = (float*) dst;
 
@@ -344,7 +323,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void invns32 (void* dst) {
+  void invns32 (void* dst) {
 
     float* dst_32_ptr = (float*) dst;
 
@@ -364,7 +343,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void makeProjPersp32 (
+  void makeProjPersp32 (
     void* dst,
 
     const float fov,
@@ -395,7 +374,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  // INLINE void makeProjPersp32 (
+  // void makeProjPersp32 (
   //
   //   void* m0,
 
@@ -419,7 +398,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  // INLINE void makeRot32 (void* m0, float* q0) {
+  // void makeRot32 (void* m0, float* q0) {
 
   //   const float xx = 2.0f * q0->f32[0] * q0->f32[0];
   //   const float yy = 2.0f * q0->f32[1] * q0->f32[1];
@@ -443,7 +422,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  // INLINE void makeRotX32 (void* m0, const float angle) {
+  // void makeRotX32 (void* m0, const float angle) {
 
   //   const float cos_ = cos(angle);
   //   const float sin_ = sin(angle);
@@ -458,13 +437,3 @@ namespace XGK::DATA::MAT4 {
   //  )
   // };
 };
-
-
-
-#undef INLINE
-#undef SET32
-#undef MUL
-#undef MAKE_TRANS
-#undef MAKE_TRANS_VALUE
-#undef MAKE_ROT_QUAT
-#undef MAKE_ROT_QUAT2

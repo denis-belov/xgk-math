@@ -1,12 +1,4 @@
-#if defined(__linux__)
-
-  #define INLINE __attribute__((always_inline)) inline
-#else
-
-  #define INLINE inline
-#endif
-
-
+#include <cmath>
 
 #ifdef __EMSCRIPTEN__
 
@@ -23,14 +15,14 @@
 
 namespace XGK::DATA::VEC4 {
 
-  INLINE void set128 (void* data, const float x, const float y, const float z, const float w) {
+  void set128 (void* data, const float x, const float y, const float z, const float w) {
 
     _mm_store_ps((float*) data, _mm_setr_ps(x, y, z, w));
   };
 
 
 
-  INLINE void add128 (void* data_addr_void1, void* data_addr_void2) {
+  void add128 (void* data_addr_void1, void* data_addr_void2) {
 
     float* data_addr_float1 = (float*) data_addr_void1;
 
@@ -44,7 +36,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void adds128 (void* data, const float s) {
+  void adds128 (void* data, const float s) {
 
     alignas(16) __m128 _data = *((__m128*) data);
 
@@ -53,7 +45,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void sub128 (void* data0, void* data1) {
+  void sub128 (void* data0, void* data1) {
 
     alignas(16) __m128 _data0 = *((__m128*) data0);
     alignas(16) __m128 _data1 = *((__m128*) data1);
@@ -63,7 +55,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void subs128 (void* data, const float s) {
+  void subs128 (void* data, const float s) {
 
     alignas(16) __m128 _data = *((__m128*) data);
 
@@ -72,7 +64,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void mul128 (void* data0, void* data1) {
+  void mul128 (void* data0, void* data1) {
 
     alignas(16) __m128 _data0 = *((__m128*) data0);
     alignas(16) __m128 _data1 = *((__m128*) data1);
@@ -82,7 +74,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void muls128 (void* data, const float s) {
+  void muls128 (void* data, const float s) {
 
     alignas(16) __m128 _data = *((__m128*) data);
 
@@ -91,7 +83,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void div128 (void* data0, void* data1) {
+  void div128 (void* data0, void* data1) {
 
     alignas(16) __m128 _data0 = *((__m128*) data0);
     alignas(16) __m128 _data1 = *((__m128*) data1);
@@ -101,7 +93,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void divs128 (void* data, const float s) {
+  void divs128 (void* data, const float s) {
 
     alignas(16) __m128 _data = *((__m128*) data);
 
@@ -114,7 +106,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void norm128 (void* data) {
+  void norm128 (void* data) {
 
     float* data_addr_float = (float*) data;
 
@@ -135,7 +127,3 @@ namespace XGK::DATA::VEC4 {
     );
   };
 };
-
-
-
-#undef INLINE

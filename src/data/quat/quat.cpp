@@ -1,10 +1,47 @@
-// #include "quat.h"
-#include "quat-32.h"
-#include "quat-128.h"
+#include <cstdint>
+#include <cstring>
+#include <cmath>
 
 
 
 namespace XGK::DATA::QUAT {
+
+  extern const uint8_t FLOAT_SIZE_4;
+  alignas(16) extern const float CONST_IDENT[4];
+
+
+
+  void premul32 (void*, void*);
+  void postmul32 (void*, void*);
+  void makeRot32 (void*, void*, const float);
+  void preRot32 (void*, void*, const float);
+  void postRot32 (void*, void*, const float);
+  void makeRotX32 (void*, const float);
+  void preRotX32 (void*, const float);
+  void postRotX32 (void*, const float);
+  void makeRotY32 (void*, const float);
+  void preRotY32 (void*, const float);
+  void postRotY32 (void*, const float);
+  void makeRotZ32 (void*, const float);
+  void preRotZ32 (void*, const float) ;
+  void postRotZ32 (void*, const float);
+
+  void premul128 (void*, void*);
+  void postmul128 (void*, void*);
+  void makeRot128 (void*, void*, const float);
+  void preRot128 (void*, void*, const float);
+  void postRot128 (void*, void*, const float);
+  void makeRotX128 (void*, const float);
+  void preRotX128 (void*, const float);
+  void postRotX128 (void*, const float);
+  void makeRotY128 (void*, const float);
+  void preRotY128 (void*, const float);
+  void postRotY128 (void*, const float);
+  void makeRotZ128 (void*, const float);
+  void preRotZ128 (void*, const float) ;
+  void postRotZ128 (void*, const float);
+
+
 
   void (* premul)   (void*, void*)               = nullptr;
   void (* postmul)  (void*, void*)               = nullptr;
@@ -20,6 +57,48 @@ namespace XGK::DATA::QUAT {
   void (* makeRotZ) (void*, const float)         = nullptr;
   void (* preRotZ)  (void*, const float)         = nullptr;
   void (* postRotZ) (void*, const float)         = nullptr;
+
+
+
+  void ident (void* data) {
+
+    memcpy(data, CONST_IDENT, FLOAT_SIZE_4);
+  };
+
+
+
+  // TODO simd
+  float len (void* data) {
+
+    float* data_f = (float*) data;
+
+    return sqrt((data_f[0] * data_f[0]) + (data_f[1] * data_f[1]) + (data_f[2] * data_f[2]) + (data_f[3] * data_f[3]));
+  }
+
+
+
+  float lens (void* data) {
+
+    float* data_f = (float*) data;
+
+    return (data_f[0] * data_f[0]) + (data_f[1] * data_f[1]) + (data_f[2] * data_f[2]) + (data_f[3] * data_f[3]);
+  }
+
+
+
+  void norm (void* data) {
+
+    float* data_f = (float*) data;
+
+    // const float lens = (data_f[0] * data_f[0]) + (data_f[1] * data_f[1]) + (data_f[2] * data_f[2]) + (data_f[3] * data_f[3]);
+    const float invlen = 1.0f / sqrt((data_f[0] * data_f[0]) + (data_f[1] * data_f[1]) + (data_f[2] * data_f[2]) + (data_f[3] * data_f[3]));
+
+    data_f[0] *= invlen;
+    data_f[1] *= invlen;
+    data_f[2] *= invlen;
+    data_f[3] *= invlen;
+  }
+  //
 
 
 

@@ -5,16 +5,6 @@
 
 
 
-#if defined(__linux__)
-
-  #define INLINE __attribute__((always_inline)) inline
-#else
-
-  #define INLINE inline
-#endif
-
-
-
 #define MUL(dst_quaternion_addr_float, left_quaternion_addr_float, right_quaternion_addr_float)\
   \
   alignas(16) const __m128 right_quaternion_m128 = _mm_load_ps(right_quaternion_addr_float);\
@@ -48,8 +38,8 @@
 
 
 
-// #include <cstdint>
 #include <cmath>
+
 #ifdef __EMSCRIPTEN__
 
   #define __SSE__ 1
@@ -61,21 +51,16 @@
   #include <immintrin.h>
 #endif
 
-#include "data/const.h"
-
 
 
 namespace XGK::DATA::QUAT {
 
-  // namespace {
-
-  //   alignas(16) static const __m128 CONST_MUL = { 1.0f, 1.0f, -1.0f, -1.0f };
-  //   alignas(16) static const __m128 CONST_MUL2 = { 1.0f, -1.0f, 1.0f, -1.0f };
-  // };
+  alignas(16) extern const __m128 CONST_MUL;
+  alignas(16) extern const __m128 CONST_MUL2;
 
 
 
-  // INLINE void premul128 (void* data0, void* data1) {
+  // void premul128 (void* data0, void* data1) {
 
   //   alignas(16) const __m128 data0_128 = _mm_load_ps((float*) data0);
   //   const float* _data1 = (const float*) data1;
@@ -96,7 +81,7 @@ namespace XGK::DATA::QUAT {
   //   _mm_storer_ps((float*) data0, j);
   // };
 
-  // INLINE void postmul128 (void* data0, void* data1) {
+  // void postmul128 (void* data0, void* data1) {
 
   //   alignas(16) const __m128 data1_128 = _mm_load_ps((float*) data1);
   //   float* _data0 = (float*) data0;
@@ -119,7 +104,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void premul128 (void* dst_quaternion_addr, void* src_quaternion_addr) {
+  void premul128 (void* dst_quaternion_addr, void* src_quaternion_addr) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
     float* src_quaternion_addr_float = (float*) src_quaternion_addr;
@@ -129,7 +114,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void postmul128 (void* dst_quaternion_addr, void* src_quaternion_addr) {
+  void postmul128 (void* dst_quaternion_addr, void* src_quaternion_addr) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
     float* src_quaternion_addr_float = (float*) src_quaternion_addr;
@@ -139,7 +124,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void makeRot128 (void* dst_quaternion_addr, void* dst_vector_addr, const float angle) {
+  void makeRot128 (void* dst_quaternion_addr, void* dst_vector_addr, const float angle) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
     float* dst_vector_addr_float = (float*) dst_vector_addr;
@@ -149,7 +134,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void preRot128 (void* dst_quaternion_addr, void* dst_vector_addr, const float angle) {
+  void preRot128 (void* dst_quaternion_addr, void* dst_vector_addr, const float angle) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
     float* dst_vector_addr_float = (float*) dst_vector_addr;
@@ -162,7 +147,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void postRot128 (void* dst_quaternion_addr, void* dst_vector_addr, const float angle) {
+  void postRot128 (void* dst_quaternion_addr, void* dst_vector_addr, const float angle) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
     float* dst_vector_addr_float = (float*) dst_vector_addr;
@@ -175,7 +160,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  // INLINE void preRot128 (void* dst_quaternion_addr, void* dst_vector_addr, const float angle) {
+  // void preRot128 (void* dst_quaternion_addr, void* dst_vector_addr, const float angle) {
 
   //   float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
   //   alignas(16) float src_quaternion_addr_float[4];
@@ -187,7 +172,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  // INLINE void postRot128 (void* dst_quaternion_addr, void* dst_vector_addr, const float angle) {
+  // void postRot128 (void* dst_quaternion_addr, void* dst_vector_addr, const float angle) {
 
   //   float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
   //   alignas(16) float src_quaternion_addr_float[4];
@@ -199,7 +184,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void makeRotX128 (void* dst_quaternion_addr, const float angle) {
+  void makeRotX128 (void* dst_quaternion_addr, const float angle) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
 
@@ -213,7 +198,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void preRotX128 (void* dst_quaternion_addr, const float angle) {
+  void preRotX128 (void* dst_quaternion_addr, const float angle) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
 
@@ -233,7 +218,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void postRotX128 (void* dst_quaternion_addr, const float angle) {
+  void postRotX128 (void* dst_quaternion_addr, const float angle) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
 
@@ -253,7 +238,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void makeRotY128 (void* data, const float angle) {
+  void makeRotY128 (void* data, const float angle) {
 
     float* _data = (float*) data;
 
@@ -267,7 +252,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void preRotY128 (void* dst_quaternion_addr, const float angle) {
+  void preRotY128 (void* dst_quaternion_addr, const float angle) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
 
@@ -289,7 +274,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void postRotY128 (void* dst_quaternion_addr, const float angle) {
+  void postRotY128 (void* dst_quaternion_addr, const float angle) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
 
@@ -311,7 +296,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void makeRotZ128 (void* data, const float angle) {
+  void makeRotZ128 (void* data, const float angle) {
 
     float* _data = (float*) data;
 
@@ -325,7 +310,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void preRotZ128 (void* dst_quaternion_addr, const float angle) {
+  void preRotZ128 (void* dst_quaternion_addr, const float angle) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
 
@@ -347,7 +332,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void postRotZ128 (void* dst_quaternion_addr, const float angle) {
+  void postRotZ128 (void* dst_quaternion_addr, const float angle) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
 
@@ -369,7 +354,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  // INLINE void mul0 (void* data0, void* data1) {
+  // void mul0 (void* data0, void* data1) {
 
   //   alignas(16) const __m128 data0_128 = _mm_load_ps((float*) data0);
   //   alignas(16) const __m128 data1_128 = _mm_load_ps((float*) data1);
@@ -390,10 +375,3 @@ namespace XGK::DATA::QUAT {
   //   _mm_store_ps((float*) data0, g);
   // };
 };
-
-
-
-
-#undef INLINE
-#undef MUL
-#undef MAKE_ROT

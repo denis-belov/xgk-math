@@ -1,13 +1,3 @@
-#if defined(__linux__)
-
-  #define INLINE __attribute__((always_inline)) inline
-#else
-
-  #define INLINE inline
-#endif
-
-
-
 #define SET32(\
   matrix_addr_float,\
   \
@@ -245,9 +235,10 @@
 
 
 
-// #include <cstdint>
 #include <cstring>
-// #include <cmath>
+#include <cstdint>
+#include <cmath>
+
 #ifdef __EMSCRIPTEN__
 
   #define __SSE__ 1
@@ -259,33 +250,22 @@
   #include <immintrin.h>
 #endif
 
-#include "data/const.h"
-
 
 
 namespace XGK::DATA::MAT4 {
 
-  // namespace {
-
-  //   static const uint8_t FLOAT_SIZE_3 = sizeof(float) * 3;
-  //   static const uint8_t FLOAT_SIZE_4 = sizeof(float) * 4;
-  //   static const uint8_t FLOAT_SIZE_12 = sizeof(float) * 12;
-  //   static const uint8_t FLOAT_SIZE_16 = sizeof(float) * 16;
-
-  //   alignas(16) static const __m128 IDENT_COL3 = { 0.0f, 0.0f, 0.0f, 1.0f };
-  //   alignas(16) static const __m128 CONST_MUL = { 2.0f, 2.0f, 2.0f, 0.0f };
-  //   alignas(16) static const __m128 CONST_ONE = { 1.0f, 1.0f, 1.0f, 0.0f };
-
-  //   alignas(16) static const float IDENT[12] = {
-
-  //     1.0f, 0.0f, 0.0f, 0.0f,
-  //     0.0f, 1.0f, 0.0f, 0.0f,
-  //     0.0f, 0.0f, 1.0f, 0.0f
-  //   };
-  // };
+  extern const uint8_t FLOAT_SIZE_3;
+  extern const uint8_t FLOAT_SIZE_4;
+  extern const uint8_t FLOAT_SIZE_12;
+  extern const uint8_t FLOAT_SIZE_16;
+  alignas(16) extern const __m128 IDENT_COL3;
+  alignas(16) extern const __m128 CONST_MUL;
+  alignas(16) extern const __m128 CONST_ONE;
+  alignas(16) extern const float IDENT_12[12];
 
 
-  INLINE void set128 (
+
+  void set128 (
 
     void* dst,
 
@@ -305,7 +285,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void premul128 (void* dst_matrix_addr, void* src_matrix_addr) {
+  void premul128 (void* dst_matrix_addr, void* src_matrix_addr) {
 
     __m128* dst_matrix_addr_m128 = (__m128*) dst_matrix_addr;
     alignas(16) float dst_matrix_addr_float[16];
@@ -319,7 +299,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void postmul128 (void* dst_matrix_addr, void* src_matrix_addr) {
+  void postmul128 (void* dst_matrix_addr, void* src_matrix_addr) {
 
     __m128* dst_matrix_addr_m128 = (__m128*) dst_matrix_addr;
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
@@ -330,7 +310,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void makeTrans128 (void* dst_matrix_addr, void* vector_addr) {
+  void makeTrans128 (void* dst_matrix_addr, void* vector_addr) {
 
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
 
@@ -339,7 +319,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void preTrans128 (void* dst_matrix_addr, void* vector_addr) {
+  void preTrans128 (void* dst_matrix_addr, void* vector_addr) {
 
     __m128* dst_matrix_addr_m128 = (__m128*) dst_matrix_addr;
     __m128* vector_addr_128 = (__m128*) vector_addr;
@@ -349,7 +329,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void postTrans128 (void* dst_matrix_addr, void* vector_addr) {
+  void postTrans128 (void* dst_matrix_addr, void* vector_addr) {
 
     // __m128* dst_matrix_addr_m128 = (__m128*) dst_matrix_addr;
     // float* dst_matrix_addr_float = (float*) dst_matrix_addr;
@@ -368,7 +348,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void makeTransValue128 (void* dst_matrix_addr, void* vector_addr, const float value) {
+  void makeTransValue128 (void* dst_matrix_addr, void* vector_addr, const float value) {
 
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
     float* vector_addr_float = (float*) vector_addr;
@@ -378,7 +358,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void preTransValue128 (void* dst_matrix_addr, void* vector_addr, const float value) {
+  void preTransValue128 (void* dst_matrix_addr, void* vector_addr, const float value) {
 
     __m128* dst_matrix_addr_m128 = (__m128*) dst_matrix_addr;
     alignas(16) float dst_matrix_addr_float[16];
@@ -393,7 +373,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void postTransValue128 (void* dst_matrix_addr, void* vector_addr, const float value) {
+  void postTransValue128 (void* dst_matrix_addr, void* vector_addr, const float value) {
 
     __m128* dst_matrix_addr_m128 = (__m128*) dst_matrix_addr;
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
@@ -406,7 +386,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void makeRotQuat128 (void* dst_matrix_addr, void* quaternion_addr) {
+  void makeRotQuat128 (void* dst_matrix_addr, void* quaternion_addr) {
 
     __m128* dst_matrix_addr_m128 = (__m128*) dst_matrix_addr;
 
@@ -415,7 +395,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void preRotQuat128 (void* dst_matrix_addr, void* quaternion_addr) {
+  void preRotQuat128 (void* dst_matrix_addr, void* quaternion_addr) {
 
     __m128* dst_matrix_addr_m128 = (__m128*) dst_matrix_addr;
     float* dst_matrix_addr_float = (float*) dst_matrix_addr;
@@ -450,7 +430,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void postRotQuat128 (void* dst_matrix_addr, void* quaternion_addr) {
+  void postRotQuat128 (void* dst_matrix_addr, void* quaternion_addr) {
 
     __m128* dst_matrix_addr_m128 = (__m128*) dst_matrix_addr;
     alignas(16) __m128 right_matrix_addr_m128[3];
@@ -476,7 +456,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void transp128 (void* dst) {
+  void transp128 (void* dst) {
 
     __m128* dst_128_ptr = (__m128*) dst;
 
@@ -493,7 +473,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void invns128 (void* dst) {
+  void invns128 (void* dst) {
 
     __m128* dst_128_ptr = (__m128*) dst;
 
@@ -516,7 +496,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  INLINE void makeProjPersp128 (
+  void makeProjPersp128 (
 
     void* dst,
 
@@ -555,7 +535,7 @@ namespace XGK::DATA::MAT4 {
   // #define a m0->f32
   // #define b m1->f32
 
-  // INLINE void postmul32 (Mat4* m0, Mat4* m1) {
+  // void postmul32 (Mat4* m0, Mat4* m1) {
 
   //   SET32(
   //     m0,
@@ -573,7 +553,7 @@ namespace XGK::DATA::MAT4 {
   // #ifdef XGK_DATA_MACRO_SSE
   //   #define dot(row, col) GET_F32(_mm_dp_ps(rows[row], m0->f128[col], 0xff), 0)
 
-  //   INLINE void postmul128 (Mat4* m0, Mat4* m1) {
+  //   void postmul128 (Mat4* m0, Mat4* m1) {
 
   //     const __m128 rows[4] = {
   //       _mm_setr_ps(m1->f32[0], m1->f32[4], m1->f32[8] , m1->f32[12]),
@@ -596,7 +576,7 @@ namespace XGK::DATA::MAT4 {
   // #endif
 
   // #ifdef XGK_DATA_MACRO_AVX
-  //   INLINE void postmul256 (Mat4* m0, Mat4* m1) {
+  //   void postmul256 (Mat4* m0, Mat4* m1) {
 
   //     const __m256 a = _mm256_dp_ps(m1->f256[0], m0->f256[0], 0xff);
   //     const __m256 b = _mm256_dp_ps(m1->f256[0], m0->f256[1], 0xff);
@@ -636,7 +616,7 @@ namespace XGK::DATA::MAT4 {
   // #define a m0->f32
   // #define b m0->f128
 
-  // INLINE void invns32 (Mat4* m0) {
+  // void invns32 (Mat4* m0) {
 
   //   SET32(
   //     m0,
@@ -649,7 +629,7 @@ namespace XGK::DATA::MAT4 {
   // };
 
   // #ifdef XGK_DATA_MACRO_SSE
-  //   INLINE void invns128 (Mat4* m0) {
+  //   void invns128 (Mat4* m0) {
 
   //     SET128(
   //       m0,
@@ -672,7 +652,7 @@ namespace XGK::DATA::MAT4 {
 
 
 
-  //   INLINE void makeProjPersp128 (
+  //   void makeProjPersp128 (
   //     Mat4* m0,
 
   //     const float left,
@@ -700,7 +680,7 @@ namespace XGK::DATA::MAT4 {
   // // ////////////////
   // // ////////////////
 
-  // // INLINE void makeRot32 (Mat4* m0, float* q0) {
+  // // void makeRot32 (Mat4* m0, float* q0) {
 
   // //   const float xx = 2.0f * q0->f32[0] * q0->f32[0];
   // //   const float yy = 2.0f * q0->f32[1] * q0->f32[1];
@@ -723,7 +703,7 @@ namespace XGK::DATA::MAT4 {
   // // };
 
   // // #ifdef XGK_DATA_MACRO_SSE
-  // //   INLINE void makeRot128 (Mat4* m0, float* q0) {
+  // //   void makeRot128 (Mat4* m0, float* q0) {
 
   // //     const float xx = 2.0f * q0->f32[0] * q0->f32[0];
   // //     const float yy = 2.0f * q0->f32[1] * q0->f32[1];
@@ -747,7 +727,7 @@ namespace XGK::DATA::MAT4 {
   // // #endif
 
   // // #ifdef XGK_DATA_MACRO_AVX
-  // //   INLINE void makeRot256 (Mat4* m0, float* q0) {
+  // //   void makeRot256 (Mat4* m0, float* q0) {
 
   // //     const float xx = 2.0f * q0->f32[0] * q0->f32[0];
   // //     const float yy = 2.0f * q0->f32[1] * q0->f32[1];
@@ -770,7 +750,7 @@ namespace XGK::DATA::MAT4 {
   // //   };
   // // #endif
 
-  // // INLINE void makeRotX32 (Mat4* m0, const float angle) {
+  // // void makeRotX32 (Mat4* m0, const float angle) {
 
   // //   const float cos_ = cos(angle);
   // //   const float sin_ = sin(angle);
@@ -786,7 +766,7 @@ namespace XGK::DATA::MAT4 {
   // // };
 
   // // #ifdef XGK_DATA_MACRO_SSE
-  // //   INLINE void makeRotX128 (Mat4* m0, const float angle) {
+  // //   void makeRotX128 (Mat4* m0, const float angle) {
 
   // //     const float cos_ = cos(angle);
   // //     const float sin_ = sin(angle);
@@ -803,7 +783,7 @@ namespace XGK::DATA::MAT4 {
   // // #endif
 
   // // #ifdef XGK_DATA_MACRO_AVX
-  // //   INLINE void makeRotX256 (Mat4* m0, const float angle) {
+  // //   void makeRotX256 (Mat4* m0, const float angle) {
 
   // //     const float cos_ = cos(angle);
   // //     const float sin_ = sin(angle);
@@ -823,14 +803,3 @@ namespace XGK::DATA::MAT4 {
   // // ///////
   // // ///////
 };
-
-
-
-#undef INLINE
-#undef SET32
-#undef MUL
-#undef PREMUL_ROT_QUAT
-#undef POSTMUL_ROT_QUAT
-#undef PRETRANS
-#undef MAKE_TRANS
-#undef MAKE_TRANS_VALUE

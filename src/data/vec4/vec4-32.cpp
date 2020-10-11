@@ -1,20 +1,10 @@
-#if defined(__linux__)
-
-  #define INLINE __attribute__((always_inline)) inline
-#else
-
-  #define INLINE inline
-#endif
-
-
-
 #include <cmath>
 
 
 
 namespace XGK::DATA::VEC4 {
 
-  INLINE void set32 (void* data_addr_void, const float x, const float y, const float z, const float w) {
+  void set32 (void* data_addr_void, const float x, const float y, const float z, const float w) {
 
     float* data_addr_float = (float*) data_addr_void;
 
@@ -26,7 +16,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void add32 (void* data0, void* data1) {
+  void add32 (void* data0, void* data1) {
 
     float* _data0 = (float*) data0;
     float* _data1 = (float*) data1;
@@ -39,7 +29,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void adds32 (void* data_addr_void, const float s) {
+  void adds32 (void* data_addr_void, const float s) {
 
     float* data_addr_float = (float*) data_addr_void;
 
@@ -51,7 +41,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void sub32 (void* data0, void* data1) {
+  void sub32 (void* data0, void* data1) {
 
     float* _data0 = (float*) data0;
     float* _data1 = (float*) data1;
@@ -64,7 +54,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void subs32 (void* data_addr_void, const float s) {
+  void subs32 (void* data_addr_void, const float s) {
 
     float* data_addr_float = (float*) data_addr_void;
 
@@ -76,7 +66,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void mul32 (void* data0, void* data1) {
+  void mul32 (void* data0, void* data1) {
 
     float* _data0 = (float*) data0;
     float* _data1 = (float*) data1;
@@ -89,7 +79,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void muls32 (void* data_addr_void, const float s) {
+  void muls32 (void* data_addr_void, const float s) {
 
     float* data_addr_float = (float*) data_addr_void;
 
@@ -101,7 +91,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void div32 (void* data0, void* data1) {
+  void div32 (void* data0, void* data1) {
 
     float* _data0 = (float*) data0;
     float* _data1 = (float*) data1;
@@ -114,7 +104,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void divs32 (void* data_addr_void, const float s) {
+  void divs32 (void* data_addr_void, const float s) {
 
     float* data_addr_float = (float*) data_addr_void;
 
@@ -126,7 +116,7 @@ namespace XGK::DATA::VEC4 {
 
 
 
-  INLINE void norm32 (void* data_addr_void) {
+  void norm32 (void* data_addr_void) {
 
     float* data_addr_float = (float*) data_addr_void;
 
@@ -144,7 +134,3 @@ namespace XGK::DATA::VEC4 {
     data_addr_float[3] /= len;
   };
 };
-
-
-
-#undef INLINE

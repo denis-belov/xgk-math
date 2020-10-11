@@ -1,21 +1,10 @@
-#if defined(__linux__)
-
-  #define INLINE __attribute__((always_inline)) inline
-#else
-
-  #define INLINE inline
-#endif
-
-
-
-// #include <cstdint>
 #include <cmath>
 
 
 
 namespace XGK::DATA::QUAT {
 
-  INLINE void premul32 (void* data0, void* data1) {
+  void premul32 (void* data0, void* data1) {
 
     float* _data0 = (float*) data0;
     const float* _data1 = (float*) data1;
@@ -33,7 +22,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void postmul32 (void* data0, void* data1) {
+  void postmul32 (void* data0, void* data1) {
 
     float* _data0 = (float*) data0;
     const float* _data1 = (float*) data1;
@@ -51,7 +40,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void makeRot32 (void* data, void* axis, const float angle) {
+  void makeRot32 (void* data, void* axis, const float angle) {
 
     float* _data = (float*) data;
     float* _axis = (float*) axis;
@@ -67,7 +56,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void preRot32 (void* dst_quaternion_addr, void* axis_addr, const float angle) {
+  void preRot32 (void* dst_quaternion_addr, void* axis_addr, const float angle) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
     float* axis_addr_float = (float*) axis_addr;
@@ -93,7 +82,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void postRot32 (void* dst_quaternion_addr, void* axis_addr, const float angle) {
+  void postRot32 (void* dst_quaternion_addr, void* axis_addr, const float angle) {
 
     float* dst_quaternion_addr_float = (float*) dst_quaternion_addr;
     float* axis_addr_float = (float*) axis_addr;
@@ -119,7 +108,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void makeRotX32 (void* data, const float angle) {
+  void makeRotX32 (void* data, const float angle) {
 
     float* _data = (float*) data;
 
@@ -133,7 +122,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void preRotX32 (void* data, const float angle) {
+  void preRotX32 (void* data, const float angle) {
 
     float* _data = (float*) data;
 
@@ -156,7 +145,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void postRotX32 (void* data, const float angle) {
+  void postRotX32 (void* data, const float angle) {
 
     float* _data = (float*) data;
 
@@ -178,7 +167,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void makeRotY32 (void* data, const float angle) {
+  void makeRotY32 (void* data, const float angle) {
 
     float* _data = (float*) data;
 
@@ -192,7 +181,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void preRotY32 (void* data, const float angle) {
+  void preRotY32 (void* data, const float angle) {
 
     float* _data = (float*) data;
 
@@ -214,7 +203,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void postRotY32 (void* data, const float angle) {
+  void postRotY32 (void* data, const float angle) {
 
     float* _data = (float*) data;
 
@@ -236,7 +225,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void makeRotZ32 (void* data, const float angle) {
+  void makeRotZ32 (void* data, const float angle) {
 
     float* _data = (float*) data;
 
@@ -250,7 +239,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void preRotZ32 (void* data, const float angle) {
+  void preRotZ32 (void* data, const float angle) {
 
     float* _data = (float*) data;
 
@@ -272,7 +261,7 @@ namespace XGK::DATA::QUAT {
 
 
 
-  INLINE void postRotZ32 (void* data, const float angle) {
+  void postRotZ32 (void* data, const float angle) {
 
     float* _data = (float*) data;
 
@@ -292,7 +281,3 @@ namespace XGK::DATA::QUAT {
     _data[3] = (w0 * w1) - (z0 * z1);
   };
 };
-
-
-
-#undef INLINE
