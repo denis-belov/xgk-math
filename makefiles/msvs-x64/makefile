@@ -1,159 +1,162 @@
-DIR=E:/reps/denis-belov/xgk-math
+ROOT=C:
+
+DIR=$(ROOT)/reps/denis-belov/xgk-math
 
 SRC=$(DIR)/src
 
-BUILD=$(DIR)/build-win-x64
+BUILD=$(DIR)/build/msvs-x64
 
-COMP_ARGS= \
-  /c /EHsc /MD /MP999 \
+ASSEMBLER=ml64
+
+ASSEMBLER_ARG=/c /Fo
+
+COMPILER=cl
+
+COMPILER_ARG=\
+  /c /EHsc /MD /MP999 /std:c++17 \
   /O2 \
   /I$(SRC) \
-  /DMEM_ADDR_LENGTH=8 /DXGK_MACRO_NO_PROTOTYPES=1
+	/Fo
+
+BUILDER=lib /OUT:
+
+BUILDER_ARG=
+
+#file extensions
+a=lib
+o=obj
+s=asm
+
+makeBuildFolder=(IF NOT EXIST $(DIR)/build cd /d $(DIR) && mkdir build) && (IF NOT EXIST $(BUILD) cd /d $(DIR)/build && mkdir msvs-x64)
+makeAFolder=(IF NOT EXIST $(BUILD)/lib cd /d $(BUILD) && mkdir lib)
+makeOFolder=(IF NOT EXIST $(BUILD)/obj cd /d $(BUILD) && mkdir obj)
+makeSFolder=(IF NOT EXIST $(BUILD)/asm cd /d $(BUILD) && mkdir asm)
 
 
 
-$(BUILD)/lib/xgk-math.lib : \
-$(BUILD)/obj/vec4.obj \
-$(BUILD)/obj/vec4-32.obj \
-$(BUILD)/obj/vec4-128.obj \
-$(BUILD)/obj/quat.obj \
-$(BUILD)/obj/quat-32.obj \
-$(BUILD)/obj/quat-128.obj \
-$(BUILD)/obj/mat4.obj \
-$(BUILD)/obj/mat4-32.obj \
-$(BUILD)/obj/mat4-128.obj \
-$(BUILD)/obj/object.obj \
-$(BUILD)/obj/util-asm-x64.obj \
-$(BUILD)/obj/util.obj
-  lib \
-  /OUT:$(BUILD)/lib/xgk-math.lib \
-  $(BUILD)/obj/vec4.obj \
-  $(BUILD)/obj/vec4-32.obj \
-  $(BUILD)/obj/vec4-128.obj \
-  $(BUILD)/obj/quat.obj \
-  $(BUILD)/obj/quat-32.obj \
-  $(BUILD)/obj/quat-128.obj \
-  $(BUILD)/obj/mat4.obj \
-  $(BUILD)/obj/mat4-32.obj \
-  $(BUILD)/obj/mat4-128.obj \
-  $(BUILD)/obj/object.obj \
-  $(BUILD)/obj/util-asm-x64.obj \
-  $(BUILD)/obj/util.obj
+$(BUILD)/$(a)/xgk-math.$(a) : \
+$(BUILD)/$(o)/const.$(o) \
+$(BUILD)/$(o)/vec4.$(o) \
+$(BUILD)/$(o)/vec4-32.$(o) \
+$(BUILD)/$(o)/vec4-128.$(o) \
+$(BUILD)/$(o)/quat.$(o) \
+$(BUILD)/$(o)/quat-32.$(o) \
+$(BUILD)/$(o)/quat-128.$(o) \
+$(BUILD)/$(o)/mat4.$(o) \
+$(BUILD)/$(o)/mat4-32.$(o) \
+$(BUILD)/$(o)/mat4-128.$(o) \
+$(BUILD)/$(o)/object.$(o) \
+$(BUILD)/$(o)/util.$(o) \
+$(BUILD)/$(o)/util-asm-x64.$(o)
+	$(makeBuildFolder) && $(makeOFolder) &&	$(makeSFolder) && \
+	$(BUILDER)$(BUILD)/$(a)/xgk-math.$(a) \
+	$(BUILDER_ARG)
+	$(BUILD)/$(o)/const.$(o) \
+	$(BUILD)/$(o)/vec4.$(o) \
+	$(BUILD)/$(o)/vec4-32.$(o) \
+	$(BUILD)/$(o)/vec4-128.$(o) \
+	$(BUILD)/$(o)/quat.$(o) \
+	$(BUILD)/$(o)/quat-32.$(o) \
+	$(BUILD)/$(o)/quat-128.$(o) \
+	$(BUILD)/$(o)/mat4.$(o) \
+	$(BUILD)/$(o)/mat4-32.$(o) \
+	$(BUILD)/$(o)/mat4-128.$(o) \
+	$(BUILD)/$(o)/object.$(o) \
+	$(BUILD)/$(o)/util.$(o) \
+	$(BUILD)/$(o)/util-asm-x64.$(o)
 
 
 
-$(BUILD)/obj/vec4.obj : $(SRC)/data/vec4/vec4.cpp
-  cl \
-  $(SRC)/data/vec4/vec4.cpp \
-  $(COMP_ARGS) \
-  /Fo$(BUILD)/obj/vec4.obj \
-  /FA \
-  /Fa$(BUILD)/masm/vec4.asm
+
+$(BUILD)/$(o)/const.$(o) : $(SRC)/data/const.cpp
+	$(makeBuildFolder) && $(makeOFolder) &&	$(makeSFolder) && \
+	$(COMPILER) $(SRC)/data/const.cpp $(COMPILER_ARG)$(BUILD)/$(o)/const.$(o)
 
 
 
-$(BUILD)/obj/vec4-32.obj : $(SRC)/data/vec4/vec4-32.cpp
-  cl \
-  $(SRC)/data/vec4/vec4-32.cpp \
-  $(COMP_ARGS) \
-  /Fo$(BUILD)/obj/vec4-32.obj \
-  /FA \
-  /Fa$(BUILD)/masm/vec4-32.asm
+
+$(BUILD)/$(o)/vec4.$(o) : $(SRC)/data/vec4/vec4.cpp
+	$(makeBuildFolder) && $(makeOFolder) &&	$(makeSFolder) && \
+	$(COMPILER) $(SRC)/data/vec4/vec4.cpp	$(COMPILER_ARG)$(BUILD)/$(o)/vec4.$(o)
 
 
 
-$(BUILD)/obj/vec4-128.obj : $(SRC)/data/vec4/vec4-128.cpp
-  cl \
-  $(SRC)/data/vec4/vec4-128.cpp \
-  $(COMP_ARGS) \
-  /Fo$(BUILD)/obj/vec4-128.obj \
-  /FA \
-  /Fa$(BUILD)/masm/vec4-128.asm
+
+$(BUILD)/$(o)/vec4-32.$(o) : $(SRC)/data/vec4/vec4-32.cpp
+	$(makeBuildFolder) && $(makeOFolder) &&	$(makeSFolder) && \
+	$(COMPILER) $(SRC)/data/vec4/vec4-32.cpp $(COMPILER_ARG)$(BUILD)/$(o)/vec4-32.$(o)
 
 
 
-$(BUILD)/obj/quat.obj : $(SRC)/data/quat/quat.cpp
-  cl \
-  $(SRC)/data/quat/quat.cpp \
-  $(COMP_ARGS) \
-  /Fo$(BUILD)/obj/quat.obj \
-  /FA \
-  /Fa$(BUILD)/masm/quat.asm
+
+$(BUILD)/$(o)/vec4-128.$(o) : $(SRC)/data/vec4/vec4-128.cpp
+	$(makeBuildFolder) && $(makeOFolder) &&	$(makeSFolder) && \
+	$(COMPILER) $(SRC)/data/vec4/vec4-128.cpp $(COMPILER_ARG)$(BUILD)/$(o)/vec4-128.$(o)
 
 
 
-$(BUILD)/obj/quat-32.obj : $(SRC)/data/quat/quat-32.cpp
-  cl \
-  $(SRC)/data/quat/quat-32.cpp \
-  $(COMP_ARGS) \
-  /Fo$(BUILD)/obj/quat-32.obj \
-  /FA \
-  /Fa$(BUILD)/masm/quat-32.asm
+
+$(BUILD)/$(o)/quat.$(o) : $(SRC)/data/quat/quat.cpp
+	$(makeBuildFolder) && $(makeOFolder) &&	$(makeSFolder) && \
+	$(COMPILER) $(SRC)/data/quat/quat.cpp $(COMPILER_ARG)$(BUILD)/$(o)/quat.$(o)
 
 
 
-$(BUILD)/obj/quat-128.obj : $(SRC)/data/quat/quat-128.cpp
-  cl \
-  $(SRC)/data/quat/quat-128.cpp \
-  $(COMP_ARGS) \
-  /Fo$(BUILD)/obj/quat-128.obj \
-  /FA \
-  /Fa$(BUILD)/masm/quat-128.asm
+
+$(BUILD)/$(o)/quat-32.$(o) : $(SRC)/data/quat/quat-32.cpp
+	$(makeBuildFolder) && $(makeOFolder) &&	$(makeSFolder) && \
+	$(COMPILER) $(SRC)/data/quat/quat-32.cpp $(COMPILER_ARG)$(BUILD)/$(o)/quat-32.$(o)
 
 
 
-$(BUILD)/obj/mat4.obj : $(SRC)/data/mat4/mat4.cpp
-  cl \
-  $(SRC)/data/mat4/mat4.cpp \
-  $(COMP_ARGS) \
-  /Fo$(BUILD)/obj/mat4.obj \
-  /FA \
-  /Fa$(BUILD)/masm/mat4.asm
+
+$(BUILD)/$(o)/quat-128.$(o) : $(SRC)/data/quat/quat-128.cpp
+	$(makeBuildFolder) && $(makeOFolder) &&	$(makeSFolder) && \
+	$(COMPILER) $(SRC)/data/quat/quat-128.cpp $(COMPILER_ARG)$(BUILD)/$(o)/quat-128.$(o)
 
 
 
-$(BUILD)/obj/mat4-32.obj : $(SRC)/data/mat4/mat4-32.cpp
-  cl \
-  $(SRC)/data/mat4/mat4-32.cpp \
-  $(COMP_ARGS) \
-  /Fo$(BUILD)/obj/mat4-32.obj \
-  /FA \
-  /Fa$(BUILD)/masm/mat4-32.asm
+
+$(BUILD)/$(o)/mat4.$(o) : $(SRC)/data/mat4/mat4.cpp
+	$(makeBuildFolder) && $(makeOFolder) &&	$(makeSFolder) && \
+	$(COMPILER) $(SRC)/data/mat4/mat4.cpp $(COMPILER_ARG)$(BUILD)/$(o)/mat4.$(o)
 
 
 
-$(BUILD)/obj/mat4-128.obj : $(SRC)/data/mat4/mat4-128.cpp
-  cl \
-  $(SRC)/data/mat4/mat4-128.cpp \
-  $(COMP_ARGS) \
-  /Fo$(BUILD)/obj/mat4-128.obj \
-  /FA \
-  /Fa$(BUILD)/masm/mat4-128.asm
+
+$(BUILD)/$(o)/mat4-32.$(o) : $(SRC)/data/mat4/mat4-32.cpp
+	$(makeBuildFolder) && $(makeOFolder) &&	$(makeSFolder) && \
+	$(COMPILER) $(SRC)/data/mat4/mat4-32.cpp $(COMPILER_ARG)$(BUILD)/$(o)/mat4-32.$(o)
 
 
 
-$(BUILD)/obj/object.obj : $(SRC)/data/data.h $(SRC)/object/object.h $(SRC)/object/object.cpp
-  cl \
-  $(SRC)/object/object.cpp \
-  $(COMP_ARGS) \
-  /Fo$(BUILD)/obj/object.obj \
-  /FA \
-  /Fa$(BUILD)/masm/object.asm
+
+$(BUILD)/$(o)/mat4-128.$(o) : $(SRC)/data/mat4/mat4-128.cpp
+	$(makeBuildFolder) && $(makeOFolder) &&	$(makeSFolder) && \
+	$(COMPILER) $(SRC)/data/mat4/mat4-128.cpp $(COMPILER_ARG)$(BUILD)/$(o)/mat4-128.$(o)
 
 
 
-$(BUILD)/obj/win-x64.obj : $(SRC)/util/win-x64.asm
-  ml64 \
-  /Fo$(BUILD)/obj/win-x64.obj \
-  /c \
-  $(SRC)/util/win-x64.asm
+
+$(BUILD)/$(o)/object.$(o) : \
+$(SRC)/data/data.h \
+$(SRC)/object/object.h \
+$(SRC)/object/object.cpp
+	$(makeBuildFolder) && $(makeOFolder) &&	$(makeSFolder) && \
+	$(COMPILER) $(SRC)/object/object.cpp $(COMPILER_ARG)$(BUILD)/$(o)/object.$(o)
 
 
 
-$(BUILD)/obj/util.obj : $(SRC)/data/data.h $(SRC)/util/util.cpp
-  cl \
-  $(SRC)/util/util.cpp \
-  $(COMP_ARGS) \
-  /Fo$(BUILD)/obj/util.obj \
-  /FA \
-  /Fa$(BUILD)/masm/util.asm
+
+$(BUILD)/$(o)/util.$(o) : \
+$(SRC)/data/data.h \
+$(SRC)/util/util.cpp
+	$(makeBuildFolder) && $(makeOFolder) &&	$(makeSFolder) && \
+	$(COMPILER) $(SRC)/util/util.cpp $(COMPILER_ARG)$(BUILD)/$(o)/util.$(o)
+
+
+
+
+$(BUILD)/$(o)/util-asm-x64.$(o) : $(SRC)/util/util-asm-x64.asm
+	$(makeBuildFolder) && $(makeOFolder) && \
+	$(ASSEMBLER) $(SRC)/util/util-asm-x64.asm $(ASSEMBLER_ARG)$(BUILD)/$(o)/util-asm-x64.$(o)
