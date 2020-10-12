@@ -2,17 +2,17 @@
 
 .CODE
 
-  clock64 PROC
+	clock64 PROC
 
-    push rdx
+		push rdx
 
-    rdtsc
-    mov 4[rsp], edx
-    mov [rsp], eax
-    mov rax, [rsp]
+		rdtsc
+		mov 4[rsp], edx
+		mov [rsp], eax
+		mov rax, [rsp]
 
-    pop rdx
+		pop rdx
 
-    ret 0
-  clock64 ENDP
+		ret 0
+	clock64 ENDP
 END

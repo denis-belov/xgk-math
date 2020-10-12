@@ -1,10 +1,12 @@
+BUILD_TYPE=gnu-x64
+
 ROOT=~
 
 DIR=$(ROOT)/reps/denis-belov/xgk-math
 
 SRC=$(DIR)/src
 
-BUILD=$(DIR)/build/gnu-x64
+BUILD=$(DIR)/build/$(BUILD_TYPE)
 
 ASSEMBLER=gcc
 
