@@ -13,9 +13,9 @@ ASSEMBLER_ARG=-c -o # trailing space
 COMPILER=g++
 
 COMPILER_ARG=\
-	-c\
-	-m64 -msse3 -Ofast -funroll-loops\
-	-I $(SRC)\
+	-c \
+	-m64 -msse3 -Ofast -funroll-loops \
+	-I $(SRC) \
 	-o # trailing space
 
 BUILDER=ld
@@ -35,33 +35,33 @@ makeS=mkdir -p $(BUILD)/$(s)
 
 
 $(BUILD)/$(a)/xgk-math.$(a) :\
-$(BUILD)/$(o)/const.$(o)\
-$(BUILD)/$(o)/vec4.$(o)\
-$(BUILD)/$(o)/vec4-32.$(o)\
-$(BUILD)/$(o)/vec4-128.$(o)\
-$(BUILD)/$(o)/quat.$(o)\
-$(BUILD)/$(o)/quat-32.$(o)\
-$(BUILD)/$(o)/quat-128.$(o)\
-$(BUILD)/$(o)/mat4.$(o)\
-$(BUILD)/$(o)/mat4-32.$(o)\
-$(BUILD)/$(o)/mat4-128.$(o)\
-$(BUILD)/$(o)/object.$(o)\
-$(BUILD)/$(o)/util.$(o)\
+$(BUILD)/$(o)/const.$(o) \
+$(BUILD)/$(o)/vec4.$(o) \
+$(BUILD)/$(o)/vec4-32.$(o) \
+$(BUILD)/$(o)/vec4-128.$(o) \
+$(BUILD)/$(o)/quat.$(o) \
+$(BUILD)/$(o)/quat-32.$(o) \
+$(BUILD)/$(o)/quat-128.$(o) \
+$(BUILD)/$(o)/mat4.$(o) \
+$(BUILD)/$(o)/mat4-32.$(o) \
+$(BUILD)/$(o)/mat4-128.$(o) \
+$(BUILD)/$(o)/object.$(o) \
+$(BUILD)/$(o)/util.$(o) \
 $(BUILD)/$(o)/util-asm-x64.$(o)
 	$(makeBuild) && $(makeA) &&	$(makeS) && \
-	$(BUILDER)\
-		$(BUILD)/$(o)/const.$(o)\
-		$(BUILD)/$(o)/vec4.$(o)\
-		$(BUILD)/$(o)/vec4-32.$(o)\
-		$(BUILD)/$(o)/vec4-128.$(o)\
-		$(BUILD)/$(o)/quat.$(o)\
-		$(BUILD)/$(o)/quat-32.$(o)\
-		$(BUILD)/$(o)/quat-128.$(o)\
-		$(BUILD)/$(o)/mat4.$(o)\
-		$(BUILD)/$(o)/mat4-32.$(o)\
-		$(BUILD)/$(o)/mat4-128.$(o)\
-		$(BUILD)/$(o)/object.$(o)\
-		$(BUILD)/$(o)/util.$(o)\
+	$(BUILDER) \
+		$(BUILD)/$(o)/const.$(o) \
+		$(BUILD)/$(o)/vec4.$(o) \
+		$(BUILD)/$(o)/vec4-32.$(o) \
+		$(BUILD)/$(o)/vec4-128.$(o) \
+		$(BUILD)/$(o)/quat.$(o) \
+		$(BUILD)/$(o)/quat-32.$(o) \
+		$(BUILD)/$(o)/quat-128.$(o) \
+		$(BUILD)/$(o)/mat4.$(o) \
+		$(BUILD)/$(o)/mat4-32.$(o) \
+		$(BUILD)/$(o)/mat4-128.$(o) \
+		$(BUILD)/$(o)/object.$(o) \
+		$(BUILD)/$(o)/util.$(o) \
 		$(BUILD)/$(o)/util-asm-x64.$(o) \
 	$(BUILDER_ARG)$(BUILD)/$(a)/xgk-math.$(a) && \
 	objdump -d -M intel -S $(BUILD)/$(a)/xgk-math.$(a) > $(BUILD)/s/xgk-math.s
@@ -77,7 +77,7 @@ $(BUILD)/$(o)/const.$(o) : $(SRC)/data/const.cpp
 
 $(BUILD)/$(o)/vec4.$(o) : $(SRC)/data/vec4/vec4.cpp
 	$(makeBuild) && $(makeO) && $(makeS) && \
-	$(COMPILER) $(SRC)/data/vec4/vec4.cpp	$(COMPILER_ARG)$(BUILD)/$(o)/vec4.$(o) && \
+	$(COMPILER) $(SRC)/data/vec4/vec4.cpp $(COMPILER_ARG)$(BUILD)/$(o)/vec4.$(o) && \
 	objdump -d -M intel -S $(BUILD)/$(o)/vec4.$(o) > $(BUILD)/s/vec4.s
 
 
@@ -139,8 +139,8 @@ $(BUILD)/$(o)/mat4-128.$(o) : $(SRC)/data/mat4/mat4-128.cpp
 
 
 $(BUILD)/$(o)/object.$(o) :\
-$(SRC)/data/data.h\
-$(SRC)/object/object.h\
+$(SRC)/data/data.h \
+$(SRC)/object/object.h \
 $(SRC)/object/object.cpp
 	$(makeBuild) && $(makeO) && $(makeS) && \
 	$(COMPILER) $(SRC)/object/object.cpp $(COMPILER_ARG)$(BUILD)/$(o)/object.$(o) && \
@@ -149,7 +149,7 @@ $(SRC)/object/object.cpp
 
 
 $(BUILD)/$(o)/util.$(o) :\
-$(SRC)/data/data.h\
+$(SRC)/data/data.h \
 $(SRC)/util/util.cpp
 	$(makeBuild) && $(makeO) && $(makeS) && \
 	$(COMPILER) $(SRC)/util/util.cpp $(COMPILER_ARG)$(BUILD)/$(o)/util.$(o) && \
@@ -157,6 +157,7 @@ $(SRC)/util/util.cpp
 
 
 
-$(BUILD)/$(o)/util-asm-x64.$(o) : $(SRC)/util/util-asm-x64.s
+
+$(BUILD)/$(o)/util-asm-x64.$(o) : $(SRC)/util/util-asm-x64.$(s)
 	$(makeBuild) && $(makeO) && \
-	$(ASSEMBLER) $(SRC)/util/util-asm-x64.s $(ASSEMBLER_ARG)$(BUILD)/$(o)/util-asm-x64.$(o)
+	$(ASSEMBLER) $(SRC)/util/util-asm-x64.$(s) $(ASSEMBLER_ARG)$(BUILD)/$(o)/util-asm-x64.$(o)

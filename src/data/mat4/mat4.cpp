@@ -6,9 +6,15 @@
 
 
 
-namespace XGK::DATA::MAT4 {
+namespace XGK::DATA {
 
   extern const uint8_t FLOAT_SIZE_16;
+};
+
+
+
+namespace XGK::DATA::MAT4 {
+
   alignas(16) extern const float IDENT_16[16];
 
 
