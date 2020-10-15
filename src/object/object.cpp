@@ -3,159 +3,159 @@
 
 
 
-namespace XGK::OBJECT {
+namespace XGK {
 
-	void init (Object* object_addr) {
+	Object::Object (void) {
 
-		DATA::MAT4::ident(&object_addr->mat);
-		DATA::QUAT::ident(&object_addr->quat);
-		DATA::VEC4::reset(&object_addr->trans);
-		// DATA::MAT4::ident(&object_addr->parent);
+		DATA::MAT4::ident(&mat);
+		DATA::QUAT::ident(&quat);
+		DATA::VEC4::reset(&_trans);
+		// DATA::MAT4::ident(&parent);
 	};
 
 
 
-	void setRot (Object* object_addr, void* vector_addr, const float angle) {
+	void Object::setRot (void* vector_addr, const float angle) {
 
-		DATA::QUAT::makeRot(&object_addr->quat, vector_addr, angle);
+		DATA::QUAT::makeRot(&quat, vector_addr, angle);
 	};
 
-	void preRot (Object* object_addr, void* vector_addr, const float angle) {
+	void Object::preRot (void* vector_addr, const float angle) {
 
-		DATA::QUAT::preRot(&object_addr->quat, vector_addr, angle);
+		DATA::QUAT::preRot(&quat, vector_addr, angle);
 	};
 
-	void postRot (Object* object_addr, void* vector_addr, const float angle) {
+	void Object::postRot (void* vector_addr, const float angle) {
 
-		DATA::QUAT::postRot(&object_addr->quat, vector_addr, angle);
-	};
-
-
-
-	void setRotX (Object* object_addr, const float angle) {
-
-		DATA::QUAT::makeRotX(&object_addr->quat, angle);
-	};
-
-	void preRotX (Object* object_addr, const float angle) {
-
-		DATA::QUAT::preRotX(&object_addr->quat, angle);
-	};
-
-	void postRotX (Object* object_addr, const float angle) {
-
-		DATA::QUAT::postRotX(&object_addr->quat, angle);
+		DATA::QUAT::postRot(&quat, vector_addr, angle);
 	};
 
 
 
-	void setRotY (Object* object_addr, const float angle) {
+	void Object::setRotX (const float angle) {
 
-		DATA::QUAT::makeRotY(&object_addr->quat, angle);
+		DATA::QUAT::makeRotX(&quat, angle);
 	};
 
-	void preRotY (Object* object_addr, const float angle) {
+	void Object::preRotX (const float angle) {
 
-		DATA::QUAT::preRotY(&object_addr->quat, angle);
+		DATA::QUAT::preRotX(&quat, angle);
 	};
 
-	void postRotY (Object* object_addr, const float angle) {
+	void Object::postRotX (const float angle) {
 
-		DATA::QUAT::postRotY(&object_addr->quat, angle);
-	};
-
-
-
-	void setRotZ (Object* object_addr, const float angle) {
-
-		DATA::QUAT::makeRotZ(&object_addr->quat, angle);
-	};
-
-	void preRotZ (Object* object_addr, const float angle) {
-
-		DATA::QUAT::preRotZ(&object_addr->quat, angle);
-	};
-
-	void postRotZ (Object* object_addr, const float angle) {
-
-		DATA::QUAT::postRotZ(&object_addr->quat, angle);
+		DATA::QUAT::postRotX(&quat, angle);
 	};
 
 
 
-	void setTrans (Object* object_addr, void* vector_addr) {
+	void Object::setRotY (const float angle) {
 
-		DATA::VEC4::copy(&object_addr->trans, vector_addr);
+		DATA::QUAT::makeRotY(&quat, angle);
 	};
 
-	void trans (Object* object_addr, void* vector_addr, const float value) {
+	void Object::preRotY (const float angle) {
 
-		DATA::VEC4::copy(&object_addr->aux_vec, vector_addr);
-		DATA::VEC4::muls(&object_addr->aux_vec, value);
-		DATA::VEC4::add(&object_addr->trans, &object_addr->aux_vec);
+		DATA::QUAT::preRotY(&quat, angle);
 	};
 
+	void Object::postRotY (const float angle) {
 
-
-	void setTransX (Object* object_addr, const float value) {
-
-		object_addr->trans[0] = value;
-	};
-
-	void transX (Object* object_addr, const float value) {
-
-		object_addr->trans[0] += value;
+		DATA::QUAT::postRotY(&quat, angle);
 	};
 
 
 
-	void setTransY (Object* object_addr, const float value) {
+	void Object::setRotZ (const float angle) {
 
-		object_addr->trans[1] = value;
+		DATA::QUAT::makeRotZ(&quat, angle);
 	};
 
-	void transY (Object* object_addr, const float value) {
+	void Object::preRotZ (const float angle) {
 
-		object_addr->trans[1] += value;
+		DATA::QUAT::preRotZ(&quat, angle);
 	};
 
+	void Object::postRotZ (const float angle) {
 
-
-	void setTransZ (Object* object_addr, const float value) {
-
-		object_addr->trans[2] = value;
-	};
-
-	void transZ (Object* object_addr, const float value) {
-
-		object_addr->trans[2] += value;
+		DATA::QUAT::postRotZ(&quat, angle);
 	};
 
 
 
-	void update (Object* object_addr) {
+	void Object::setTrans (void* vector_addr) {
+
+		DATA::VEC4::copy(&_trans, vector_addr);
+	};
+
+	void Object::trans (void* vector_addr, const float value) {
+
+		DATA::VEC4::copy(&aux_vec, vector_addr);
+		DATA::VEC4::muls(&aux_vec, value);
+		DATA::VEC4::add(&_trans, &aux_vec);
+	};
+
+
+
+	void Object::setTransX (const float value) {
+
+		_trans[0] = value;
+	};
+
+	void Object::transX (const float value) {
+
+		_trans[0] += value;
+	};
+
+
+
+	void Object::setTransY (const float value) {
+
+		_trans[1] = value;
+	};
+
+	void Object::transY (const float value) {
+
+		_trans[1] += value;
+	};
+
+
+
+	void Object::setTransZ (const float value) {
+
+		_trans[2] = value;
+	};
+
+	void Object::transZ (const float value) {
+
+		_trans[2] += value;
+	};
+
+
+
+	void Object::update (void) {
 
 		// remove?
-		XGK::DATA::VEC4::norm(&object_addr->quat);
-		DATA::MAT4::makeRotQuat(object_addr,  &object_addr->quat);
-		DATA::MAT4::preTrans(object_addr, &object_addr->trans);
-		// DATA::MAT4::premul(object_addr, &object_addr->parent);
+		DATA::VEC4::norm(&quat);
+		DATA::MAT4::makeRotQuat(this, &quat);
+		DATA::MAT4::preTrans(this, &_trans);
+		// DATA::MAT4::premul(this, &parent);
 	};
 
-	void update2 (Object* object_addr) {
+	void Object::update2 (void) {
 
-		XGK::DATA::VEC4::norm(&object_addr->quat);
-		DATA::MAT4::makeTrans(object_addr, &object_addr->trans);
-		DATA::MAT4::preRotQuat(object_addr,  &object_addr->quat);
-		// DATA::MAT4::premul(object_addr, &object_addr->parent);
+		DATA::VEC4::norm(&quat);
+		DATA::MAT4::makeTrans(this, &_trans);
+		DATA::MAT4::preRotQuat(this, &quat);
+		// DATA::MAT4::premul(this, &parent);
 	};
 
-	void update3 (Object* object_addr) {
+	void Object::update3 (void) {
 
-		DATA::MAT4::makeTransValue(object_addr, &object_addr->origin, 1.0f);
-		DATA::MAT4::preRotQuat(object_addr,  &object_addr->quat);
-		DATA::MAT4::preTransValue(object_addr, &object_addr->origin, -1.0f);
-		DATA::MAT4::preTrans(object_addr, &object_addr->trans);
-		// DATA::MAT4::premul(object_addr, &object_addr->parent);
+		DATA::MAT4::makeTransValue(this, &origin, 1.0f);
+		DATA::MAT4::preRotQuat(this, &quat);
+		DATA::MAT4::preTransValue(this, &origin, -1.0f);
+		DATA::MAT4::preTrans(this, &_trans);
+		// DATA::MAT4::premul(this, &parent);
 	};
 };

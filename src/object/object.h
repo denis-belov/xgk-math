@@ -1,49 +1,44 @@
 namespace XGK {
 
-	// pack ?
-	struct Object {
+	struct alignas(16) Object {
 
 		alignas(16) float mat[16];
 
 		alignas(16) float quat[4];
 
-		alignas(16) float trans[4];
+		alignas(16) float _trans[4];
 
 		alignas(16) float origin[4];
 
 		alignas(16) float aux_vec[4];
 
 		// alignas(MEM_ADDR_LENGTH) void* parent;
+
+
+
+		Object          (void);
+		void setRot     (void*, const float);
+		void preRot     (void*, const float);
+		void postRot    (void*, const float);
+		void setRotX    (const float);
+		void preRotX    (const float);
+		void postRotX   (const float);
+		void setRotY    (const float);
+		void preRotY    (const float);
+		void postRotY   (const float);
+		void setRotZ    (const float);
+		void preRotZ    (const float);
+		void postRotZ   (const float);
+		void setTrans   (void*);
+		void trans      (void*, const float);
+		void setTransX  (const float);
+		void transX     (const float);
+		void setTransY  (const float);
+		void transY     (const float);
+		void setTransZ  (const float);
+		void transZ     (const float);
+		void update     (void);
+		void update2    (void);
+		void update3    (void);
 	};
 };
-
-#ifndef XGK_MACRO_NO_PROTOTYPES
-
-	namespace XGK::OBJECT {
-
-		void init (Object*);
-		void setRot (Object*, void*, const float);
-		void preRot (Object*, void*, const float);
-		void postRot (Object*, void*, const float);
-		void setRotX (Object*, const float);
-		void preRotX (Object*, const float);
-		void postRotX (Object*, const float);
-		void setRotY (Object*, const float);
-		void preRotY (Object*, const float);
-		void postRotY (Object*, const float);
-		void setRotZ (Object*, const float);
-		void preRotZ (Object*, const float);
-		void postRotZ (Object*, const float);
-		void setTrans (Object*, void*);
-		void trans (Object*, void*, const float);
-		void setTransX (Object*, const float);
-		void transX (Object*, const float);
-		void setTransY (Object*, const float);
-		void transY (Object*, const float);
-		void setTransZ  (Object*, const float);
-		void transZ (Object*, const float);
-		void update (Object*);
-		void update2 (Object*);
-		void update3 (Object*);
-	};
-#endif
