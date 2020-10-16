@@ -1,8 +1,10 @@
+NAME=xgk-math
+
 BUILD_TYPE=gnu-x64
 
 ROOT=~
 
-DIR=$(ROOT)/reps/denis-belov/xgk-math
+DIR=$(ROOT)/reps/denis-belov/$(NAME)
 
 SRC=$(DIR)/src
 
@@ -36,7 +38,7 @@ makeS=mkdir -p $(BUILD)/$(s)
 
 
 
-$(BUILD)/$(a)/xgk-math.$(a) :\
+$(BUILD)/$(a)/$(NAME).$(a) :\
 $(BUILD)/$(o)/const.$(o) \
 $(BUILD)/$(o)/vec4.$(o) \
 $(BUILD)/$(o)/vec4-32.$(o) \
@@ -65,8 +67,8 @@ $(BUILD)/$(o)/util-asm-x64.$(o)
 		$(BUILD)/$(o)/object.$(o) \
 		$(BUILD)/$(o)/util.$(o) \
 		$(BUILD)/$(o)/util-asm-x64.$(o) \
-	$(BUILDER_ARG)$(BUILD)/$(a)/xgk-math.$(a) && \
-	objdump -d -M intel -S $(BUILD)/$(a)/xgk-math.$(a) > $(BUILD)/s/xgk-math.s
+	$(BUILDER_ARG)$(BUILD)/$(a)/$(NAME).$(a) && \
+	objdump -d -M intel -S $(BUILD)/$(a)/$(NAME).$(a) > $(BUILD)/s/$(NAME).s
 
 
 
