@@ -1,165 +1,209 @@
-// column-major 4x4 matrix
+#define SET\
+(\
+	e0, e4, e8 , e12,\
+	e1, e5, e9 , e13,\
+	e2, e6, e10, e14,\
+	e3, e7, e11, e15\
+)\
+\
+	data[0] = e0; data[4] = e4; data[8]  = e8 ; data[12] = e12;\
+	data[1] = e1; data[5] = e5; data[9]  = e9 ; data[13] = e13;\
+	data[2] = e2; data[6] = e6; data[10] = e10; data[14] = e14;\
+	data[3] = e3; data[7] = e7; data[11] = e11; data[15] = e15;
 
-#include <cstdio>
-#include <cstring>
+
+
 #include <cstdint>
+#include <cstring>
+#include <cstdio>
+#include <cmath>
+
+#include "mat4.h"
 
 
 
-namespace XGK::DATA {
-
+namespace XGK::DATA
+{
+	// defined in const.cpp
 	extern const uint8_t FLOAT_SIZE_16;
-};
 
 
 
-namespace XGK::DATA::MAT4 {
+	alignas(16) extern const float IDENT_COL3 [4] { 0.0f, 0.0f, 0.0f, 1.0f };
+	alignas(16) extern const float CONST_MUL [4] { 2.0f, 2.0f, 2.0f, 0.0f };
+	alignas(16) extern const float CONST_ONE [4] { 1.0f, 1.0f, 1.0f, 0.0f };
 
-	alignas(16) extern const float IDENT_16[16];
+	alignas(16) extern const float IDENT_12 [12]
+	{
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f
+	};
 
-
-
-	void set32 (
-
-		void*,
-
-		const float, const float, const float, const float,
-		const float, const float, const float, const float,
-		const float, const float, const float, const float,
-		const float, const float, const float, const float
-	);
-	void premul32 (void*, void*);
-	void postmul32 (void*, void*);
-	void makeTrans32 (void*, void*);
-	void preTrans32 (void*, void*);
-	void postTrans32 (void*, void*);
-	void makeTransValue32 (void*, void*, const float);
-	void preTransValue32 (void*, void*, const float);
-	void postTransValue32 (void*, void*, const float);
-	void makeRotQuat32 (void*, void*);
-	void preRotQuat32 (void*, void*);
-	void postRotQuat32 (void*, void*);
-	void transp32 (void*);
-	void invns32 (void*);
-	void makeProjPersp32 (void*, const float, const float, const float, const float, const float);
-
-	void set128 (
-
-		void*,
-
-		const float, const float, const float, const float,
-		const float, const float, const float, const float,
-		const float, const float, const float, const float,
-		const float, const float, const float, const float
-	);
-	void premul128 (void*, void*);
-	void postmul128 (void*, void*);
-	void makeTrans128 (void*, void*);
-	void preTrans128 (void*, void*);
-	void postTrans128 (void*, void*);
-	void makeTransValue128 (void*, void*, const float);
-	void preTransValue128 (void*, void*, const float);
-	void postTransValue128 (void*, void*, const float);
-	void makeRotQuat128 (void*, void*);
-	void preRotQuat128 (void*, void*);
-	void postRotQuat128 (void*, void*);
-	void transp128 (void*);
-	void invns128 (void*);
-	void makeProjPersp128 (void*, const float, const float, const float, const float, const float);
-
-
-
-	void (* set)            (
-
-		void*,
-		const float, const float, const float, const float,
-		const float, const float, const float, const float,
-		const float, const float, const float, const float,
-		const float, const float, const float, const float
-	)                                                                                                = nullptr;
-	void (* premul)         (void*, void*)                                                           = nullptr;
-	void (* postmul)        (void*, void*)                                                           = nullptr;
-	void (* makeTrans)      (void*, void*)                                                           = nullptr;
-	void (* preTrans)       (void*, void*)                                                           = nullptr;
-	void (* postTrans)      (void*, void*)                                                           = nullptr;
-	void (* makeTransValue) (void*, void*, const float)                                              = nullptr;
-	void (* preTransValue)  (void*, void*, const float)                                              = nullptr;
-	void (* postTransValue) (void*, void*, const float)                                              = nullptr;
-	void (* makeRotQuat)    (void*, void*)                                                           = nullptr;
-	void (* preRotQuat)     (void*, void*)                                                           = nullptr;
-	void (* postRotQuat)    (void*, void*)                                                           = nullptr;
-	void (* transp)         (void*)                                                                  = nullptr;
-	void (* invns)          (void*)                                                                  = nullptr;
-	void (* makeProjPersp)  (void*, const float, const float, const float, const float, const float) = nullptr;
-
-
-
-	void copy (void* data_addr_void1, void* data_addr_void2) {
-
-		memcpy(data_addr_void1, data_addr_void2, FLOAT_SIZE_16);
+	alignas(16) extern const float IDENT_16 [16]
+	{
+		1.0f, 0.0f, 0.0f, 0.0f,
+		0.0f, 1.0f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
 	};
 
 
 
-	void reset (void* data_addr_void) {
+	Mat4::Mat4 (void)
+	{
+		memcpy(data, IDENT_16, FLOAT_SIZE_16);
 
-		memset(data_addr_void, 0, FLOAT_SIZE_16);
-	};
+		// id = ++Mat4::counter;
+		// printf("Mat4::Mat4 (void): %i\n", id);
+	}
+
+	Mat4::Mat4 (void* src)
+	{
+		memcpy(data, src, FLOAT_SIZE_16);
+
+		// id = ++Mat4::counter;
+		// printf("Mat4::Mat4 (void* src): %i\n", id);
+	}
+
+	Mat4::Mat4 (const Mat4& src)
+	{
+		memcpy(data, &src, FLOAT_SIZE_16);
+
+		// id = ++Mat4::counter;
+		// printf("Mat4::Mat4 (const Mat4& m): %i\n", id);
+	}
+
+	Mat4::Mat4 (const Mat4&& src)
+	{
+		memcpy(data, &src, FLOAT_SIZE_16);
+
+		// id = ++Mat4::counter;
+		// printf("Mat4::Mat4 (const Mat4&& m): %i\n", id);
+	}
+
+	Mat4::~Mat4 (void)
+	{
+		// printf("Mat4::~Mat4 (void): %i\n", id);
+	}
 
 
 
-	void ident (void* data_addr_void) {
+	void Mat4::operator = (void* src)
+	{
+		memcpy(data, src, FLOAT_SIZE_16);
 
-		memcpy(data_addr_void, IDENT_16, FLOAT_SIZE_16);
-	};
+		// id += 20;
+		// printf("Mat4& Mat4::operator = (void* src): %i\n", id);
+		// return *this;
+	}
+
+	void Mat4::operator = (const Mat4& src)
+	{
+		memcpy(data, &src, FLOAT_SIZE_16);
+
+		// id += 10;
+		// printf("Mat4& Mat4::operator = (const Mat4& src): %i\n", id);
+		// return *this;
+	}
+
+	void Mat4::operator = (const Mat4&& src)
+	{
+		memcpy(data, &src, FLOAT_SIZE_16);
+
+		// id += 100;
+		// printf("Mat4& Mat4::operator = (const Mat4&& src): %i\n", id);
+		// return *this;
+	}
 
 
 
-	void simd32 (void) {
+	// inline ?
+	void Mat4::zero (void)
+	{
+		memset(data, 0, FLOAT_SIZE_16);
+	}
 
-		set = set32;
-		premul = premul32;
-		postmul = postmul32;
-		makeTrans = makeTrans32;
-		preTrans = preTrans32;
-		postTrans = postTrans32;
-		makeTransValue = makeTransValue32;
-		preTransValue = preTransValue32;
-		postTransValue = postTransValue32;
-		makeRotQuat = makeRotQuat32;
-		preRotQuat = preRotQuat32;
-		postRotQuat = postRotQuat32;
-		transp = transp32;
-		invns = invns32;
-		makeProjPersp = makeProjPersp32;
-	};
+	void Mat4::ident (void)
+	{
+		memcpy(data, IDENT_16, FLOAT_SIZE_16);
 
-	void simd128 (void) {
+		// // compare performance with
+		// memset(data, 0, FLOAT_SIZE_16);
+		// data[0] = 1.0f;
+		// data[5] = 1.0f;
+		// data[10] = 1.0f;
+		// data[15] = 1.0f;
+	}
 
-		set = set128;
-		premul = premul128;
-		postmul = postmul128;
-		makeTrans = makeTrans128;
-		preTrans = preTrans128;
-		postTrans = postTrans128;
-		makeTransValue = makeTransValue128;
-		preTransValue = preTransValue128;
-		postTransValue = postTransValue128;
-		makeRotQuat = makeRotQuat128;
-		preRotQuat = preRotQuat128;
-		postRotQuat = postRotQuat128;
-		transp = transp128;
-		invns = invns128;
-		makeProjPersp = makeProjPersp128;
-	};
+	void Mat4::makeProjPersp
+	(
+		const float& fov,
+		const float& aspect,
+		const float& _near,
+		const float& _far,
+		const float& zoom
+	)
+	{
+		const float top = _near * tan(0.017453292f * 0.5f * fov) / zoom;
+		const float height = 2.0f * top;
+		const float bottom = top - height;
+		const float width = aspect * height;
+		const float left = -0.5f * width;
+		const float right = left + width;
 
-	void print (void* data) {
+		SET
+		(
+			2.0f * _near / (right - left), /**/ 0.0f                         , /**/ (right + left) / (right - left) , /**/ 0.0f                                   ,
+			0.0f                         , /**/ 2.0f * _near / (top - bottom), /**/ (top + bottom) / (top - bottom) , /**/ 0.0f                                   ,
+			0.0f                         , /**/ 0.0f                         , /**/ -(_far + _near) / (_far - _near), /**/ -(2.0f * _far * _near) / (_far - _near),
+			0.0f                         , /**/ 0.0f                         , /**/ -1.0f                           , /**/ 0.0f
+		)
 
-		float* _data = (float*) data;
+		// // compare performance with
+		// memset(data, 0, FLOAT_SIZE_16);
+		// data[0] = 2.0f * _near / (right - left);
+		// data[5] = 2.0f * _near / (top - bottom);
+		// data[8] = (right + left) / (right - left);
+		// data[9] = (top + bottom) / (top - bottom);
+		// data[10] = -(_far + _near) / (_far - _near);
+		// data[11] = -1.0f;
+		// data[14] = -(2.0f * _far * _near) / (_far - _near);
+	}
 
-		printf("%f %f %f %f\n", _data[0], _data[4], _data[8] , _data[12]);
-		printf("%f %f %f %f\n", _data[1], _data[5], _data[9] , _data[13]);
-		printf("%f %f %f %f\n", _data[2], _data[6], _data[10], _data[14]);
-		printf("%f %f %f %f\n", _data[3], _data[7], _data[11], _data[15]);
-	};
-};
+	void Mat4::makeProjPersp
+	(
+	  const float& left,
+	  const float& right,
+	  const float& top,
+	  const float& bottom,
+	  const float& _near,
+	  const float& _far
+	)
+	{
+		SET
+		(
+	    2.0f * _near / (right - left), /**/ 0.0f                         , /**/ (right + left) / (right - left) , /**/ 0.0f                                   ,
+	    0.0f                         , /**/ 2.0f * _near / (top - bottom), /**/ (top + bottom) / (top - bottom) , /**/ 0.0f                                   ,
+	    0.0f                         , /**/ 0.0f                         , /**/ -(_far + _near) / (_far - _near), /**/ -(2.0f * _far * _near) / (_far - _near),
+	    0.0f                         , /**/ 0.0f                         , /**/ -1.0f                           , /**/ 0.0f
+	 	)
+	}
+
+	void Mat4::print (void)
+	{
+		printf("%f %f %f %f\n", data[0], data[4], data[8] , data[12]);
+		printf("%f %f %f %f\n", data[1], data[5], data[9] , data[13]);
+		printf("%f %f %f %f\n", data[2], data[6], data[10], data[14]);
+		printf("%f %f %f %f\n", data[3], data[7], data[11], data[15]);
+		printf("\n");
+	}
+
+
+
+	// int Mat4::counter = 0;
+}
+
+
+
+#undef SET

@@ -42,7 +42,7 @@ namespace XGK::DATA::VEC4 {
 	extern void (* div)  (void*, void*);
 	extern void (* divs) (void*, const float);
 	extern void (* norm) (void*);
-};
+}
 
 
 
@@ -99,7 +99,7 @@ namespace XGK::DATA::QUAT {
 	extern void (* makeRotZ) (void*, const float);
 	extern void (* preRotZ)  (void*, const float);
 	extern void (* postRotZ) (void*, const float);
-};
+}
 
 
 
@@ -117,6 +117,7 @@ namespace XGK::DATA::MAT4 {
 		const float, const float, const float, const float,
 		const float, const float, const float, const float
 	);
+	void mul32 (void*, void*, void*);
 	void premul32 (void*, void*);
 	void postmul32 (void*, void*);
 	void makeTrans32 (void*, void*);
@@ -141,14 +142,15 @@ namespace XGK::DATA::MAT4 {
 		const float, const float, const float, const float,
 		const float, const float, const float, const float
 	);
+	void mul128 (void*, void*, void*);
 	void premul128 (void*, void*);
 	void postmul128 (void*, void*);
 	void makeTrans128 (void*, void*);
 	void preTrans128 (void*, void*);
 	void postTrans128 (void*, void*);
-	void makeTransValue128 (void*, void*, const float);
-	void preTransValue128 (void*, void*, const float);
-	void postTransValue128 (void*, void*, const float);
+	// void makeTransValue128 (void*, void*, const float);
+	// void preTransValue128 (void*, void*, const float);
+	// void postTransValue128 (void*, void*, const float);
 	void makeRotQuat128 (void*, void*);
 	void preRotQuat128 (void*, void*);
 	void postRotQuat128 (void*, void*);
@@ -171,6 +173,7 @@ namespace XGK::DATA::MAT4 {
 		const float, const float, const float, const float,
 		const float, const float, const float, const float
 	);
+	extern void (* mul)            (void*, void*, void*);
 	extern void (* premul)         (void*, void*);
 	extern void (* postmul)        (void*, void*);
 	extern void (* makeTrans)      (void*, void*);
@@ -185,7 +188,19 @@ namespace XGK::DATA::MAT4 {
 	extern void (* transp)         (void*);
 	extern void (* invns)          (void*);
 	extern void (* makeProjPersp)  (void*, const float, const float, const float, const float, const float);
-};
+}
+
+
+
+namespace XGK::DATA
+{
+	struct Mat4
+	{
+		alignas(16) float data[16];
+
+		void mul (Mat4*, Mat4*);
+	};
+}
 
 
 
@@ -196,12 +211,12 @@ namespace XGK::DATA::MAT4 {
 // 		VEC4::simd32();
 // 		QUAT::simd32();
 // 		MAT4::simd32();
-// 	};
+// 	}
 
 // 	void simd128 (void) {
 
 // 		VEC4::simd128();
 // 		QUAT::simd128();
 // 		MAT4::simd128();
-// 	};
-// };
+// 	}
+// }

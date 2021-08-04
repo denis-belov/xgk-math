@@ -2,7 +2,7 @@
 
 .CODE
 
-	clock64 PROC
+	xgk_math_clock64 PROC
 
 		push rdx
 
@@ -14,5 +14,5 @@
 		pop rdx
 
 		ret 0
-	clock64 ENDP
+	xgk_math_clock64 ENDP
 END

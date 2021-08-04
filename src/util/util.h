@@ -86,4 +86,4 @@ namespace XGK::MATH::UTIL {
 		const uint64_t,
 		const float
 	);
-};
+}

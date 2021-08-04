@@ -31,7 +31,7 @@ namespace XGK::MATH::UTIL {
 
 		dst[0] = (x1 * d) + (x2 * e) + (x3 * f) + (x4 * g);
 		dst[1] = (y1 * d) + (y2 * e) + (y3 * f) + (y4 * g);
-	};
+	}
 
 
 
@@ -49,8 +49,6 @@ namespace XGK::MATH::UTIL {
 		const uint64_t segment_count
 	) {
 
-		uint64_t last = 0;
-
 		float point[2];
 
 		for (uint64_t i = 0; i < segment_count; i++) {
@@ -61,7 +59,7 @@ namespace XGK::MATH::UTIL {
 		}
 
 		dst[segment_count - 1] = 1.0;
-	};
+	}
 
 
 
@@ -75,8 +73,6 @@ namespace XGK::MATH::UTIL {
 		const uint64_t segment_count
 	) {
 
-		uint64_t last = 0;
-
 		float point[2];
 
 		for (uint64_t i = 0; i < segment_count; i++) {
@@ -87,7 +83,7 @@ namespace XGK::MATH::UTIL {
 		}
 
 		dst[segment_count - 1] = 1.0;
-	};
+	}
 
 
 
@@ -120,7 +116,7 @@ namespace XGK::MATH::UTIL {
 		DATA::VEC4::copy(v, p3);
 		DATA::VEC4::muls32(v, d);
 		DATA::VEC4::add32(dst_p, v);
-	};
+	}
 
 
 
@@ -161,7 +157,7 @@ namespace XGK::MATH::UTIL {
 		DATA::VEC4::copy(v, p4);
 		DATA::VEC4::muls32(v, g);
 		DATA::VEC4::add32(dst_p, v);
-	};
+	}
 
 
 
@@ -179,7 +175,7 @@ namespace XGK::MATH::UTIL {
 		DATA::VEC4::sub32(dst_p, p1);
 		DATA::VEC4::muls32(dst_p, t);
 		DATA::VEC4::add32(dst_p, p2);
-	};
+	}
 
 
 
@@ -204,10 +200,10 @@ namespace XGK::MATH::UTIL {
 			float* next_point = i < points_size ? &points_data[i + 1] : &points_data[i + 1 - points_size];
 			float* next_next_point = i < (points_size - 1) ? &points_data[i + 2] : &points_data[i + 2 - points_size];
 
-			for (uint64_t k = 0; k < segment_count; k++) {
+			makeCatmullRomSpline3ControlPoint3D(prev_control_point, prev_point, curr_point, next_point, tension);
+			makeCatmullRomSpline3ControlPoint3D(next_control_point, curr_point, next_point, next_next_point, -tension);
 
-				makeCatmullRomSpline3ControlPoint3D(prev_control_point, prev_point, curr_point, next_point, tension);
-				makeCatmullRomSpline3ControlPoint3D(next_control_point, curr_point, next_point, next_next_point, -tension);
+			for (uint64_t k = 0; k < segment_count; k++) {
 
 				const float t = ((float) k) / ((float) segment_count);
 				float point[4] = { 0.0, 0.0, 0.0, 0.0 };
@@ -231,7 +227,7 @@ namespace XGK::MATH::UTIL {
 				dst->push_back(point[3]);
 			}
 		}
-	};
+	}
 
 
 
@@ -256,10 +252,10 @@ namespace XGK::MATH::UTIL {
 			float* next_point = i < points_size ? &points_data[i + 1] : &points_data[i + 1 - points_size];
 			float* next_next_point = i < (points_size - 1) ? &points_data[i + 2] : &points_data[i + 2 - points_size];
 
-			for (uint64_t k = 0; k < segment_count; k++) {
+			makeCatmullRomSpline3ControlPoint3D(prev_control_point, prev_point, curr_point, next_point, tension);
+			makeCatmullRomSpline3ControlPoint3D(next_control_point, curr_point, next_point, next_next_point, -tension);
 
-				makeCatmullRomSpline3ControlPoint3D(prev_control_point, prev_point, curr_point, next_point, tension);
-				makeCatmullRomSpline3ControlPoint3D(next_control_point, curr_point, next_point, next_next_point, -tension);
+			for (uint64_t k = 0; k < segment_count; k++) {
 
 				const float t = ((float) k) / ((float) segment_count);
 				float point[4] = { 0.0, 0.0, 0.0, 0.0 };
@@ -272,5 +268,5 @@ namespace XGK::MATH::UTIL {
 				dst->push_back(point[3]);
 			}
 		}
-	};
-};
+	}
+}

@@ -4,15 +4,15 @@
 
 namespace XGK::DATA::VEC4 {
 
-	void set32 (void* data_addr_void, const float x, const float y, const float z, const float w) {
+	void set32 (void* data_addr, const float x, const float y, const float z, const float w) {
 
-		float* data_addr_float = (float*) data_addr_void;
+		float* data_addr_float = (float*) data_addr;
 
 		data_addr_float[0] = x;
 		data_addr_float[1] = y;
 		data_addr_float[2] = z;
 		data_addr_float[3] = w;
-	};
+	}
 
 
 
@@ -25,19 +25,19 @@ namespace XGK::DATA::VEC4 {
 		_data0[1] += _data1[1];
 		_data0[2] += _data1[2];
 		_data0[3] += _data1[3];
-	};
+	}
 
 
 
-	void adds32 (void* data_addr_void, const float s) {
+	void adds32 (void* data_addr, const float s) {
 
-		float* data_addr_float = (float*) data_addr_void;
+		float* data_addr_float = (float*) data_addr;
 
 		data_addr_float[0] += s;
 		data_addr_float[1] += s;
 		data_addr_float[2] += s;
 		data_addr_float[3] += s;
-	};
+	}
 
 
 
@@ -50,19 +50,19 @@ namespace XGK::DATA::VEC4 {
 		_data0[1] -= _data1[1];
 		_data0[2] -= _data1[2];
 		_data0[3] -= _data1[3];
-	};
+	}
 
 
 
-	void subs32 (void* data_addr_void, const float s) {
+	void subs32 (void* data_addr, const float s) {
 
-		float* data_addr_float = (float*) data_addr_void;
+		float* data_addr_float = (float*) data_addr;
 
 		data_addr_float[0] -= s;
 		data_addr_float[1] -= s;
 		data_addr_float[2] -= s;
 		data_addr_float[3] -= s;
-	};
+	}
 
 
 
@@ -75,19 +75,19 @@ namespace XGK::DATA::VEC4 {
 		_data0[1] *= _data1[1];
 		_data0[2] *= _data1[2];
 		_data0[3] *= _data1[3];
-	};
+	}
 
 
 
-	void muls32 (void* data_addr_void, const float s) {
+	void muls32 (void* data_addr, const float s) {
 
-		float* data_addr_float = (float*) data_addr_void;
+		float* data_addr_float = (float*) data_addr;
 
 		data_addr_float[0] *= s;
 		data_addr_float[1] *= s;
 		data_addr_float[2] *= s;
 		data_addr_float[3] *= s;
-	};
+	}
 
 
 
@@ -100,25 +100,25 @@ namespace XGK::DATA::VEC4 {
 		_data0[1] /= _data1[1];
 		_data0[2] /= _data1[2];
 		_data0[3] /= _data1[3];
-	};
+	}
 
 
 
-	void divs32 (void* data_addr_void, const float s) {
+	void divs32 (void* data_addr, const float s) {
 
-		float* data_addr_float = (float*) data_addr_void;
+		float* data_addr_float = (float*) data_addr;
 
 		data_addr_float[0] /= s;
 		data_addr_float[1] /= s;
 		data_addr_float[2] /= s;
 		data_addr_float[3] /= s;
-	};
+	}
 
 
 
-	void norm32 (void* data_addr_void) {
+	void norm32 (void* data_addr) {
 
-		float* data_addr_float = (float*) data_addr_void;
+		float* data_addr_float = (float*) data_addr;
 
 		float len = sqrt(
 
@@ -132,5 +132,5 @@ namespace XGK::DATA::VEC4 {
 		data_addr_float[1] /= len;
 		data_addr_float[2] /= len;
 		data_addr_float[3] /= len;
-	};
-};
+	}
+}

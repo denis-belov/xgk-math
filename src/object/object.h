@@ -1,22 +1,26 @@
-namespace XGK {
-
-	struct alignas(16) Object {
-
-		alignas(16) float mat[16];
-
-		alignas(16) float quat[4];
-
-		alignas(16) float _trans[4];
-
-		alignas(16) float origin[4];
-
-		alignas(16) float aux_vec[4];
-
-		// alignas(MEM_ADDR_LENGTH) void* parent;
+#ifndef __XGK_MATH_OBJECT__
+#define __XGK_MATH_OBJECT__
 
 
 
-		Object          (void);
+#include "data/vec4/vec4.h"
+#include "data/mat4/mat4.h"
+
+
+
+namespace XGK
+{
+	struct alignas(16) Object
+	{
+		DATA::Mat4 mat;
+		DATA::Quat quat;
+		DATA::Vec4 _trans;
+		DATA::Vec4 origin;
+		DATA::Vec4 aux_vec;
+
+
+
+		// Object          (void);
 		void setRot     (void*, const float);
 		void preRot     (void*, const float);
 		void postRot    (void*, const float);
@@ -41,4 +45,8 @@ namespace XGK {
 		void update2    (void);
 		void update3    (void);
 	};
-};
+}
+
+
+
+#endif

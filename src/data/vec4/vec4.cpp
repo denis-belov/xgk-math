@@ -1,137 +1,173 @@
-// These functions can be used with float[4] and __m128 data storages (4-dim vectors, quaternions).
-// Data should be aligned with 16-byte alignment for better performance.
+#define SET(x, y, z, w) data[0] = x; data[1] = y; data[2] = z; data[3] = w;
 
-#include <cstdio>
-#include <cstring>
+
+
 #include <cstdint>
+#include <cstring>
+#include <cstdio>
 #include <cmath>
 
+#include "vec4.h"
 
 
-namespace XGK::DATA {
 
+namespace XGK::DATA
+{
 	extern const uint8_t FLOAT_SIZE_4;
-};
+
+	alignas(16) const float ZERO_4 [4] { 0.0f, 0.0f, 0.0f, 0.0f };
 
 
 
-namespace XGK::DATA::VEC4 {
+	Vec4::Vec4 (void)
+	{
+		memcpy(data, ZERO_4, FLOAT_SIZE_4);
 
-	void set32 (void*, const float, const float, const float, const float);
-	void add32 (void*, void*);
-	void adds32 (void*, const float);
-	void sub32 (void*, void*);
-	void subs32 (void*, const float);
-	void mul32 (void*, void*);
-	void muls32 (void*, const float);
-	void div32 (void*, void*);
-	void divs32 (void*, const float);
-	void norm32 (void*);
+		// // compare performance with
+		// memset(data, 0, FLOAT_SIZE_4);
+	}
 
-	void set128 (void*, const float, const float, const float, const float);
-	void add128 (void*, void*);
-	void adds128 (void*, const float);
-	void sub128 (void*, void*);
-	void subs128 (void*, const float);
-	void mul128 (void*, void*);
-	void muls128 (void*, const float);
-	void div128 (void*, void*);
-	void divs128 (void*, const float);
-	void norm128 (void*);
+	Vec4::Vec4 (void* src)
+	{
+		memcpy(data, src, FLOAT_SIZE_4);
+	}
 
+	Vec4::Vec4 (const Vec4& src)
+	{
+		memcpy(data, &src, FLOAT_SIZE_4);
+	}
 
+	Vec4::Vec4 (const Vec4&& src)
+	{
+		memcpy(data, &src, FLOAT_SIZE_4);
+	}
 
-	void (* set)  (void*, const float, const float, const float, const float) = nullptr;
-	void (* add)  (void*, void*)                                              = nullptr;
-	void (* adds) (void*, const float)                                        = nullptr;
-	void (* sub)  (void*, void*)                                              = nullptr;
-	void (* subs) (void*, const float)                                        = nullptr;
-	void (* mul)  (void*, void*)                                              = nullptr;
-	void (* muls) (void*, const float)                                        = nullptr;
-	void (* div)  (void*, void*)                                              = nullptr;
-	void (* divs) (void*, const float)                                        = nullptr;
-	void (* norm) (void*)                                                     = nullptr;
+	Vec4::~Vec4 (void) {}
 
 
 
-	void copy (void* data_addr_void1, void* data_addr_void2) {
+	void Vec4::operator = (void* src)
+	{
+		memcpy(data, src, FLOAT_SIZE_4);
+	}
 
-		memcpy(data_addr_void1, data_addr_void2, FLOAT_SIZE_4);
-	};
+	void Vec4::operator = (const Vec4& src)
+	{
+		memcpy(data, &src, FLOAT_SIZE_4);
+	}
 
-
-
-	void reset (void* data_addr_void) {
-
-		memset(data_addr_void, 0, FLOAT_SIZE_4);
-	};
-
-
-
-	float len (void* data_addr_void) {
-
-		float* data_addr_float = (float*) data_addr_void;
-
-		return sqrt(
-
-			(data_addr_float[0] * data_addr_float[0]) +
-			(data_addr_float[1] * data_addr_float[1]) +
-			(data_addr_float[2] * data_addr_float[2]) +
-			(data_addr_float[3] * data_addr_float[3])
-		);
-	};
+	void Vec4::operator = (const Vec4&& src)
+	{
+		memcpy(data, &src, FLOAT_SIZE_4);
+	}
 
 
 
-	float lens (void* data_addr_void) {
+	void Vec4::reset (void)
+	{
+		memcpy(data, ZERO_4, FLOAT_SIZE_4);
+	}
 
-		float* data_addr_float = (float*) data_addr_void;
+	void Vec4::set (const float& x, const float& y, const float& z, const float& w)
+	{
+		SET(x, y, z, w)
+	}
 
-		return
-			(data_addr_float[0] * data_addr_float[0]) +
-			(data_addr_float[1] * data_addr_float[1]) +
-			(data_addr_float[2] * data_addr_float[2]) +
-			(data_addr_float[3] * data_addr_float[3]);
-	};
+	void Vec4::add (void* src)
+	{
+		float* _src = (float*) src;
+
+		data[0] += _src[0];
+		data[1] += _src[1];
+		data[2] += _src[2];
+		data[3] += _src[3];
+	}
+
+	void Vec4::adds (const float& s)
+	{
+		data[0] += s;
+		data[1] += s;
+		data[2] += s;
+		data[3] += s;
+	}
+
+	void Vec4::sub (void* src)
+	{
+		float* _src = (float*) src;
+
+		data[0] -= _src[0];
+		data[1] -= _src[1];
+		data[2] -= _src[2];
+		data[3] -= _src[3];
+	}
+
+	void Vec4::subs (const float& s)
+	{
+		data[0] -= s;
+		data[1] -= s;
+		data[2] -= s;
+		data[3] -= s;
+	}
+
+	void Vec4::mul (void* src)
+	{
+		float* _src = (float*) src;
+
+		data[0] *= _src[0];
+		data[1] *= _src[1];
+		data[2] *= _src[2];
+		data[3] *= _src[3];
+	}
+
+	void Vec4::muls (const float& s)
+	{
+		data[0] *= s;
+		data[1] *= s;
+		data[2] *= s;
+		data[3] *= s;
+	}
+
+	void Vec4::div (void* src)
+	{
+		float* _src = (float*) src;
+
+		data[0] /= _src[0];
+		data[1] /= _src[1];
+		data[2] /= _src[2];
+		data[3] /= _src[3];
+	}
+
+	void Vec4::divs (const float& s)
+	{
+		data[0] /= s;
+		data[1] /= s;
+		data[2] /= s;
+		data[3] /= s;
+	}
+
+	void Vec4::norm (void)
+	{
+		float len =
+			sqrt
+			(
+				(data[0] * data[0]) +
+				(data[1] * data[1]) +
+				(data[2] * data[2]) +
+				(data[3] * data[3])
+			);
+
+		data[0] /= len;
+		data[1] /= len;
+		data[2] /= len;
+		data[3] /= len;
+	}
+
+	void Vec4::print (void)
+	{
+		printf("%f %f %f %f\n\n", data[0], data[1], data[2], data[3]);
+	}
+}
 
 
 
-	void simd32 (void) {
-
-		set = set32;
-		add = add32;
-		adds = adds32;
-		sub = sub32;
-		subs = subs32;
-		mul = mul32;
-		muls = muls32;
-		div = div32;
-		divs = divs32;
-		norm = norm32;
-	};
-
-
-
-	void simd128 (void) {
-
-		set = set128;
-		add = add128;
-		adds = adds128;
-		sub = sub128;
-		subs = subs128;
-		mul = mul128;
-		muls = muls128;
-		div = div128;
-		divs = divs128;
-		norm = norm128;
-	};
-
-
-
-	void print (void* data) {
-
-		float* _data = (float*) data;
-
-		printf("%f %f %f %f\n", _data[0], _data[1], _data[2], _data[3]);
-	};
-};
+#undef SET

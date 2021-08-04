@@ -1,0 +1,53 @@
+{
+	"build_type": "static",
+
+	"target_name": "xgk-math",
+
+	"include_directories": "$(SRC)",
+
+	"source_files":
+	{
+		"internal":
+		{
+			"cpp":
+			[
+				"$(SRC)/data/const.cpp",
+
+				{
+					"source": "$(SRC)/data/vec4/vec4.cpp",
+					"headers": "$(SRC)/data/vec4/vec4.h"
+				},
+
+				{
+					"source": "$(SRC)/data/quat/quat.cpp",
+					"headers": "$(SRC)/data/quat/quat.h"
+				},
+
+				{
+					"source": "$(SRC)/data/quat/quat-32.cpp",
+					"headers": "$(SRC)/data/quat/quat.h"
+				},
+
+				{
+					"source": "$(SRC)/data/quat/quat-128.cpp",
+					"headers": "$(SRC)/data/quat/quat.h"
+				},
+
+				{
+					"source": "$(SRC)/data/mat4/mat4.cpp",
+					"headers": "$(SRC)/data/mat4/mat4.h"
+				},
+
+				{
+					"source": "$(SRC)/data/mat4/mat4-32.cpp",
+					"headers": "$(SRC)/data/mat4/mat4.h"
+				},
+
+				{
+					"source": "$(SRC)/data/mat4/mat4-128.cpp",
+					"headers": "$(SRC)/data/mat4/mat4.h"
+				}
+			]
+		}
+	}
+}

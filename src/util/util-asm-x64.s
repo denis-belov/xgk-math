@@ -1,8 +1,8 @@
 .text
 
-.global clock64
+.global xgk_math_clock64
 
-clock64:
+xgk_math_clock64:
 
 	push %rdx
 

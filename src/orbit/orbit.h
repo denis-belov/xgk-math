@@ -14,7 +14,7 @@ namespace XGK {
 		alignas(16) float aux_vec[4];
 
 		// alignas(MEM_ADDR_LENGTH) void* parent;
-	};
+	}
 
 	namespace OBJECT {
 
@@ -42,5 +42,5 @@ namespace XGK {
 		void update (Object*);
 		void update2 (Object*);
 		void update3 (Object*);
-	};
-};
+	}
+}
