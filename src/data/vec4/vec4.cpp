@@ -42,6 +42,21 @@ namespace XGK::DATA
 		memcpy(data, &src, FLOAT_SIZE_4);
 	}
 
+	Vec4::Vec4 (std::initializer_list<float> list)
+	{
+		size_t count = 0;
+
+		for (float element : list)
+		{
+			data[count++] = element;
+
+			if (count == 4)
+			{
+				break;
+			}
+		}
+	}
+
 	Vec4::~Vec4 (void) {}
 
 

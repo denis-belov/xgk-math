@@ -43,6 +43,21 @@ namespace XGK::DATA
 		memcpy(data, &src, FLOAT_SIZE_4);
 	}
 
+	Quat::Quat (std::initializer_list<float> list)
+	{
+		size_t count = 0;
+
+		for (float element : list)
+		{
+			data[count++] = element;
+
+			if (count == 4)
+			{
+				break;
+			}
+		}
+	}
+
 	Quat::~Quat (void) {}
 
 

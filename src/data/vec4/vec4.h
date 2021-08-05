@@ -6,6 +6,10 @@
 
 
 
+#include <initializer_list>
+
+
+
 namespace XGK::DATA
 {
 	struct alignas(16) Vec4
@@ -18,6 +22,7 @@ namespace XGK::DATA
 		Vec4 (void* src);
 		Vec4 (const Vec4& src);
 		Vec4 (const Vec4&& src);
+		Vec4 (std::initializer_list<float> list);
 
 		~Vec4 (void);
 

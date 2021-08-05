@@ -3,8 +3,13 @@
 
 
 
+#include <initializer_list>
+
+
+
 namespace XGK::DATA
 {
+	// Needs to be dirived from Vec4 ?
 	struct alignas(16) Quat
 	{
 		alignas(16) float data [4];
@@ -15,6 +20,7 @@ namespace XGK::DATA
 		Quat (void* src);
 		Quat (const Quat& src);
 		Quat (const Quat&& src);
+		Quat (std::initializer_list<float> list);
 
 		~Quat (void);
 
