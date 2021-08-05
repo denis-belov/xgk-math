@@ -46,6 +46,11 @@
 				{
 					"source": "$(SRC)/data/mat4/mat4-128.cpp",
 					"headers": "$(SRC)/data/mat4/mat4.h"
+				},
+
+				{
+					"source": "$(SRC)/object/object.cpp",
+					"headers": "$(SRC)/object/object.h"
 				}
 			]
 		}
