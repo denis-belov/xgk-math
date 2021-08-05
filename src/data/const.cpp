@@ -1,17 +1,6 @@
 #include <cstdint>
 
-
-
-// #ifdef __EMSCRIPTEN__
-
-// 	#define __SSE__ 1
-// 	#define __SSE2__ 1
-// 	#define __SSE3__ 1
-// 	#include <SSE/immintrin.h>
-// #else
-
-// 	#include <immintrin.h>
-// #endif
+#include "_intrin.h"
 
 
 
@@ -22,16 +11,18 @@ namespace XGK::DATA
 	extern const uint8_t FLOAT_SIZE_8 = sizeof(float) * 8;
 	extern const uint8_t FLOAT_SIZE_12 = sizeof(float) * 12;
 	extern const uint8_t FLOAT_SIZE_16 = sizeof(float) * 16;
+
+	// alignas(16) extern const __m128 CONST_MUL = { 1.0f, 1.0f, -1.0f, -1.0f };
 }
 
 
 
-// namespace XGK::DATA::QUAT {
-
-// 	alignas(16) extern const float CONST_IDENT[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
-// 	alignas(16) extern const __m128 CONST_MUL = { 1.0f, 1.0f, -1.0f, -1.0f };
-// 	alignas(16) extern const __m128 CONST_MUL2 = { 1.0f, -1.0f, 1.0f, -1.0f };
-// }
+namespace XGK::DATA::QUAT
+{
+	// alignas(16) extern const float CONST_IDENT[4] = { 0.0f, 0.0f, 0.0f, 1.0f };
+	alignas(16) extern const __m128 CONST_MUL = { 1.0f, 1.0f, -1.0f, -1.0f };
+	// alignas(16) extern const __m128 CONST_MUL2 = { 1.0f, -1.0f, 1.0f, -1.0f };
+}
 
 
 
@@ -55,3 +46,4 @@ namespace XGK::DATA
 // 		0.0f, 0.0f, 0.0f, 1.0f
 // 	};
 // }
+//
