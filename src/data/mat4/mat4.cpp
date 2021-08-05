@@ -87,6 +87,21 @@ namespace XGK::DATA
 		// printf("Mat4::~Mat4 (void): %i\n", id);
 	}
 
+	Mat4::Mat4 (std::initializer_list<float> list)
+	{
+		size_t count = 0;
+
+		for (float element : list)
+		{
+			data[count++] = element;
+
+			if (count == 16)
+			{
+				break;
+			}
+		}
+	}
+
 
 
 	void Mat4::operator = (void* src)

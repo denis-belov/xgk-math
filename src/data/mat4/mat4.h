@@ -3,6 +3,10 @@
 
 
 
+#include <initializer_list>
+
+
+
 namespace XGK::DATA
 {
 	struct alignas(16) Mat4
@@ -16,7 +20,7 @@ namespace XGK::DATA
 		Mat4 (void* src);
 		Mat4 (const Mat4& src);
 		Mat4 (const Mat4&& src);
-		// initializer list constr
+		Mat4 (std::initializer_list<float> list);
 
 		~Mat4 (void);
 

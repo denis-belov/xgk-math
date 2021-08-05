@@ -53,16 +53,16 @@ namespace XGK::DATA
 
 	void Mat4::transp128 (void)
 	{
-		__m128* dst = (__m128*) this;
+		__m128* _this = (__m128*) this;
 
-		alignas(16) __m128 a = _mm_shuffle_ps(dst[0], dst[1], _MM_SHUFFLE(1, 0, 1, 0));
-		alignas(16) __m128 b = _mm_shuffle_ps(dst[2], dst[3], _MM_SHUFFLE(1, 0, 1, 0));
-		alignas(16) __m128 c = _mm_shuffle_ps(dst[0], dst[1], _MM_SHUFFLE(3, 2, 3, 2));
-		alignas(16) __m128 d = _mm_shuffle_ps(dst[2], dst[3], _MM_SHUFFLE(3, 2, 3, 2));
+		alignas(16) __m128 a = _mm_shuffle_ps(_this[0], _this[1], _MM_SHUFFLE(1, 0, 1, 0));
+		alignas(16) __m128 b = _mm_shuffle_ps(_this[2], _this[3], _MM_SHUFFLE(1, 0, 1, 0));
+		alignas(16) __m128 c = _mm_shuffle_ps(_this[0], _this[1], _MM_SHUFFLE(3, 2, 3, 2));
+		alignas(16) __m128 d = _mm_shuffle_ps(_this[2], _this[3], _MM_SHUFFLE(3, 2, 3, 2));
 
-		dst[0] = _mm_shuffle_ps(a, b, _MM_SHUFFLE(2, 0, 2, 0));
-		dst[1] = _mm_shuffle_ps(a, b, _MM_SHUFFLE(3, 1, 3, 1));
-		dst[2] = _mm_shuffle_ps(c, d, _MM_SHUFFLE(2, 0, 2, 0));
-		dst[3] = _mm_shuffle_ps(c, d, _MM_SHUFFLE(3, 1, 3, 1));
+		_this[0] = _mm_shuffle_ps(a, b, _MM_SHUFFLE(2, 0, 2, 0));
+		_this[1] = _mm_shuffle_ps(a, b, _MM_SHUFFLE(3, 1, 3, 1));
+		_this[2] = _mm_shuffle_ps(c, d, _MM_SHUFFLE(2, 0, 2, 0));
+		_this[3] = _mm_shuffle_ps(c, d, _MM_SHUFFLE(3, 1, 3, 1));
 	}
 }
