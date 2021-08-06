@@ -20,7 +20,7 @@ namespace XGK::DATA
 		Mat4 (const void* src);
 		Mat4 (const Mat4& src);
 		Mat4 (const Mat4&& src);
-		Mat4 (std::initializer_list<float> list);
+		Mat4 (std::initializer_list<float>& list);
 
 		~Mat4 (void);
 

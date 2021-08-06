@@ -23,8 +23,7 @@ namespace XGK::DATA
 		Vec4 (const void* src);
 		Vec4 (const Vec4& src);
 		Vec4 (const Vec4&& src);
-		// reference ?
-		Vec4 (std::initializer_list<float> list);
+		Vec4 (std::initializer_list<float>& list);
 
 		~Vec4 (void);
 

@@ -20,7 +20,7 @@ namespace XGK::DATA
 		Quat (const void* src);
 		Quat (const Quat& src);
 		Quat (const Quat&& src);
-		Quat (std::initializer_list<float> list);
+		Quat (std::initializer_list<float>& list);
 
 		~Quat (void);
 
