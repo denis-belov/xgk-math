@@ -34,7 +34,7 @@ namespace XGK
 		void setRotZ    (const float&);
 		void preRotZ    (const float&);
 		void postRotZ   (const float&);
-		void setTrans   (void*);
+		void setTrans   (const void*);
 		void trans      (void*, const float&);
 		void setTransX  (const float&);
 		void transX     (const float&);

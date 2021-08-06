@@ -17,7 +17,7 @@ namespace XGK::DATA
 
 
 		Quat (void);
-		Quat (void* src);
+		Quat (const void* src);
 		Quat (const Quat& src);
 		Quat (const Quat&& src);
 		Quat (std::initializer_list<float> list);
@@ -26,7 +26,7 @@ namespace XGK::DATA
 
 
 
-		void operator = (void* src);
+		void operator = (const void* src);
 		void operator = (const Quat& src);
 		void operator = (const Quat&& src);
 

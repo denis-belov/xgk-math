@@ -28,7 +28,7 @@ namespace XGK::DATA
 		// memset(data, 0, FLOAT_SIZE_4);
 	}
 
-	Quat::Quat (void* src)
+	Quat::Quat (const void* src)
 	{
 		memcpy(data, src, FLOAT_SIZE_4);
 	}
@@ -62,7 +62,7 @@ namespace XGK::DATA
 
 
 
-	void Quat::operator = (void* src)
+	void Quat::operator = (const void* src)
 	{
 		memcpy(data, src, FLOAT_SIZE_4);
 	}

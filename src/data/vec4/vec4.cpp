@@ -27,7 +27,7 @@ namespace XGK::DATA
 		// memset(data, 0, FLOAT_SIZE_4);
 	}
 
-	Vec4::Vec4 (void* src)
+	Vec4::Vec4 (const void* src)
 	{
 		memcpy(data, src, FLOAT_SIZE_4);
 	}
@@ -44,7 +44,7 @@ namespace XGK::DATA
 
 	Vec4::Vec4 (std::initializer_list<float> list)
 	{
-		size_t count = 0;
+		size_t count {};
 
 		for (float element : list)
 		{
@@ -61,7 +61,7 @@ namespace XGK::DATA
 
 
 
-	void Vec4::operator = (void* src)
+	void Vec4::operator = (const void* src)
 	{
 		memcpy(data, src, FLOAT_SIZE_4);
 	}
@@ -88,9 +88,9 @@ namespace XGK::DATA
 		SET(x, y, z, w)
 	}
 
-	void Vec4::add (void* src)
+	void Vec4::add (const void* src)
 	{
-		float* _src = (float*) src;
+		float* _src { (float*) src };
 
 		data[0] += _src[0];
 		data[1] += _src[1];
@@ -106,9 +106,9 @@ namespace XGK::DATA
 		data[3] += s;
 	}
 
-	void Vec4::sub (void* src)
+	void Vec4::sub (const void* src)
 	{
-		float* _src = (float*) src;
+		float* _src { (float*) src };
 
 		data[0] -= _src[0];
 		data[1] -= _src[1];
@@ -124,9 +124,9 @@ namespace XGK::DATA
 		data[3] -= s;
 	}
 
-	void Vec4::mul (void* src)
+	void Vec4::mul (const void* src)
 	{
-		float* _src = (float*) src;
+		float* _src { (float*) src };
 
 		data[0] *= _src[0];
 		data[1] *= _src[1];
@@ -142,9 +142,9 @@ namespace XGK::DATA
 		data[3] *= s;
 	}
 
-	void Vec4::div (void* src)
+	void Vec4::div (const void* src)
 	{
-		float* _src = (float*) src;
+		float* _src { (float*) src };
 
 		data[0] /= _src[0];
 		data[1] /= _src[1];
@@ -162,14 +162,16 @@ namespace XGK::DATA
 
 	void Vec4::norm (void)
 	{
-		float len =
+		float len
+		{
 			sqrt
 			(
 				(data[0] * data[0]) +
 				(data[1] * data[1]) +
 				(data[2] * data[2]) +
 				(data[3] * data[3])
-			);
+			)
+		};
 
 		data[0] /= len;
 		data[1] /= len;
@@ -180,6 +182,199 @@ namespace XGK::DATA
 	void Vec4::print (void)
 	{
 		printf("%f %f %f %f\n\n", data[0], data[1], data[2], data[3]);
+	}
+
+
+
+	void Vec4::makeBezierCurve3Point
+	(
+		const float& x1,
+		const float& y1,
+		const float& x2,
+		const float& y2,
+		const float& x3,
+		const float& y3,
+		const float& x4,
+		const float& y4,
+		const float& t
+	)
+	{
+		const float a { 1.0f - t };
+		const float b { a * a };
+		const float c { t * t };
+		const float d { a * b };
+		const float e { 3.0f * t * b };
+		const float f { 3.0f * c * a };
+		const float g { c * t };
+
+		data[0] = (x1 * d) + (x2 * e) + (x3 * f) + (x4 * g);
+		data[1] = (y1 * d) + (y2 * e) + (y3 * f) + (y4 * g);
+		data[2] = 0.0f;
+		data[3] = 0.0f;
+	}
+
+	void Vec4::makeBezierCurve2Point3D
+	(
+		const Vec4& p1,
+		const Vec4& p2,
+		const Vec4& p3,
+		const float& t
+	)
+	{
+		const float a { 1.0 - t };
+		const float b { a * a };
+		const float c { 2.0 * t * a };
+		const float d { t * t };
+
+		reset();
+
+		Vec4 v { p1 };
+		v.muls(b);
+		add(&v);
+
+		v = p2;
+		v.muls(c);
+		add(&v);
+
+		v = p3;
+		v.muls(d);
+		add(&v);
+	}
+
+	void Vec4::makeBezierCurve3Point3D
+	(
+		const Vec4& p1,
+		const Vec4& p2,
+		const Vec4& p3,
+		const Vec4& p4,
+		const float& t
+	)
+	{
+		const float a { 1.0 - t };
+		const float b { a * a };
+		const float c { t * t };
+		const float d { a * b };
+		const float e { 3.0 * t * b };
+		const float f { 3.0 * c * a };
+		const float g { c * t };
+
+		reset();
+
+		Vec4 v { p1 };
+		v.muls(d);
+		add(&v);
+
+		v = p2;
+		v.muls(e);
+		add(&v);
+
+		v = p3;
+		v.muls(f);
+		add(&v);
+
+		v = p4;
+		v.muls(g);
+		add(&v);
+	}
+
+	void Vec4::makeCatmullRomSpline3ControlPoint3D
+	(
+		const Vec4& p1,
+		const Vec4& p2,
+		const Vec4& p3,
+		const float& t
+	)
+	{
+		reset();
+		add(&p3);
+		sub(&p1);
+		muls(t);
+		add(&p2);
+	}
+
+	void Vec4::makeCatmullRomSpline3Points3D
+	(
+		std::vector<Vec4>& dst,
+		std::vector<Vec4>& points,
+		const size_t& segment_count,
+		const float& tension
+	)
+	{
+		Vec4 prev_control_point;
+		Vec4 next_control_point;
+
+		Vec4* points_data { points.data() };
+		const size_t points_size { points.size() };
+
+		for (size_t i {}; i < points_size; ++i)
+		{
+			Vec4 prev_point { i > 0 ? points_data[i - 1] : points_data[i - 1 + points_size] };
+			Vec4 curr_point { points_data[i] };
+			Vec4 next_point { i < points_size ? &points_data[i + 1] : &points_data[i + 1 - points_size] };
+			Vec4 next_next_point { i < (points_size - 1) ? &points_data[i + 2] : &points_data[i + 2 - points_size] };
+
+			prev_control_point.makeCatmullRomSpline3ControlPoint3D(prev_point, curr_point, next_point, tension);
+			next_control_point.makeCatmullRomSpline3ControlPoint3D(curr_point, next_point, next_next_point, -tension);
+
+			for (size_t k {}; k < segment_count; ++k)
+			{
+				const float t { ((float) k) / ((float) segment_count) };
+
+				Vec4 point;
+
+				if (i == 0)
+				{
+					point.makeBezierCurve2Point3D(curr_point, next_control_point, next_point, t);
+				}
+				else if (i == (points_size - 2))
+				{
+					point.makeBezierCurve2Point3D(curr_point, prev_control_point, next_point, t);
+				}
+				else
+				{
+					point.makeBezierCurve3Point3D(curr_point, prev_control_point, next_control_point, next_point, t);
+				}
+
+				dst.push_back(point);
+			}
+		}
+	}
+
+	void Vec4::makeCatmullRomSpline3PointsClosed3D
+	(
+		std::vector<Vec4>& dst,
+		std::vector<Vec4>& points,
+		const size_t& segment_count,
+		const float& tension
+	)
+	{
+		Vec4 prev_control_point;
+		Vec4 next_control_point;
+
+		Vec4* points_data { points.data() };
+		const size_t points_size { points.size() };
+
+		for (size_t i {}; i < points_size; ++i)
+		{
+			Vec4 prev_point { i > 0 ? points_data[i - 1] : points_data[i - 1 + points_size] };
+			Vec4 curr_point { points_data[i] };
+			Vec4 next_point { i < points_size ? &points_data[i + 1] : &points_data[i + 1 - points_size] };
+			Vec4 next_next_point { i < (points_size - 1) ? &points_data[i + 2] : &points_data[i + 2 - points_size] };
+
+			prev_control_point.makeCatmullRomSpline3ControlPoint3D(prev_point, curr_point, next_point, tension);
+			next_control_point.makeCatmullRomSpline3ControlPoint3D(curr_point, next_point, next_next_point, -tension);
+
+			for (size_t k {}; k < segment_count; ++k)
+			{
+				const float t { ((float) k) / ((float) segment_count) };
+
+				Vec4 point;
+
+				point.makeBezierCurve3Point3D(curr_point, prev_control_point, next_control_point, next_point, t);
+
+				dst.push_back(point);
+			}
+		}
 	}
 }
 

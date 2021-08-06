@@ -58,7 +58,7 @@ namespace XGK::DATA
 		// printf("Mat4::Mat4 (void): %i\n", id);
 	}
 
-	Mat4::Mat4 (void* src)
+	Mat4::Mat4 (const void* src)
 	{
 		memcpy(data, src, FLOAT_SIZE_16);
 
@@ -104,7 +104,7 @@ namespace XGK::DATA
 
 
 
-	void Mat4::operator = (void* src)
+	void Mat4::operator = (const void* src)
 	{
 		memcpy(data, src, FLOAT_SIZE_16);
 

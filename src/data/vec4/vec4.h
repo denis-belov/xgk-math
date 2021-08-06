@@ -7,6 +7,7 @@
 
 
 #include <initializer_list>
+#include <vector>
 
 
 
@@ -19,16 +20,17 @@ namespace XGK::DATA
 
 
 		Vec4 (void);
-		Vec4 (void* src);
+		Vec4 (const void* src);
 		Vec4 (const Vec4& src);
 		Vec4 (const Vec4&& src);
+		// reference ?
 		Vec4 (std::initializer_list<float> list);
 
 		~Vec4 (void);
 
 
 
-		void operator = (void* src);
+		void operator = (const void* src);
 		void operator = (const Vec4& src);
 		void operator = (const Vec4&& src);
 
@@ -40,16 +42,72 @@ namespace XGK::DATA
 		float len (void);
 		// todo
 		float lensq (void);
-		void add (void*);
+		void add (const void*);
 		void adds (const float&);
-		void sub (void*);
+		void sub (const void*);
 		void subs (const float&);
-		void mul (void*);
+		void mul (const void*);
 		void muls (const float&);
-		void div (void*);
+		void div (const void*);
 		void divs (const float&);
 		void norm (void);
 		void print (void);
+
+
+
+		void makeBezierCurve3Point
+		(
+			const float&,
+			const float&,
+			const float&,
+			const float&,
+			const float&,
+			const float&,
+			const float&,
+			const float&,
+			const float&
+		);
+
+		void makeBezierCurve2Point3D
+		(
+			const Vec4&,
+			const Vec4&,
+			const Vec4&,
+			const float&
+		);
+
+		void makeBezierCurve3Point3D
+		(
+			const Vec4&,
+			const Vec4&,
+			const Vec4&,
+			const Vec4&,
+			const float&
+		);
+
+		void makeCatmullRomSpline3ControlPoint3D
+		(
+			const Vec4&,
+			const Vec4&,
+			const Vec4&,
+			const float&
+		);
+
+		static void makeCatmullRomSpline3Points3D
+		(
+			std::vector<Vec4>&,
+			std::vector<Vec4>&,
+			const size_t&,
+			const float&
+		);
+
+		static void makeCatmullRomSpline3PointsClosed3D
+		(
+			std::vector<Vec4>&,
+			std::vector<Vec4>&,
+			const size_t&,
+			const float&
+		);
 	};
 }
 

@@ -72,7 +72,7 @@ namespace XGK
 
 
 
-	void Object::setTrans (void* vector_addr)
+	void Object::setTrans (const void* vector_addr)
 	{
 		_trans = vector_addr;
 	}

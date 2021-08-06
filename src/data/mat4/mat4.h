@@ -17,7 +17,7 @@ namespace XGK::DATA
 
 
 		Mat4 (void);
-		Mat4 (void* src);
+		Mat4 (const void* src);
 		Mat4 (const Mat4& src);
 		Mat4 (const Mat4&& src);
 		Mat4 (std::initializer_list<float> list);
@@ -26,7 +26,7 @@ namespace XGK::DATA
 
 
 
-		void operator = (void* src);
+		void operator = (const void* src);
 		void operator = (const Mat4& src);
 		void operator = (const Mat4&& src);
 
