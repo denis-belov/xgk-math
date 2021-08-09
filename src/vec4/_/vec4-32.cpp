@@ -2,7 +2,7 @@
 
 
 
-namespace XGK::DATA::VEC4 {
+namespace XGK::MATH::VEC4 {
 
 	void set32 (void* data_addr, const float x, const float y, const float z, const float w) {
 

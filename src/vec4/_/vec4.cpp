@@ -8,14 +8,14 @@
 
 
 
-namespace XGK::DATA {
+namespace XGK::MATH {
 
 	extern const uint8_t FLOAT_SIZE_4;
 }
 
 
 
-namespace XGK::DATA::VEC4 {
+namespace XGK::MATH::VEC4 {
 
 	void set32 (void*, const float, const float, const float, const float);
 	void add32 (void*, void*);

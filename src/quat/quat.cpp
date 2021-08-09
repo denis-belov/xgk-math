@@ -11,18 +11,21 @@
 
 
 
-namespace XGK::DATA
+namespace XGK::MATH
 {
-	extern const uint8_t FLOAT_SIZE_4;
+	namespace CONST
+	{
+		extern const uint8_t FLOAT_SIZE_4;
 
-	alignas(16) const float ZERO_4 [4] { 0.0f, 0.0f, 0.0f, 0.0f };
-	alignas(16) const float IDENT_4 [4] { 0.0f, 0.0f, 0.0f, 1.0f };
+		alignas(16) extern const float ZERO_4 [4];
+		alignas(16) extern const float IDENT_4 [4];
+	}
 
 
 
 	Quat::Quat (void)
 	{
-		memcpy(data, IDENT_4, FLOAT_SIZE_4);
+		memcpy(data, CONST::IDENT_4, CONST::FLOAT_SIZE_4);
 
 		// // compare performance with
 		// memset(data, 0, FLOAT_SIZE_4);
@@ -30,17 +33,17 @@ namespace XGK::DATA
 
 	Quat::Quat (const void* src)
 	{
-		memcpy(data, src, FLOAT_SIZE_4);
+		memcpy(data, src, CONST::FLOAT_SIZE_4);
 	}
 
 	Quat::Quat (const Quat& src)
 	{
-		memcpy(data, &src, FLOAT_SIZE_4);
+		memcpy(data, &src, CONST::FLOAT_SIZE_4);
 	}
 
 	Quat::Quat (const Quat&& src)
 	{
-		memcpy(data, &src, FLOAT_SIZE_4);
+		memcpy(data, &src, CONST::FLOAT_SIZE_4);
 	}
 
 	Quat::Quat (std::initializer_list<float>& list)
@@ -64,24 +67,24 @@ namespace XGK::DATA
 
 	void Quat::operator = (const void* src)
 	{
-		memcpy(data, src, FLOAT_SIZE_4);
+		memcpy(data, src, CONST::FLOAT_SIZE_4);
 	}
 
 	void Quat::operator = (const Quat& src)
 	{
-		memcpy(data, &src, FLOAT_SIZE_4);
+		memcpy(data, &src, CONST::FLOAT_SIZE_4);
 	}
 
 	void Quat::operator = (const Quat&& src)
 	{
-		memcpy(data, &src, FLOAT_SIZE_4);
+		memcpy(data, &src, CONST::FLOAT_SIZE_4);
 	}
 
 
 
 	void Quat::reset (void)
 	{
-		memcpy(data, ZERO_4, FLOAT_SIZE_4);
+		memcpy(data, CONST::ZERO_4, CONST::FLOAT_SIZE_4);
 	}
 
 	void Quat::set (const float& x, const float& y, const float& z, const float& w)
@@ -91,7 +94,7 @@ namespace XGK::DATA
 
 	void Quat::ident (void)
 	{
-		memcpy(data, IDENT_4, FLOAT_SIZE_4);
+		memcpy(data, CONST::IDENT_4, CONST::FLOAT_SIZE_4);
 	}
 
 	// TODO simd

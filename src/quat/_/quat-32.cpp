@@ -2,7 +2,7 @@
 
 
 
-namespace XGK::DATA::QUAT {
+namespace XGK::MATH::QUAT {
 
 	void premul32 (void* data0, void* data1) {
 

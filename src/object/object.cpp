@@ -2,7 +2,7 @@
 
 
 
-namespace XGK
+namespace XGK::MATH
 {
 	void Object::setRot (void* vector_addr, const float& angle)
 	{
@@ -130,7 +130,7 @@ namespace XGK
 		quat.norm();
 		// mat.makeRotQuat(quat);
 		// mat.preTrans(_trans);
-		// DATA::MAT4::premul(this, &parent);
+		// MAT4::premul(this, &parent);
 	}
 
 	void Object::update2 (void)

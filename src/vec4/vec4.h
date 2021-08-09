@@ -1,8 +1,8 @@
 // Is there a need to define simd functions since compiler properly vectorize scalar functions?
 // Need to test!
 
-#ifndef __XGK_MATH_DATA_VEC4__
-#define __XGK_MATH_DATA_VEC4__
+#ifndef __XGK_MATH_VEC4__
+#define __XGK_MATH_VEC4__
 
 
 
@@ -11,7 +11,7 @@
 
 
 
-namespace XGK::DATA
+namespace XGK::MATH
 {
 	struct alignas(16) Vec4
 	{

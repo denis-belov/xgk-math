@@ -41,7 +41,7 @@
 
 
 
-namespace XGK::DATA
+namespace XGK::MATH
 {
 	void Mat4::mul128 (void* left, void* right)
 	{

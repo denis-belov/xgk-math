@@ -53,7 +53,7 @@
 
 
 
-namespace XGK::DATA::QUAT {
+namespace XGK::MATH::QUAT {
 
 	alignas(16) extern const __m128 CONST_MUL;
 	alignas(16) extern const __m128 CONST_MUL2;

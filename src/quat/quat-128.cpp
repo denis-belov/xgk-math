@@ -20,7 +20,7 @@
 \
 	alignas(16) __m128 h = _mm_addsub_ps(d, e);\
 	h = _mm_shuffle_ps(h, h, _MM_SHUFFLE(0, 1, 2, 3));\
-	alignas(16) const __m128 i = _mm_mul_ps(_mm_addsub_ps(f, g), QUAT::CONST_MUL);\
+	alignas(16) const __m128 i = _mm_mul_ps(_mm_addsub_ps(f, g), CONST_MUL);\
 	alignas(16) const __m128 j = _mm_add_ps(h, i);\
 \
 	_mm_store_ps(data, j);
@@ -34,12 +34,9 @@
 
 
 
-namespace XGK::DATA
+namespace XGK::MATH
 {
-	namespace QUAT
-	{
-		alignas(16) extern const __m128 CONST_MUL;
-	}
+	alignas(16) const __m128 CONST_MUL = { 1.0f, 1.0f, -1.0f, -1.0f };
 
 
 

@@ -4,14 +4,14 @@
 
 
 
-namespace XGK::DATA {
+namespace XGK::MATH {
 
 	extern const uint8_t FLOAT_SIZE_4;
 }
 
 
 
-namespace XGK::DATA::QUAT {
+namespace XGK::MATH::QUAT {
 
 	alignas(16) extern const float CONST_IDENT[4];
 

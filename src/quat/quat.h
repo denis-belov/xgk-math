@@ -1,5 +1,5 @@
-#ifndef __XGK_MATH_DATA_QUAT__
-#define __XGK_MATH_DATA_QUAT__
+#ifndef __XGK_MATH_QUAT__
+#define __XGK_MATH_QUAT__
 
 
 
@@ -7,7 +7,7 @@
 
 
 
-namespace XGK::DATA
+namespace XGK::MATH
 {
 	// Needs to be dirived from Vec4 ?
 	struct alignas(16) Quat

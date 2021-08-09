@@ -11,46 +11,51 @@
 		{
 			"cpp":
 			[
-				"$(SRC)/data/const.cpp",
+				"$(SRC)/const.cpp",
 
 				{
-					"source": "$(SRC)/data/vec4/vec4.cpp",
-					"headers": "$(SRC)/data/vec4/vec4.h"
+					"source": "$(SRC)/vec4/vec4.cpp",
+					"headers": "$(SRC)/vec4/vec4.h"
 				},
 
 				{
-					"source": "$(SRC)/data/quat/quat.cpp",
-					"headers": "$(SRC)/data/quat/quat.h"
+					"source": "$(SRC)/quat/quat.cpp",
+					"headers": "$(SRC)/quat/quat.h"
 				},
 
 				{
-					"source": "$(SRC)/data/quat/quat-32.cpp",
-					"headers": "$(SRC)/data/quat/quat.h"
+					"source": "$(SRC)/quat/quat-32.cpp",
+					"headers": "$(SRC)/quat/quat.h"
 				},
 
 				{
-					"source": "$(SRC)/data/quat/quat-128.cpp",
-					"headers": "$(SRC)/data/quat/quat.h"
+					"source": "$(SRC)/quat/quat-128.cpp",
+					"headers": "$(SRC)/quat/quat.h"
 				},
 
 				{
-					"source": "$(SRC)/data/mat4/mat4.cpp",
-					"headers": "$(SRC)/data/mat4/mat4.h"
+					"source": "$(SRC)/mat4/mat4.cpp",
+					"headers": "$(SRC)/mat4/mat4.h"
 				},
 
 				{
-					"source": "$(SRC)/data/mat4/mat4-32.cpp",
-					"headers": "$(SRC)/data/mat4/mat4.h"
+					"source": "$(SRC)/mat4/mat4-32.cpp",
+					"headers": "$(SRC)/mat4/mat4.h"
 				},
 
 				{
-					"source": "$(SRC)/data/mat4/mat4-128.cpp",
-					"headers": "$(SRC)/data/mat4/mat4.h"
+					"source": "$(SRC)/mat4/mat4-128.cpp",
+					"headers": "$(SRC)/mat4/mat4.h"
 				},
 
 				{
 					"source": "$(SRC)/object/object.cpp",
 					"headers": "$(SRC)/object/object.h"
+				},
+
+				{
+					"source": "$(SRC)/orbit/orbit.cpp",
+					"headers": "$(SRC)/orbit/orbit.h"
 				}
 			]
 		}

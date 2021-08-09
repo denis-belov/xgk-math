@@ -1,5 +1,5 @@
-#ifndef __XGK_MATH_DATA_MAT4__
-#define __XGK_MATH_DATA_MAT4__
+#ifndef __XGK_MATH_MAT4__
+#define __XGK_MATH_MAT4__
 
 
 
@@ -7,14 +7,11 @@
 
 
 
-namespace XGK::DATA
+namespace XGK::MATH
 {
 	struct alignas(16) Mat4
 	{
 		alignas(16) float data [16];
-		// int id = 0;
-
-
 
 		Mat4 (void);
 		Mat4 (const void* src);
@@ -60,10 +57,6 @@ namespace XGK::DATA
 		void transp32 (void);
 		void transp128 (void);
 		void print (void);
-
-
-
-		// static int counter;
 	};
 }
 

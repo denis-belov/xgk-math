@@ -22,25 +22,28 @@
 
 
 
-namespace XGK::DATA
+namespace XGK::MATH
 {
-	// defined in const.cpp
-	extern const uint8_t FLOAT_SIZE_16;
+	namespace CONST
+	{
+		extern const uint8_t FLOAT_SIZE_16;
 
+		alignas(16) extern const float IDENT_4 [4];
+	}
 
+	alignas(16) const float CONST_MUL [4] { 2.0f, 2.0f, 2.0f, 0.0f };
+	alignas(16) const float CONST_ONE [4] { 1.0f, 1.0f, 1.0f, 0.0f };
 
-	alignas(16) extern const float IDENT_COL3 [4] { 0.0f, 0.0f, 0.0f, 1.0f };
-	alignas(16) extern const float CONST_MUL [4] { 2.0f, 2.0f, 2.0f, 0.0f };
-	alignas(16) extern const float CONST_ONE [4] { 1.0f, 1.0f, 1.0f, 0.0f };
-
-	alignas(16) extern const float IDENT_12 [12]
+	// CONST_IDENT_12
+	alignas(16) const float IDENT_12 [12]
 	{
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
 		0.0f, 0.0f, 1.0f, 0.0f
 	};
 
-	alignas(16) extern const float IDENT_16 [16]
+	// CONST_IDENT_16
+	alignas(16) const float IDENT_16 [16]
 	{
 		1.0f, 0.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f, 0.0f,
@@ -52,40 +55,26 @@ namespace XGK::DATA
 
 	Mat4::Mat4 (void)
 	{
-		memcpy(data, IDENT_16, FLOAT_SIZE_16);
-
-		// id = ++Mat4::counter;
-		// printf("Mat4::Mat4 (void): %i\n", id);
+		memcpy(data, IDENT_16, CONST::FLOAT_SIZE_16);
 	}
 
 	Mat4::Mat4 (const void* src)
 	{
-		memcpy(data, src, FLOAT_SIZE_16);
-
-		// id = ++Mat4::counter;
-		// printf("Mat4::Mat4 (void* src): %i\n", id);
+		memcpy(data, src, CONST::FLOAT_SIZE_16);
 	}
 
 	Mat4::Mat4 (const Mat4& src)
 	{
-		memcpy(data, &src, FLOAT_SIZE_16);
-
-		// id = ++Mat4::counter;
-		// printf("Mat4::Mat4 (const Mat4& m): %i\n", id);
+		memcpy(data, &src, CONST::FLOAT_SIZE_16);
 	}
 
 	Mat4::Mat4 (const Mat4&& src)
 	{
-		memcpy(data, &src, FLOAT_SIZE_16);
-
-		// id = ++Mat4::counter;
-		// printf("Mat4::Mat4 (const Mat4&& m): %i\n", id);
+		memcpy(data, &src, CONST::FLOAT_SIZE_16);
 	}
 
 	Mat4::~Mat4 (void)
-	{
-		// printf("Mat4::~Mat4 (void): %i\n", id);
-	}
+	{}
 
 	Mat4::Mat4 (std::initializer_list<float>& list)
 	{
@@ -106,29 +95,17 @@ namespace XGK::DATA
 
 	void Mat4::operator = (const void* src)
 	{
-		memcpy(data, src, FLOAT_SIZE_16);
-
-		// id += 20;
-		// printf("Mat4& Mat4::operator = (void* src): %i\n", id);
-		// return *this;
+		memcpy(data, src, CONST::FLOAT_SIZE_16);
 	}
 
 	void Mat4::operator = (const Mat4& src)
 	{
-		memcpy(data, &src, FLOAT_SIZE_16);
-
-		// id += 10;
-		// printf("Mat4& Mat4::operator = (const Mat4& src): %i\n", id);
-		// return *this;
+		memcpy(data, &src, CONST::FLOAT_SIZE_16);
 	}
 
 	void Mat4::operator = (const Mat4&& src)
 	{
-		memcpy(data, &src, FLOAT_SIZE_16);
-
-		// id += 100;
-		// printf("Mat4& Mat4::operator = (const Mat4&& src): %i\n", id);
-		// return *this;
+		memcpy(data, &src, CONST::FLOAT_SIZE_16);
 	}
 
 
@@ -136,12 +113,12 @@ namespace XGK::DATA
 	// inline ?
 	void Mat4::zero (void)
 	{
-		memset(data, 0, FLOAT_SIZE_16);
+		memset(data, 0, CONST::FLOAT_SIZE_16);
 	}
 
 	void Mat4::ident (void)
 	{
-		memcpy(data, IDENT_16, FLOAT_SIZE_16);
+		memcpy(data, IDENT_16, CONST::FLOAT_SIZE_16);
 
 		// // compare performance with
 		// memset(data, 0, FLOAT_SIZE_16);
@@ -213,10 +190,6 @@ namespace XGK::DATA
 		printf("%f %f %f %f\n", data[3], data[7], data[11], data[15]);
 		printf("\n");
 	}
-
-
-
-	// int Mat4::counter = 0;
 }
 
 

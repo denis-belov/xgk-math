@@ -104,19 +104,19 @@ namespace XGK::MATH::UTIL
 	// 	const float c { 2.0 * t * a };
 	// 	const float d { t * t };
 
-	// 	DATA::VEC4::reset(dst_p);
+	// 	VEC4::reset(dst_p);
 
-	// 	DATA::VEC4::copy(v, p1);
-	// 	DATA::VEC4::muls32(v, b);
-	// 	DATA::VEC4::add32(dst_p, v);
+	// 	VEC4::copy(v, p1);
+	// 	VEC4::muls32(v, b);
+	// 	VEC4::add32(dst_p, v);
 
-	// 	DATA::VEC4::copy(v, p2);
-	// 	DATA::VEC4::muls32(v, c);
-	// 	DATA::VEC4::add32(dst_p, v);
+	// 	VEC4::copy(v, p2);
+	// 	VEC4::muls32(v, c);
+	// 	VEC4::add32(dst_p, v);
 
-	// 	DATA::VEC4::copy(v, p3);
-	// 	DATA::VEC4::muls32(v, d);
-	// 	DATA::VEC4::add32(dst_p, v);
+	// 	VEC4::copy(v, p3);
+	// 	VEC4::muls32(v, d);
+	// 	VEC4::add32(dst_p, v);
 	// }
 
 
@@ -141,23 +141,23 @@ namespace XGK::MATH::UTIL
 	// 	const float f { 3.0 * c * a };
 	// 	const float g { c * t };
 
-	// 	DATA::VEC4::reset(dst_p);
+	// 	VEC4::reset(dst_p);
 
-	// 	DATA::VEC4::copy(v, p1);
-	// 	DATA::VEC4::muls32(v, d);
-	// 	DATA::VEC4::add32(dst_p, v);
+	// 	VEC4::copy(v, p1);
+	// 	VEC4::muls32(v, d);
+	// 	VEC4::add32(dst_p, v);
 
-	// 	DATA::VEC4::copy(v, p2);
-	// 	DATA::VEC4::muls32(v, e);
-	// 	DATA::VEC4::add32(dst_p, v);
+	// 	VEC4::copy(v, p2);
+	// 	VEC4::muls32(v, e);
+	// 	VEC4::add32(dst_p, v);
 
-	// 	DATA::VEC4::copy(v, p3);
-	// 	DATA::VEC4::muls32(v, f);
-	// 	DATA::VEC4::add32(dst_p, v);
+	// 	VEC4::copy(v, p3);
+	// 	VEC4::muls32(v, f);
+	// 	VEC4::add32(dst_p, v);
 
-	// 	DATA::VEC4::copy(v, p4);
-	// 	DATA::VEC4::muls32(v, g);
-	// 	DATA::VEC4::add32(dst_p, v);
+	// 	VEC4::copy(v, p4);
+	// 	VEC4::muls32(v, g);
+	// 	VEC4::add32(dst_p, v);
 	// }
 
 
@@ -171,11 +171,11 @@ namespace XGK::MATH::UTIL
 	// 	const float& t
 	// )
 	// {
-	// 	DATA::VEC4::reset(dst_p);
-	// 	DATA::VEC4::add32(dst_p, p3);
-	// 	DATA::VEC4::sub32(dst_p, p1);
-	// 	DATA::VEC4::muls32(dst_p, t);
-	// 	DATA::VEC4::add32(dst_p, p2);
+	// 	VEC4::reset(dst_p);
+	// 	VEC4::add32(dst_p, p3);
+	// 	VEC4::sub32(dst_p, p1);
+	// 	VEC4::muls32(dst_p, t);
+	// 	VEC4::add32(dst_p, p2);
 	// }
 
 

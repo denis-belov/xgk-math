@@ -11,17 +11,20 @@
 
 
 
-namespace XGK::DATA
+namespace XGK::MATH
 {
-	extern const uint8_t FLOAT_SIZE_4;
+	namespace CONST
+	{
+		extern const uint8_t FLOAT_SIZE_4;
 
-	alignas(16) const float ZERO_4 [4] { 0.0f, 0.0f, 0.0f, 0.0f };
+		alignas(16) extern const float ZERO_4 [4];
+	}
 
 
 
 	Vec4::Vec4 (void)
 	{
-		memcpy(data, ZERO_4, FLOAT_SIZE_4);
+		memcpy(data, CONST::ZERO_4, CONST::FLOAT_SIZE_4);
 
 		// // compare performance with
 		// memset(data, 0, FLOAT_SIZE_4);
@@ -29,17 +32,17 @@ namespace XGK::DATA
 
 	Vec4::Vec4 (const void* src)
 	{
-		memcpy(data, src, FLOAT_SIZE_4);
+		memcpy(data, src, CONST::FLOAT_SIZE_4);
 	}
 
 	Vec4::Vec4 (const Vec4& src)
 	{
-		memcpy(data, &src, FLOAT_SIZE_4);
+		memcpy(data, &src, CONST::FLOAT_SIZE_4);
 	}
 
 	Vec4::Vec4 (const Vec4&& src)
 	{
-		memcpy(data, &src, FLOAT_SIZE_4);
+		memcpy(data, &src, CONST::FLOAT_SIZE_4);
 	}
 
 	Vec4::Vec4 (std::initializer_list<float>& list)
@@ -63,24 +66,24 @@ namespace XGK::DATA
 
 	void Vec4::operator = (const void* src)
 	{
-		memcpy(data, src, FLOAT_SIZE_4);
+		memcpy(data, src, CONST::FLOAT_SIZE_4);
 	}
 
 	void Vec4::operator = (const Vec4& src)
 	{
-		memcpy(data, &src, FLOAT_SIZE_4);
+		memcpy(data, &src, CONST::FLOAT_SIZE_4);
 	}
 
 	void Vec4::operator = (const Vec4&& src)
 	{
-		memcpy(data, &src, FLOAT_SIZE_4);
+		memcpy(data, &src, CONST::FLOAT_SIZE_4);
 	}
 
 
 
 	void Vec4::reset (void)
 	{
-		memcpy(data, ZERO_4, FLOAT_SIZE_4);
+		memcpy(data, CONST::ZERO_4, CONST::FLOAT_SIZE_4);
 	}
 
 	void Vec4::set (const float& x, const float& y, const float& z, const float& w)

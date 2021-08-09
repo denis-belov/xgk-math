@@ -56,7 +56,7 @@
 
 
 
-namespace XGK::DATA::VEC4 {
+namespace XGK::MATH::VEC4 {
 
 	void set128 (void* data, const float x, const float y, const float z, const float w) {
 

@@ -3,21 +3,21 @@
 
 
 
-#include "data/vec4/vec4.h"
-#include "data/quat/quat.h"
-#include "data/mat4/mat4.h"
+#include "vec4/vec4.h"
+#include "quat/quat.h"
+#include "mat4/mat4.h"
 
 
 
-namespace XGK
+namespace XGK::MATH
 {
 	struct alignas(16) Object
 	{
-		DATA::Mat4 mat;
-		DATA::Quat quat;
-		DATA::Vec4 _trans;
-		DATA::Vec4 origin;
-		DATA::Vec4 aux_vec;
+		Mat4 mat;
+		Quat quat;
+		Vec4 _trans;
+		Vec4 origin;
+		Vec4 aux_vec;
 
 
 

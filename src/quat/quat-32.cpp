@@ -4,7 +4,7 @@
 
 
 
-namespace XGK::DATA
+namespace XGK::MATH
 {
 	void Quat::mul32 (void* left, void* right)
 	{
