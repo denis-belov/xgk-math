@@ -40,33 +40,33 @@ namespace XGK::MATH
 
 
 
-	void Quat::mul128 (void* left, void* right)
+	void Quat::mul128 (const void* left, const void* right)
 	{
-		float* _left = (float*) left;
-		float* _right = (float*) right;
+		const float* _left = (const float*) left;
+		const float* _right = (const float*) right;
 
 		MUL(_left, _right)
 	}
 
 	// src == left
-	void Quat::premul128 (void* src)
+	void Quat::premul128 (const void* src)
 	{
-		float* _src = (float*) src;
+		const float* _src = (const float*) src;
 
 		MUL(_src, data)
 	}
 
 	// src == right
-	void Quat::postmul128 (void* src)
+	void Quat::postmul128 (const void* src)
 	{
-		float* _src = (float*) src;
+		const float* _src = (const float*) src;
 
 		MUL(data, _src)
 	}
 
-	void Quat::makeRot128 (void* axis, const float& angle)
+	void Quat::makeRot128 (const void* axis, const float& angle)
 	{
-		float* _axis = static_cast<float*>(axis);
+		const float* _axis = static_cast<const float*>(axis);
 
 		const float angle_half = angle * 0.5f;
 
@@ -79,10 +79,10 @@ namespace XGK::MATH
 		_mm_store_ps(data, data_128);
 	}
 
-	void Quat::preRot128 (void* axis, const float& angle)
+	void Quat::preRot128 (const void* axis, const float& angle)
 	{
 		// left
-		float* _axis = static_cast<float*>(axis);
+		const float* _axis = static_cast<const float*>(axis);
 
 		const float angle_half = angle * 0.5f;
 
@@ -96,10 +96,10 @@ namespace XGK::MATH
 		MUL(data_32, data)
 	}
 
-	void Quat::postRot128 (void* axis, const float& angle)
+	void Quat::postRot128 (const void* axis, const float& angle)
 	{
 		// right
-		float* _axis = static_cast<float*>(axis);
+		const float* _axis = static_cast<const float*>(axis);
 
 		const float angle_half = angle * 0.5f;
 
@@ -219,3 +219,7 @@ namespace XGK::MATH
 		_mm_store_ps(data, c);
 	}
 }
+
+
+
+#undef MUL

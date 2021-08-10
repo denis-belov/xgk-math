@@ -6,10 +6,10 @@
 
 namespace XGK::MATH
 {
-	void Quat::mul32 (void* left, void* right)
+	void Quat::mul32 (const void* left, const void* right)
 	{
-		const float* _left = (float*) left;
-		const float* _right = (float*) right;
+		const float* _left = (const float*) left;
+		const float* _right = (const float*) right;
 
 		const float x0 = _right[0];
 		const float y0 = _right[1];
@@ -23,9 +23,9 @@ namespace XGK::MATH
 	}
 
 	// src == left
-	void Quat::premul32 (void* src)
+	void Quat::premul32 (const void* src)
 	{
-		const float* _src = (float*) src;
+		const float* _src = (const float*) src;
 
 		const float x0 = data[0];
 		const float y0 = data[1];
@@ -39,9 +39,9 @@ namespace XGK::MATH
 	}
 
 	// src == right
-	void Quat::postmul32 (void* src)
+	void Quat::postmul32 (const void* src)
 	{
-		const float* _src = (float*) src;
+		const float* _src = (const float*) src;
 
 		const float x0 = data[0];
 		const float y0 = data[1];
@@ -54,9 +54,9 @@ namespace XGK::MATH
 		data[3] = (w0 * _src[3]) - (x0 * _src[0]) - (y0 * _src[1]) - (z0 * _src[2]);
 	}
 
-	void Quat::makeRot32 (void* axis, const float& angle)
+	void Quat::makeRot32 (const void* axis, const float& angle)
 	{
-		float* _axis = (float*) axis;
+		const float* _axis = (const float*) axis;
 
 		const float angle_half = angle * 0.5f;
 		const float _sin = sin(angle_half);
@@ -67,10 +67,10 @@ namespace XGK::MATH
 		data[3] = cos(angle_half);
 	}
 
-	void Quat::preRot32 (void* axis, const float& angle)
+	void Quat::preRot32 (const void* axis, const float& angle)
 	{
 		// make quaternion q1 (x1, y1, z1, w1) and premultiply this with q1, q1 == left
-		float* _axis = (float*) axis;
+		const float* _axis = (const float*) axis;
 
 		const float angle_half = angle * 0.5f;
 		const float _sin = sin(angle_half);
@@ -92,10 +92,10 @@ namespace XGK::MATH
 		data[3] = (w1 * w0) - (x1 * x0) - (y1 * y0) - (z1 * z0);
 	}
 
-	void Quat::postRot32 (void* axis, const float& angle)
+	void Quat::postRot32 (const void* axis, const float& angle)
 	{
 		//  make quaternion q1 (x1, y1, z1, w1) and postmultiply this with q1, q1 == right
-		float* _axis = (float*) axis;
+		const float* _axis = (const float*) axis;
 
 		const float angle_half = angle * 0.5f;
 		const float _sin = sin(angle_half);

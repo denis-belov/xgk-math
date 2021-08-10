@@ -4,17 +4,17 @@
 
 namespace XGK::MATH
 {
-	void Object::setRot (void* vector_addr, const float& angle)
+	void Object::setRot (const void* vector_addr, const float& angle)
 	{
 		quat.makeRot32(vector_addr, angle);
 	}
 
-	void Object::preRot (void* vector_addr, const float& angle)
+	void Object::preRot (const void* vector_addr, const float& angle)
 	{
 		quat.preRot32(vector_addr, angle);
 	}
 
-	void Object::postRot (void* vector_addr, const float& angle)
+	void Object::postRot (const void* vector_addr, const float& angle)
 	{
 		quat.postRot32(vector_addr, angle);
 	}
@@ -74,52 +74,52 @@ namespace XGK::MATH
 
 	void Object::setTrans (const void* vector_addr)
 	{
-		_trans = vector_addr;
+		pos = vector_addr;
 	}
 
-	// void Object::trans (void* vector_addr, const float& value)
-	// {
-	// 	aux_vec = vector_addr;
+	void Object::trans (const void* vector_addr, const float& value)
+	{
+		aux_vec = vector_addr;
 
-	// 	aux_vec.muls(value);
+		aux_vec.muls(value);
 
-	// 	_trans.add(aux_vec);
-	// }
+		pos.add(&aux_vec);
+	}
 
 
 
 	void Object::setTransX (const float& value)
 	{
-		_trans.data[0] = value;
+		pos.data[0] = value;
 	}
 
 	void Object::transX (const float& value)
 	{
-		_trans.data[0] += value;
+		pos.data[0] += value;
 	}
 
 
 
 	void Object::setTransY (const float& value)
 	{
-		_trans.data[1] = value;
+		pos.data[1] = value;
 	}
 
 	void Object::transY (const float& value)
 	{
-		_trans.data[1] += value;
+		pos.data[1] += value;
 	}
 
 
 
 	void Object::setTransZ (const float& value)
 	{
-		_trans.data[2] = value;
+		pos.data[2] = value;
 	}
 
 	void Object::transZ (const float& value)
 	{
-		_trans.data[2] += value;
+		pos.data[2] += value;
 	}
 
 
@@ -129,14 +129,14 @@ namespace XGK::MATH
 		// remove?
 		quat.norm();
 		// mat.makeRotQuat(quat);
-		// mat.preTrans(_trans);
+		// mat.preTrans(pos);
 		// MAT4::premul(this, &parent);
 	}
 
 	void Object::update2 (void)
 	{
 		quat.norm();
-		// mat.preTrans(_trans);
+		// mat.preTrans(pos);
 		// mat.makeRotQuat(quat);
 	}
 }

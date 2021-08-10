@@ -52,10 +52,13 @@ namespace XGK::MATH
 		);
 
 		// Parameters are of void* type to allow using with both vector and scalar float types.
-		void mul32 (void* left, void* right);
-		void mul128 (void* left, void* right);
+		// make const void* ?
+		void mul32 (const void*, const void*);
+		void mul128 (const void*, const void*);
 		void transp32 (void);
 		void transp128 (void);
+		void makeRotationFromQuat32 (const void*);
+		void makeRotationFromQuat128 (const void*);
 		void print (void);
 	};
 }

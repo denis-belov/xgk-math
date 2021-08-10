@@ -25,6 +25,25 @@
 	dst[2] = e2; dst[6] = e6; dst[10] = e10; dst[14] = e14;\
 	dst[3] = e3; dst[7] = e7; dst[11] = e11; dst[15] = e15;
 
+#define MAKE_ROTATION_FROM_QUAT(mat, quat)\
+\
+	const float xy = 2.0f * quat[0] * quat[1];\
+	const float xz = 2.0f * quat[0] * quat[2];\
+	const float yz = 2.0f * quat[1] * quat[2];\
+\
+	const float zw = 2.0f * quat[2] * quat[3];\
+	const float yw = 2.0f * quat[1] * quat[3];\
+	const float xw = 2.0f * quat[0] * quat[3];\
+\
+	const float xx = 2.0f * quat[0] * quat[0];\
+	const float yy = 2.0f * quat[1] * quat[1];\
+	const float zz = 2.0f * quat[2] * quat[2];\
+\
+	mat[0] = 1.0f - yy - zz; mat[4] = xy - zw       ; mat[8]  = xz + yw       ; mat[12] = 0.0f;\
+	mat[1] = xy + zw       ; mat[5] = 1.0f - xx - zz; mat[9]  = yz - xw       ; mat[13] = 0.0f;\
+	mat[2] = xz - yw       ; mat[6] = yz + xw       ; mat[10] = 1.0f - xx - yy; mat[14] = 0.0f;\
+	mat[3] = 0.0f          ; mat[7] = 0.0f          ; mat[11] = 0.0f          ; mat[15] = 1.0f;
+
 
 
 #include "mat4.h"
@@ -33,7 +52,7 @@
 
 namespace XGK::MATH
 {
-	void Mat4::mul32 (void* left, void* right)
+	void Mat4::mul32 (const void* left, const void* right)
 	{
 		float* _left = (float*) left;
 		float* _right = (float*) right;
@@ -53,4 +72,16 @@ namespace XGK::MATH
 		data[2] = e2; data[6] = e6; data[10] = e10; data[14] = e14;
 		data[3] = e3; data[7] = e7; data[11] = e11; data[15] = e15;
 	}
+
+	void Mat4::makeRotationFromQuat32 (const void* quat)
+	{
+		const float* _quat = (const float*) quat;
+
+		MAKE_ROTATION_FROM_QUAT(data, _quat)
+	}
 }
+
+
+
+#undef MAKE_ROTATION_FROM_QUAT
+#undef MUL

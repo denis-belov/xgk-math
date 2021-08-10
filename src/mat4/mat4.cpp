@@ -27,8 +27,6 @@ namespace XGK::MATH
 	namespace CONST
 	{
 		extern const uint8_t FLOAT_SIZE_16;
-
-		alignas(16) extern const float IDENT_4 [4];
 	}
 
 	alignas(16) const float CONST_MUL [4] { 2.0f, 2.0f, 2.0f, 0.0f };
@@ -73,9 +71,6 @@ namespace XGK::MATH
 		memcpy(data, &src, CONST::FLOAT_SIZE_16);
 	}
 
-	Mat4::~Mat4 (void)
-	{}
-
 	Mat4::Mat4 (std::initializer_list<float>& list)
 	{
 		size_t count = 0;
@@ -90,6 +85,8 @@ namespace XGK::MATH
 			}
 		}
 	}
+
+	Mat4::~Mat4 (void) {}
 
 
 

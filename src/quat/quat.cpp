@@ -46,7 +46,7 @@ namespace XGK::MATH
 		memcpy(data, &src, CONST::FLOAT_SIZE_4);
 	}
 
-	Quat::Quat (std::initializer_list<float>& list)
+	Quat::Quat (std::initializer_list<float> list)
 	{
 		size_t count = 0;
 

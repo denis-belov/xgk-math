@@ -20,7 +20,7 @@ namespace XGK::MATH
 		Quat (const void* src);
 		Quat (const Quat& src);
 		Quat (const Quat&& src);
-		Quat (std::initializer_list<float>& list);
+		Quat (std::initializer_list<float> list);
 
 		~Quat (void);
 
@@ -38,18 +38,18 @@ namespace XGK::MATH
 		float len (void);
 		float lensq (void);
 		void norm (void);
-		void mul32 (void*, void*);
-		void mul128 (void*, void*);
-		void premul128 (void*);
-		void premul32 (void*);
-		void postmul32 (void*);
-		void postmul128 (void*);
-		void makeRot32 (void*, const float&);
-		void makeRot128 (void*, const float&);
-		void preRot32 (void*, const float&);
-		void preRot128 (void*, const float&);
-		void postRot32 (void*, const float&);
-		void postRot128 (void*, const float&);
+		void mul32 (const void*, const void*);
+		void mul128 (const void*, const void*);
+		void premul128 (const void*);
+		void premul32 (const void*);
+		void postmul32 (const void*);
+		void postmul128 (const void*);
+		void makeRot32 (const void*, const float&);
+		void makeRot128 (const void*, const float&);
+		void preRot32 (const void*, const float&);
+		void preRot128 (const void*, const float&);
+		void postRot32 (const void*, const float&);
+		void postRot128 (const void*, const float&);
 		void makeRotX32 (const float&);
 		void preRotX32 (const float&);
 		void preRotX128 (const float&);
