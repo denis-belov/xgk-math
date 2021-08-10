@@ -45,7 +45,7 @@ namespace XGK::MATH
 		memcpy(data, &src, CONST::FLOAT_SIZE_4);
 	}
 
-	Vec4::Vec4 (std::initializer_list<float>& list)
+	Vec4::Vec4 (std::initializer_list<float> list)
 	{
 		size_t count {};
 

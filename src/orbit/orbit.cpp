@@ -33,10 +33,10 @@ namespace XGK::MATH
 
 	void Orbit::update (void)
 	{
-		object.update2();
+		object.update();
 
 		view_mat = object.mat;
 
-		// view_mat.invns();
+		view_mat.invns32();
 	}
 }

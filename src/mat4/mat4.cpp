@@ -1,15 +1,15 @@
 #define SET\
 (\
-	e0, e4, e8 , e12,\
-	e1, e5, e9 , e13,\
-	e2, e6, e10, e14,\
-	e3, e7, e11, e15\
+	e0, /**/ e4, /**/ e8 , /**/ e12,\
+	e1, /**/ e5, /**/ e9 , /**/ e13,\
+	e2, /**/ e6, /**/ e10, /**/ e14,\
+	e3, /**/ e7, /**/ e11, /**/ e15\
 )\
 \
-	data[0] = e0; data[4] = e4; data[8]  = e8 ; data[12] = e12;\
-	data[1] = e1; data[5] = e5; data[9]  = e9 ; data[13] = e13;\
-	data[2] = e2; data[6] = e6; data[10] = e10; data[14] = e14;\
-	data[3] = e3; data[7] = e7; data[11] = e11; data[15] = e15;
+	data[0] = e0; /**/ data[4] = e4; /**/ data[8]  = e8 ; /**/ data[12] = e12;\
+	data[1] = e1; /**/ data[5] = e5; /**/ data[9]  = e9 ; /**/ data[13] = e13;\
+	data[2] = e2; /**/ data[6] = e6; /**/ data[10] = e10; /**/ data[14] = e14;\
+	data[3] = e3; /**/ data[7] = e7; /**/ data[11] = e11; /**/ data[15] = e15;
 
 
 
@@ -35,18 +35,18 @@ namespace XGK::MATH
 	// CONST_IDENT_12
 	alignas(16) const float IDENT_12 [12]
 	{
-		1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 0.0f
+		1.0f, /**/ 0.0f, /**/ 0.0f, /**/ 0.0f,
+		0.0f, /**/ 1.0f, /**/ 0.0f, /**/ 0.0f,
+		0.0f, /**/ 0.0f, /**/ 1.0f, /**/ 0.0f
 	};
 
 	// CONST_IDENT_16
 	alignas(16) const float IDENT_16 [16]
 	{
-		1.0f, 0.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 0.0f, 1.0f
+		1.0f, /**/ 0.0f, /**/ 0.0f, /**/ 0.0f,
+		0.0f, /**/ 1.0f, /**/ 0.0f, /**/ 0.0f,
+		0.0f, /**/ 0.0f, /**/ 1.0f, /**/ 0.0f,
+		0.0f, /**/ 0.0f, /**/ 0.0f, /**/ 1.0f
 	};
 
 
@@ -71,7 +71,7 @@ namespace XGK::MATH
 		memcpy(data, &src, CONST::FLOAT_SIZE_16);
 	}
 
-	Mat4::Mat4 (std::initializer_list<float>& list)
+	Mat4::Mat4 (std::initializer_list<float> list)
 	{
 		size_t count = 0;
 
@@ -84,6 +84,8 @@ namespace XGK::MATH
 				break;
 			}
 		}
+
+		transp32();
 	}
 
 	Mat4::~Mat4 (void) {}

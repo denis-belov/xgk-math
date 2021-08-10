@@ -133,10 +133,23 @@ namespace XGK::MATH
 		// MAT4::premul(this, &parent);
 	}
 
+	// orbit
+	void Object::update (void)
+	{
+		quat.norm();
+		mat.makeRotationFromQuat32(&quat);
+		mat.postTrans128(&pos);
+		// mat.preTrans32(pos);
+		// mat.makeRotationFromQuat32(&quat);
+	}
+
+	// first person
 	void Object::update2 (void)
 	{
 		quat.norm();
-		// mat.preTrans(pos);
-		// mat.makeRotQuat(quat);
+		mat.makeRotationFromQuat32(&quat);
+		mat.postTrans128(&pos);
+		// mat.preTrans32(pos);
+		// mat.makeRotationFromQuat32(&quat);
 	}
 }

@@ -23,7 +23,7 @@ namespace XGK::MATH
 		Vec4 (const void* src);
 		Vec4 (const Vec4& src);
 		Vec4 (const Vec4&& src);
-		Vec4 (std::initializer_list<float>& list);
+		Vec4 (std::initializer_list<float> list);
 
 		~Vec4 (void);
 
