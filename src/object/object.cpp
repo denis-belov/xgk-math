@@ -124,32 +124,42 @@ namespace XGK::MATH
 
 
 
-	void Object::update (void)
-	{
-		// remove?
-		quat.norm();
-		// mat.makeRotQuat(quat);
-		// mat.preTrans(pos);
-		// MAT4::premul(this, &parent);
-	}
+	// void Object::_update (void)
+	// {
+	// 	// remove?
+	// 	quat.norm();
+	// 	// mat.makeRotQuat(quat);
+	// 	// mat.preTrans(pos);
+	// 	// MAT4::premul(this, &parent);
+	// }
 
 	// orbit
 	void Object::update (void)
 	{
-		quat.norm();
+		// quat.norm();
 		mat.makeRotationFromQuat32(&quat);
+		mat.postTrans32(&pos);
+	}
+
+	void Object::update128 (void)
+	{
+		// quat.norm();
+		mat.makeRotationFromQuat128(&quat);
 		mat.postTrans128(&pos);
-		// mat.preTrans32(pos);
-		// mat.makeRotationFromQuat32(&quat);
 	}
 
 	// first person
 	void Object::update2 (void)
 	{
-		quat.norm();
+		// quat.norm();
 		mat.makeRotationFromQuat32(&quat);
-		mat.postTrans128(&pos);
-		// mat.preTrans32(pos);
-		// mat.makeRotationFromQuat32(&quat);
+		mat.preTrans32(&pos);
+	}
+
+	void Object::update2_128 (void)
+	{
+		// quat.norm();
+		mat.makeRotationFromQuat128(&quat);
+		mat.preTrans128(&pos);
 	}
 }

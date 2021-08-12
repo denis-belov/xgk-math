@@ -86,6 +86,26 @@ namespace XGK::MATH
 		data[3] = e3; /**/ data[7] = e7; /**/ data[11] = e11; /**/ data[15] = e15;
 	}
 
+	void Mat4::preTrans32 (const void* vec)
+	{
+		const float* _vec = (const float*) vec;
+
+		data[12] += _vec[0];
+		data[13] += _vec[1];
+		data[14] += _vec[2];
+	}
+
+
+
+	void Mat4::postTrans32 (const void* vec)
+	{
+		float* _vec = (float*) vec;
+
+		data[12] += (data[0] * _vec[0]) + (data[4] * _vec[1]) + (data[8]  * _vec[2]);
+		data[13] += (data[1] * _vec[0]) + (data[5] * _vec[1]) + (data[9]  * _vec[2]);
+		data[14] += (data[2] * _vec[0]) + (data[6] * _vec[1]) + (data[10] * _vec[2]);
+	}
+
 	void Mat4::makeRotationFromQuat32 (const void* quat)
 	{
 		const float* _quat = (const float*) quat;

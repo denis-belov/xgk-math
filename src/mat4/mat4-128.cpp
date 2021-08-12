@@ -118,11 +118,11 @@ namespace XGK::MATH
 	void Mat4::postTrans128 (const void* vec)
 	{
 		__m128* _this = (__m128*) this;
-		__m128* vec_128 = (__m128*) vec;
+		const __m128 _vec = *((const __m128*) vec);
 
-		_this[3] = _mm_add_ps(_this[3], _mm_mul_ps(_this[0], _mm_shuffle_ps(vec_128[0], vec_128[0], _MM_SHUFFLE(0, 0, 0, 0))));
-		_this[3] = _mm_add_ps(_this[3], _mm_mul_ps(_this[1], _mm_shuffle_ps(vec_128[0], vec_128[0], _MM_SHUFFLE(1, 1, 1, 1))));
-		_this[3] = _mm_add_ps(_this[3], _mm_mul_ps(_this[2], _mm_shuffle_ps(vec_128[0], vec_128[0], _MM_SHUFFLE(2, 2, 2, 2))));
+		_this[3] = _mm_add_ps(_this[3], _mm_mul_ps(_this[0], _mm_shuffle_ps(_vec, _vec, _MM_SHUFFLE(0, 0, 0, 0))));
+		_this[3] = _mm_add_ps(_this[3], _mm_mul_ps(_this[1], _mm_shuffle_ps(_vec, _vec, _MM_SHUFFLE(1, 1, 1, 1))));
+		_this[3] = _mm_add_ps(_this[3], _mm_mul_ps(_this[2], _mm_shuffle_ps(_vec, _vec, _MM_SHUFFLE(2, 2, 2, 2))));
 	}
 
 	void Mat4::makeRotationFromQuat128 (const void* quat)

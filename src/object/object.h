@@ -43,8 +43,9 @@ namespace XGK::MATH
 		void setTransZ (const float&);
 		void transZ    (const float&);
 		void update    (void);
+		void update128 (void);
 		void update2   (void);
-		void update3   (void);
+		void update2_128   (void);
 	};
 }
 
