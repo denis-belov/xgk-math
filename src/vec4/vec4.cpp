@@ -60,7 +60,7 @@ namespace XGK::MATH
 		}
 	}
 
-	Vec4::~Vec4 (void) {}
+	// Vec4::~Vec4 (void) {}
 
 
 

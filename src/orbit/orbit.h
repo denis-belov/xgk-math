@@ -28,6 +28,9 @@ namespace XGK::MATH
 
 
 		Orbit (void);
+
+		~Orbit (void) = default;
+
 		void rotate (void);
 		void transX (void);
 		void transZ (void);

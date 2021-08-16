@@ -61,7 +61,7 @@ namespace XGK::MATH
 		}
 	}
 
-	Quat::~Quat (void) {}
+	// Quat::~Quat (void) {}
 
 
 

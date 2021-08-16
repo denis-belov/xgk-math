@@ -136,14 +136,14 @@ namespace XGK::MATH
 	// orbit
 	void Object::update (void)
 	{
-		// quat.norm();
+		quat.norm();
 		mat.makeRotationFromQuat32(&quat);
 		mat.postTrans32(&pos);
 	}
 
 	void Object::update128 (void)
 	{
-		// quat.norm();
+		quat.norm();
 		mat.makeRotationFromQuat128(&quat);
 		mat.postTrans128(&pos);
 	}
@@ -151,14 +151,14 @@ namespace XGK::MATH
 	// first person
 	void Object::update2 (void)
 	{
-		// quat.norm();
+		quat.norm();
 		mat.makeRotationFromQuat32(&quat);
 		mat.preTrans32(&pos);
 	}
 
 	void Object::update2_128 (void)
 	{
-		// quat.norm();
+		quat.norm();
 		mat.makeRotationFromQuat128(&quat);
 		mat.preTrans128(&pos);
 	}

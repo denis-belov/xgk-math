@@ -19,7 +19,7 @@ namespace XGK::MATH
 		Mat4 (const Mat4&& src);
 		Mat4 (std::initializer_list<float> list);
 
-		~Mat4 (void);
+		~Mat4 (void) = default;
 
 
 

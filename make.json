@@ -50,12 +50,28 @@
 
 				{
 					"source": "$(SRC)/object/object.cpp",
-					"headers": "$(SRC)/object/object.h"
+					"headers":
+					[
+						"$(SRC)/vec4/vec4.h",
+						"$(SRC)/quat/quat.h",
+						"$(SRC)/mat4/mat4.h",
+						"$(SRC)/object/object.h"
+					]
 				},
 
 				{
 					"source": "$(SRC)/orbit/orbit.cpp",
-					"headers": "$(SRC)/orbit/orbit.h"
+					"headers":
+					[
+						"$(SRC)/mat4/mat4.h",
+						"$(SRC)/object/object.h",
+						"$(SRC)/orbit/orbit.h"
+					]
+				},
+
+				{
+					"source": "$(SRC)/util/util.cpp",
+					"headers": "$(SRC)/util/util.h"
 				}
 			]
 		}

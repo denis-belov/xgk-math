@@ -22,6 +22,9 @@ namespace XGK::MATH
 
 
 		// Object         (void);
+
+		~Object (void) = default;
+
 		void setRot    (const void*, const float&);
 		void preRot    (const void*, const float&);
 		void postRot   (const void*, const float&);

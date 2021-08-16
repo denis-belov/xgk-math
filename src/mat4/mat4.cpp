@@ -88,7 +88,7 @@ namespace XGK::MATH
 		transp32();
 	}
 
-	Mat4::~Mat4 (void) {}
+	// Mat4::~Mat4 (void) {}
 
 
 

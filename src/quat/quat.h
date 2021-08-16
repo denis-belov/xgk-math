@@ -22,7 +22,7 @@ namespace XGK::MATH
 		Quat (const Quat&& src);
 		Quat (std::initializer_list<float> list);
 
-		~Quat (void);
+		~Quat (void) = default;
 
 
 
