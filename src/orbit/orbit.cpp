@@ -5,14 +5,20 @@
 
 namespace XGK::MATH
 {
-	Orbit::Orbit (void)
-	{
-		rotation_speed_x = 0.0f;
-		rotation_speed_y = 0.0f;
+	// Orbit::Orbit (void)
+	// {
+	// 	rotation_speed_x = 0.0f;
+	// 	rotation_speed_y = 0.0f;
 
-		translation_speed_x = 0.0f;
-		translation_speed_y = 0.0f;
-		translation_speed_z = 0.0f;
+	// 	translation_speed_x = 0.0f;
+	// 	translation_speed_y = 0.0f;
+	// 	translation_speed_z = 0.0f;
+	// }
+
+	void Orbit::setRotation (void)
+	{
+		object.setRotX(rotation_speed_x);
+		// object.setRotY(rotation_speed_y);
 	}
 
 	void Orbit::rotate (void)

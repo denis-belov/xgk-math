@@ -18,6 +18,20 @@ namespace XGK::MATH::UTIL
 		const float&
 	);
 
+	void makeBezierCurve3Point
+	(
+		double*,
+		const double&,
+		const double&,
+		const double&,
+		const double&,
+		const double&,
+		const double&,
+		const double&,
+		const double&,
+		const double&
+	);
+
 	void makeBezierCurve3Sequence
 	(
 		float*,
@@ -32,6 +46,20 @@ namespace XGK::MATH::UTIL
 		const size_t&
 	);
 
+	void makeBezierCurve3Sequence
+	(
+		double*,
+		const double&,
+		const double&,
+		const double&,
+		const double&,
+		const double&,
+		const double&,
+		const double&,
+		const double&,
+		const size_t&
+	);
+
 	void makeBezierCurve3Sequence2
 	(
 		float*,
@@ -39,6 +67,16 @@ namespace XGK::MATH::UTIL
 		const float&,
 		const float&,
 		const float&,
+		const size_t&
+	);
+
+	void makeBezierCurve3Sequence2
+	(
+		double*,
+		const double&,
+		const double&,
+		const double&,
+		const double&,
 		const size_t&
 	);
 }

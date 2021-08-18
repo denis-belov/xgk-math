@@ -15,22 +15,21 @@ namespace XGK::MATH
 	{
 		XGK::MATH::Mat4 proj_mat;
 		XGK::MATH::Mat4 view_mat;
-
 		XGK::MATH::Object object;
 
-		float rotation_speed_x;
-		float rotation_speed_y;
-
-		float translation_speed_x;
-		float translation_speed_y;
-		float translation_speed_z;
-
+		float rotation_speed_x {};
+		float rotation_speed_y {};
+		float translation_speed_x {};
+		float translation_speed_y {};
+		float translation_speed_z {};
 
 
-		Orbit (void);
+
+		Orbit (void) = default;
 
 		~Orbit (void) = default;
 
+		void setRotation (void);
 		void rotate (void);
 		void transX (void);
 		void transZ (void);

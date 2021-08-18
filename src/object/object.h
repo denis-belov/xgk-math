@@ -21,7 +21,7 @@ namespace XGK::MATH
 
 
 
-		// Object         (void);
+		Object (void) = default;
 
 		~Object (void) = default;
 
