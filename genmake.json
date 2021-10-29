@@ -1,87 +1,80 @@
 {
-	"build_type": "static",
-
-	"target_name": "xgk-math",
-
-	"variables":
+	"entries":
 	{
-		"gcc-x64":
-		{
-			"CUSTOM_CPPFLAGS": "-fPIC"
-		}
-	},
+		"type": "static",
 
-	"include_directories": "$(SRC)",
+		"name": "xgk-math",
 
-	"source_files":
-	{
-		"internal":
-		{
-			"cpp":
-			[
-				"$(SRC)/const.cpp",
+		"include_directories": "$(SRC)",
 
-				{
-					"source": "$(SRC)/vec4/vec4.cpp",
-					"headers": "$(SRC)/vec4/vec4.h"
-				},
+		"flags_additional": "-fPIC",
 
-				{
-					"source": "$(SRC)/quat/quat.cpp",
-					"headers": "$(SRC)/quat/quat.h"
-				},
+		"watch_files":
+		[
+			"$(SRC)/const.cpp",
 
-				{
-					"source": "$(SRC)/quat/quat-32.cpp",
-					"headers": "$(SRC)/quat/quat.h"
-				},
+			{
+				"file": "$(SRC)/vec4/vec4.cpp",
+				"watch_files": "$(SRC)/vec4/vec4.h"
+			},
 
-				{
-					"source": "$(SRC)/quat/quat-128.cpp",
-					"headers": "$(SRC)/quat/quat.h"
-				},
+			{
+				"file": "$(SRC)/quat/quat.cpp",
+				"watch_files": "$(SRC)/quat/quat.h"
+			},
 
-				{
-					"source": "$(SRC)/mat4/mat4.cpp",
-					"headers": "$(SRC)/mat4/mat4.h"
-				},
+			{
+				"file": "$(SRC)/quat/quat-32.cpp",
+				"watch_files": "$(SRC)/quat/quat.h"
+			},
 
-				{
-					"source": "$(SRC)/mat4/mat4-32.cpp",
-					"headers": "$(SRC)/mat4/mat4.h"
-				},
+			{
+				"file": "$(SRC)/quat/quat-128.cpp",
+				"watch_files": "$(SRC)/quat/quat.h"
+			},
 
-				{
-					"source": "$(SRC)/mat4/mat4-128.cpp",
-					"headers": "$(SRC)/mat4/mat4.h"
-				},
+			{
+				"file": "$(SRC)/mat4/mat4.cpp",
+				"watch_files": "$(SRC)/mat4/mat4.h"
+			},
 
-				{
-					"source": "$(SRC)/object/object.cpp",
-					"headers":
-					[
-						"$(SRC)/vec4/vec4.h",
-						"$(SRC)/quat/quat.h",
-						"$(SRC)/mat4/mat4.h",
-						"$(SRC)/object/object.h"
-					]
-				},
+			{
+				"file": "$(SRC)/mat4/mat4-32.cpp",
+				"watch_files": "$(SRC)/mat4/mat4.h"
+			},
 
-				{
-					"source": "$(SRC)/orbit/orbit.cpp",
-					"headers":
-					[
-						"$(SRC)/mat4/mat4.h",
-						"$(SRC)/object/object.h",
-						"$(SRC)/orbit/orbit.h"
-					]
-				},
+			{
+				"file": "$(SRC)/mat4/mat4-128.cpp",
+				"watch_files": "$(SRC)/mat4/mat4.h"
+			},
 
-				{
-					"source": "$(SRC)/util/util.cpp",
-					"headers": "$(SRC)/util/util.h"
-				}
-			]
-		}
+			{
+				"file": "$(SRC)/object/object.cpp",
+
+				"watch_files":
+				[
+					"$(SRC)/vec4/vec4.h",
+					"$(SRC)/quat/quat.h",
+					"$(SRC)/mat4/mat4.h",
+					"$(SRC)/object/object.h"
+				]
+			},
+
+			{
+				"file": "$(SRC)/orbit/orbit.cpp",
+
+				"watch_files":
+				[
+					"$(SRC)/mat4/mat4.h",
+					"$(SRC)/object/object.h",
+					"$(SRC)/orbit/orbit.h"
+				]
+			},
+
+			{
+				"file": "$(SRC)/util/util.cpp",
+				"watch_files": "$(SRC)/util/util.h"
+			}
+		]
 	}
 }
