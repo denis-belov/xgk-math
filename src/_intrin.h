@@ -3,12 +3,12 @@
 
 
 
-#ifdef __EMSCRIPTEN__
-	#define __SSE__ 1
-	#define __SSE2__ 1
-	#define __SSE3__ 1
-	#include <compat/immintrin.h>
-	// #include <wasm_simd128.h>
+#ifdef __wasm__
+	#define __SSE__
+	#define __SSE2__
+	#define __SSE3__
+	// #include <compat/immintrin.h>
+	#include <wasm_simd128.h>
 #else
 	#include <immintrin.h>
 #endif

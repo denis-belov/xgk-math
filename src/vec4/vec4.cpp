@@ -224,9 +224,9 @@ namespace XGK::MATH
 		const float& t
 	)
 	{
-		const float a { 1.0 - t };
+		const float a { 1.0f - t };
 		const float b { a * a };
-		const float c { 2.0 * t * a };
+		const float c { 2.0f * t * a };
 		const float d { t * t };
 
 		reset();
@@ -253,12 +253,12 @@ namespace XGK::MATH
 		const float& t
 	)
 	{
-		const float a { 1.0 - t };
+		const float a { 1.0f - t };
 		const float b { a * a };
 		const float c { t * t };
 		const float d { a * b };
-		const float e { 3.0 * t * b };
-		const float f { 3.0 * c * a };
+		const float e { 3.0f * t * b };
+		const float f { 3.0f * c * a };
 		const float g { c * t };
 
 		reset();
