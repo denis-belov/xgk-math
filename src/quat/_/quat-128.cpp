@@ -40,16 +40,7 @@
 
 #include <cmath>
 
-#ifdef __EMSCRIPTEN__
-
-	#define __SSE__ 1
-	#define __SSE2__ 1
-	#define __SSE3__ 1
-	#include <SSE/immintrin.h>
-#else
-
-	#include <immintrin.h>
-#endif
+#include "intrin.h"
 
 
 

@@ -167,12 +167,15 @@ namespace XGK::MATH
 	{
 		float len
 		{
-			sqrt
+			static_cast<float>
 			(
-				(data[0] * data[0]) +
-				(data[1] * data[1]) +
-				(data[2] * data[2]) +
-				(data[3] * data[3])
+				sqrt
+				(
+					(data[0] * data[0]) +
+					(data[1] * data[1]) +
+					(data[2] * data[2]) +
+					(data[3] * data[3])
+				)
 			)
 		};
 
