@@ -22,17 +22,20 @@
 
 
 
+extern "C" void console_log (std::size_t);
+
+
+
 namespace XGK::MATH
 {
 	namespace CONST
 	{
-		extern const uint8_t FLOAT_SIZE_16;
+		extern const std::size_t FLOAT_SIZE_16;
 	}
 
 	alignas(16) const float CONST_MUL [4] { 2.0f, 2.0f, 2.0f, 0.0f };
 	alignas(16) const float CONST_ONE [4] { 1.0f, 1.0f, 1.0f, 0.0f };
 
-	// CONST_IDENT_12
 	alignas(16) const float IDENT_12 [12]
 	{
 		1.0f, /**/ 0.0f, /**/ 0.0f, /**/ 0.0f,
@@ -40,13 +43,20 @@ namespace XGK::MATH
 		0.0f, /**/ 0.0f, /**/ 1.0f, /**/ 0.0f
 	};
 
-	// CONST_IDENT_16
 	alignas(16) const float IDENT_16 [16]
 	{
 		1.0f, /**/ 0.0f, /**/ 0.0f, /**/ 0.0f,
 		0.0f, /**/ 1.0f, /**/ 0.0f, /**/ 0.0f,
 		0.0f, /**/ 0.0f, /**/ 1.0f, /**/ 0.0f,
 		0.0f, /**/ 0.0f, /**/ 0.0f, /**/ 1.0f
+	};
+
+	alignas(16) const float ZERO_16 [16]
+	{
+		0.0f, /**/ 0.0f, /**/ 0.0f, /**/ 0.0f,
+		0.0f, /**/ 0.0f, /**/ 0.0f, /**/ 0.0f,
+		0.0f, /**/ 0.0f, /**/ 0.0f, /**/ 0.0f,
+		0.0f, /**/ 0.0f, /**/ 0.0f, /**/ 0.0f
 	};
 
 
@@ -129,11 +139,11 @@ namespace XGK::MATH
 
 	void Mat4::makeProjPersp
 	(
-		const float& fov,
-		const float& aspect,
-		const float& _near,
-		const float& _far,
-		const float& zoom
+		const_float fov,
+		const_float aspect,
+		const_float _near,
+		const_float _far,
+		const_float zoom
 	)
 	{
 		const float top = _near * tan(0.017453292f * 0.5f * fov) / zoom;
@@ -162,14 +172,25 @@ namespace XGK::MATH
 		// data[14] = -(2.0f * _far * _near) / (_far - _near);
 	}
 
+	void Mat4::qweqwe (void)
+	{
+		float d [16];
+
+		console_log((std::size_t) d);
+
+		console_log((std::size_t) std::memcpy(d, IDENT_16, CONST::FLOAT_SIZE_16));
+
+		console_log((std::size_t) d);
+	}
+
 	void Mat4::makeProjPersp
 	(
-	  const float& left,
-	  const float& right,
-	  const float& top,
-	  const float& bottom,
-	  const float& _near,
-	  const float& _far
+	  const_float left,
+	  const_float right,
+	  const_float top,
+	  const_float bottom,
+	  const_float _near,
+	  const_float _far
 	)
 	{
 		SET
@@ -189,6 +210,43 @@ namespace XGK::MATH
 		printf("%f %f %f %f\n", data[3], data[7], data[11], data[15]);
 		printf("\n");
 	}
+}
+
+
+
+XGK::MATH::Mat4 mm;
+
+XGK::MATH::Mat4* getM ()
+{
+	console_log((std::size_t) &mm);
+
+	return &mm;
+};
+
+
+
+alignas(16) const float IDENT_16 [16]
+{
+	1.0f, /**/ 0.0f, /**/ 0.0f, /**/ 0.0f,
+	0.0f, /**/ 1.0f, /**/ 0.0f, /**/ 0.0f,
+	0.0f, /**/ 0.0f, /**/ 1.0f, /**/ 0.0f,
+	0.0f, /**/ 0.0f, /**/ 0.0f, /**/ 1.0f
+};
+
+const std::size_t FLOAT_SIZE_16 { sizeof(float) * 16 };
+
+void qweqwe
+(
+	void
+)
+{
+	float a [16];
+
+	console_log((std::size_t) a);
+
+	std::memcpy(a, IDENT_16, FLOAT_SIZE_16);
+
+	console_log((std::size_t) a);
 }
 
 
