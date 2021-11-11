@@ -1,55 +1,35 @@
+#include <cmath>
+
+#include "_intrin.h"
+
+
+
 //   + AwBx + AxBw + AyBz (*  1) + AzBy (* -1)
 //   + AwBy - AxBz + AyBw (*  1) + AzBx (*  1)
 //   + AwBz + AxBy + AyBx (* -1) + AzBw (*  1)
 //   + AwBw - AxBx + AyBy (* -1) + AzBz (* -1)
 
+#define MUL(left, right)\
+\
+	alignas(16) const __m128 right_128 = _mm_load_ps(right);\
+\
+	alignas(16) const __m128 a = _mm_shuffle_ps(right_128, right_128, _MM_SHUFFLE(0, 1, 2, 3));\
+	alignas(16) const __m128 b = _mm_shuffle_ps(right_128, right_128, _MM_SHUFFLE(1, 0, 3, 2));\
+	alignas(16) const __m128 c = _mm_shuffle_ps(right_128, right_128, _MM_SHUFFLE(2, 3, 0, 1));\
+\
+	alignas(16) const __m128 d = _mm_mul_ps(a, _mm_load_ps1(&left[3]));\
+	alignas(16) const __m128 e = _mm_mul_ps(right_128, _mm_load_ps1(&left[0]));\
+	alignas(16) const __m128 f = _mm_mul_ps(b, _mm_load_ps1(&left[1]));\
+	alignas(16) const __m128 g = _mm_mul_ps(c, _mm_load_ps1(&left[2]));\
+\
+	alignas(16) __m128 h = _mm_addsub_ps(d, e);\
+	h = _mm_shuffle_ps(h, h, _MM_SHUFFLE(0, 1, 2, 3));\
+	alignas(16) const __m128 i = _mm_mul_ps(_mm_addsub_ps(f, g), CONST_MUL);\
+	alignas(16) const __m128 j = _mm_add_ps(h, i);\
+\
+	_mm_store_ps(data, j);
 
 
-#include <cmath>
-
-#include "_intrin.h"
-
-#ifdef __wasm__
-	#define MUL(left, right)\
-	\
-		alignas(16) const __m128 right_128 = wasm_v128_load(right);\
-	\
-		alignas(16) const __m128 a = __builtin_wasm_shuffle_v8x16(right_128, right_128, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);\
-		alignas(16) const __m128 b = __builtin_wasm_shuffle_v8x16(right_128, right_128, 4, 5, 6, 7, 0, 1, 2, 3, 12, 13, 14, 15, 8, 9, 10, 11);\
-		alignas(16) const __m128 c = __builtin_wasm_shuffle_v8x16(right_128, right_128, 8, 9, 10, 11, 12, 13, 14, 15, 0, 1, 2, 3, 4, 5, 6, 7);\
-	\
-		alignas(16) const __m128 d = wasm_f32x4_mul(a, wasm_v128_load(&left[3]));\
-		alignas(16) const __m128 e = wasm_f32x4_mul(right_128, wasm_v128_load(&left[0]));\
-		alignas(16) const __m128 f = wasm_f32x4_mul(b, wasm_v128_load(&left[1]));\
-		alignas(16) const __m128 g = wasm_f32x4_mul(c, wasm_v128_load(&left[2]));\
-	\
-		alignas(16) __m128 h = _mm_addsub_ps(d, e);\
-		h = __builtin_wasm_shuffle_v8x16(h, h, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);\
-		alignas(16) const __m128 i = wasm_f32x4_mul(_mm_addsub_ps(f, g), CONST_MUL);\
-		alignas(16) const __m128 j = wasm_f32x4_add(h, i);\
-	\
-		_mm_store_ps(data, j);
-#else
-	#define MUL(left, right)\
-	\
-		alignas(16) const __m128 right_128 = _mm_load_ps(right);\
-	\
-		alignas(16) const __m128 a = _mm_shuffle_ps(right_128, right_128, _MM_SHUFFLE(0, 1, 2, 3));\
-		alignas(16) const __m128 b = _mm_shuffle_ps(right_128, right_128, _MM_SHUFFLE(1, 0, 3, 2));\
-		alignas(16) const __m128 c = _mm_shuffle_ps(right_128, right_128, _MM_SHUFFLE(2, 3, 0, 1));\
-	\
-		alignas(16) const __m128 d = _mm_mul_ps(a, _mm_load_ps1(&left[3]));\
-		alignas(16) const __m128 e = _mm_mul_ps(right_128, _mm_load_ps1(&left[0]));\
-		alignas(16) const __m128 f = _mm_mul_ps(b, _mm_load_ps1(&left[1]));\
-		alignas(16) const __m128 g = _mm_mul_ps(c, _mm_load_ps1(&left[2]));\
-	\
-		alignas(16) __m128 h = _mm_addsub_ps(d, e);\
-		h = _mm_shuffle_ps(h, h, _MM_SHUFFLE(0, 1, 2, 3));\
-		alignas(16) const __m128 i = _mm_mul_ps(_mm_addsub_ps(f, g), CONST_MUL);\
-		alignas(16) const __m128 j = _mm_add_ps(h, i);\
-	\
-		_mm_store_ps(data, j);
-#endif
 
 #include "quat.h"
 

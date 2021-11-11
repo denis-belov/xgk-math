@@ -22,7 +22,14 @@
 
 
 
-extern "C" void console_log (std::size_t);
+#ifdef __wasm__
+	#define ZERO(dst, src, len) ::zero(dst);
+
+	extern "C" void console_log (std::size_t);
+	extern "C" void zero (void*);
+#else
+	#define ZERO(dst, src, len) memset(dst, src, len);
+#endif
 
 
 
@@ -120,9 +127,9 @@ namespace XGK::MATH
 
 
 	// inline ?
-	void Mat4::zero (void)
+	inline void Mat4::zero (void)
 	{
-		memset(data, 0, CONST::FLOAT_SIZE_16);
+		ZERO(data, 0, CONST::FLOAT_SIZE_16);
 	}
 
 	void Mat4::ident (void)
@@ -162,7 +169,7 @@ namespace XGK::MATH
 		)
 
 		// // compare performance with
-		// memset(data, 0, FLOAT_SIZE_16);
+		// ZERO(data, 0, CONST::FLOAT_SIZE_16);
 		// data[0] = 2.0f * _near / (right - left);
 		// data[5] = 2.0f * _near / (top - bottom);
 		// data[8] = (right + left) / (right - left);
@@ -170,17 +177,6 @@ namespace XGK::MATH
 		// data[10] = -(_far + _near) / (_far - _near);
 		// data[11] = -1.0f;
 		// data[14] = -(2.0f * _far * _near) / (_far - _near);
-	}
-
-	void Mat4::qweqwe (void)
-	{
-		float d [16];
-
-		console_log((std::size_t) d);
-
-		console_log((std::size_t) std::memcpy(d, IDENT_16, CONST::FLOAT_SIZE_16));
-
-		console_log((std::size_t) d);
 	}
 
 	void Mat4::makeProjPersp
@@ -210,43 +206,6 @@ namespace XGK::MATH
 		printf("%f %f %f %f\n", data[3], data[7], data[11], data[15]);
 		printf("\n");
 	}
-}
-
-
-
-XGK::MATH::Mat4 mm;
-
-XGK::MATH::Mat4* getM ()
-{
-	console_log((std::size_t) &mm);
-
-	return &mm;
-};
-
-
-
-alignas(16) const float IDENT_16 [16]
-{
-	1.0f, /**/ 0.0f, /**/ 0.0f, /**/ 0.0f,
-	0.0f, /**/ 1.0f, /**/ 0.0f, /**/ 0.0f,
-	0.0f, /**/ 0.0f, /**/ 1.0f, /**/ 0.0f,
-	0.0f, /**/ 0.0f, /**/ 0.0f, /**/ 1.0f
-};
-
-const std::size_t FLOAT_SIZE_16 { sizeof(float) * 16 };
-
-void qweqwe
-(
-	void
-)
-{
-	float a [16];
-
-	console_log((std::size_t) a);
-
-	std::memcpy(a, IDENT_16, FLOAT_SIZE_16);
-
-	console_log((std::size_t) a);
 }
 
 

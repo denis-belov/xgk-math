@@ -10,6 +10,7 @@
 #endif
 
 
+
 #include <initializer_list>
 
 
@@ -46,15 +47,6 @@ namespace XGK::MATH
 			const_float,
 			const_float,
 			const_float
-		);
-
-		void qweqwe
-		(
-		// 	const_float,
-		// 	const_float,
-		// 	const_float,
-		// 	const_float,
-		// 	const_float
 		);
 
 		void makeProjPersp
