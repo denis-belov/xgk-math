@@ -4,6 +4,7 @@
 
 namespace XGK::MATH::CONST
 {
+	extern const std::size_t FLOAT_SIZE = sizeof(float);
 	extern const std::size_t FLOAT_SIZE_3 { sizeof(float) * 3 };
 	extern const std::size_t FLOAT_SIZE_4 { sizeof(float) * 4 };
 	extern const std::size_t FLOAT_SIZE_8 { sizeof(float) * 8 };
