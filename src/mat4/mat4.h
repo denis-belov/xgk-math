@@ -3,6 +3,7 @@
 
 
 
+// remove?
 #ifdef __wasm__
 	#define const_float const float
 #else

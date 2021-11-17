@@ -23,12 +23,7 @@
 
 
 #ifdef __wasm__
-	#define ZERO(dst, src, len) ::zero(dst);
-
 	extern "C" void console_log (std::size_t);
-	extern "C" void zero (void*);
-#else
-	#define ZERO(dst, src, len) memset(dst, src, len);
 #endif
 
 
@@ -129,7 +124,7 @@ namespace XGK::MATH
 	// inline ?
 	inline void Mat4::zero (void)
 	{
-		ZERO(data, 0, CONST::FLOAT_SIZE_16);
+		memset(data, 0, CONST::FLOAT_SIZE_16);
 	}
 
 	void Mat4::ident (void)
@@ -169,7 +164,7 @@ namespace XGK::MATH
 		)
 
 		// // compare performance with
-		// ZERO(data, 0, CONST::FLOAT_SIZE_16);
+		// memset(data, 0, CONST::FLOAT_SIZE_16);
 		// data[0] = 2.0f * _near / (right - left);
 		// data[5] = 2.0f * _near / (top - bottom);
 		// data[8] = (right + left) / (right - left);
