@@ -27,6 +27,12 @@ namespace XGK::MATH
 		object.preRotY(rotation_speed_y);
 	}
 
+	void Orbit::rotate2 (const float rotation_speed_x, const float rotation_speed_y)
+	{
+		object.postRotX(rotation_speed_x);
+		object.preRotY(rotation_speed_y);
+	}
+
 	void Orbit::transX (void)
 	{
 		object.transX(translation_speed_x);
@@ -41,8 +47,8 @@ namespace XGK::MATH
 	{
 		object.update();
 
-		view_mat = object.mat;
+		view_matrix = object.mat;
 
-		view_mat.invns32();
+		view_matrix.invns32();
 	}
 }

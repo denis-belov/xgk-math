@@ -13,8 +13,8 @@ namespace XGK::MATH
 
 	struct alignas(16) Orbit
 	{
-		XGK::MATH::Mat4 proj_mat;
-		XGK::MATH::Mat4 view_mat;
+		XGK::MATH::Mat4 projection_matrix;
+		XGK::MATH::Mat4 view_matrix;
 		XGK::MATH::Object object;
 
 		float rotation_speed_x {};
@@ -31,6 +31,8 @@ namespace XGK::MATH
 
 		void setRotation (void);
 		void rotate (void);
+		// use const_float macro
+		void rotate2 (const float, const float);
 		void transX (void);
 		void transZ (void);
 		void update (void);
