@@ -38,6 +38,11 @@ namespace XGK::MATH
 		object.transX(translation_speed_x);
 	}
 
+	void Orbit::transY(void)
+	{
+		object.transY(translation_speed_y);
+	}
+
 	void Orbit::transZ (void)
 	{
 		object.transZ(translation_speed_z);

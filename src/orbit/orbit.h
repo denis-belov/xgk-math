@@ -34,6 +34,7 @@ namespace XGK::MATH
 		// use const_float macro
 		void rotate2 (const float, const float);
 		void transX (void);
+		void transY (void);
 		void transZ (void);
 		void update (void);
 	};
