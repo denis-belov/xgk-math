@@ -2,6 +2,12 @@
 
 
 
+#ifndef __wasm__
+	using std::size_t;
+#endif
+
+
+
 namespace XGK::MATH::CONST
 {
 	extern const size_t FLOAT_SIZE = sizeof(float);

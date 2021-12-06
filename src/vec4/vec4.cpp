@@ -11,6 +11,12 @@
 
 
 
+#ifndef __wasm__
+	using std::size_t;
+#endif
+
+
+
 namespace XGK::MATH
 {
 	namespace CONST

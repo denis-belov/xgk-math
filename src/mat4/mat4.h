@@ -3,15 +3,6 @@
 
 
 
-// remove?
-#ifdef __wasm__
-	#define const_float const float
-#else
-	#define const_float const float&
-#endif
-
-
-
 #include <initializer_list>
 
 
@@ -43,21 +34,21 @@ namespace XGK::MATH
 
 		void makeProjPersp
 		(
-			const_float,
-			const_float,
-			const_float,
-			const_float,
-			const_float
+			const float&,
+			const float&,
+			const float&,
+			const float&,
+			const float&
 		);
 
 		void makeProjPersp
 		(
-			const_float,
-			const_float,
-			const_float,
-			const_float,
-			const_float,
-			const_float
+			const float&,
+			const float&,
+			const float&,
+			const float&,
+			const float&,
+			const float&
 		);
 
 		// Parameters are of void* type to allow using with both vector and scalar float types.

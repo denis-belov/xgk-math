@@ -109,6 +109,12 @@
 
 
 
+#ifndef __wasm__
+	using std::size_t;
+#endif
+
+
+
 namespace XGK::MATH {
 
 	extern const uint8_t FLOAT_SIZE_3;

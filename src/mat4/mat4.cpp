@@ -22,8 +22,8 @@
 
 
 
-#ifdef __wasm__
-	extern "C" void console_log (std::size_t);
+#ifndef __wasm__
+	using std::size_t;
 #endif
 
 
@@ -32,7 +32,7 @@ namespace XGK::MATH
 {
 	namespace CONST
 	{
-		extern const std::size_t FLOAT_SIZE_16;
+		extern const size_t FLOAT_SIZE_16;
 	}
 
 	alignas(16) const float CONST_MUL [4] { 2.0f, 2.0f, 2.0f, 0.0f };
@@ -141,11 +141,11 @@ namespace XGK::MATH
 
 	void Mat4::makeProjPersp
 	(
-		const_float fov,
-		const_float aspect,
-		const_float _near,
-		const_float _far,
-		const_float zoom
+		const float& fov,
+		const float& aspect,
+		const float& _near,
+		const float& _far,
+		const float& zoom
 	)
 	{
 		const float top = _near * tan(0.017453292f * 0.5f * fov) / zoom;
@@ -176,12 +176,12 @@ namespace XGK::MATH
 
 	void Mat4::makeProjPersp
 	(
-	  const_float left,
-	  const_float right,
-	  const_float top,
-	  const_float bottom,
-	  const_float _near,
-	  const_float _far
+	  const float& left,
+	  const float& right,
+	  const float& top,
+	  const float& bottom,
+	  const float& _near,
+	  const float& _far
 	)
 	{
 		SET

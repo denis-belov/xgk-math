@@ -31,7 +31,8 @@ namespace XGK::MATH
 
 		void setRotation (void);
 		void rotate (void);
-		// use const_float macro
+		// use const float& macro
+		void rotate2 (const float&, const float&);
 		void rotate2 (const float, const float);
 		void transX (void);
 		void transY (void);
