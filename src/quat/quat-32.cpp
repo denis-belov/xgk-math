@@ -1,6 +1,6 @@
 #include <cmath>
 
-#include "quat.h"
+#include "xgk-math/src/quat/quat.h"
 
 
 

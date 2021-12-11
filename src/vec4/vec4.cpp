@@ -7,7 +7,7 @@
 #include <cstdio>
 #include <cmath>
 
-#include "vec4.h"
+#include "xgk-math/src/vec4/vec4.h"
 
 
 

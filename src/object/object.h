@@ -3,9 +3,9 @@
 
 
 
-#include "vec4/vec4.h"
-#include "quat/quat.h"
-#include "mat4/mat4.h"
+#include "xgk-math/src/vec4/vec4.h"
+#include "xgk-math/src/quat/quat.h"
+#include "xgk-math/src/mat4/mat4.h"
 
 
 

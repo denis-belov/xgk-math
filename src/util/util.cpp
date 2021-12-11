@@ -1,6 +1,8 @@
 #include <cstdint>
 #include <cmath>
 
+#include "xgk-math/src/util/util.h"
+
 
 
 #ifndef __wasm__
