@@ -13,18 +13,16 @@
 
 
 
-#include <cstdint>
+// size_t
+#include <cstddef>
+// memcpy, memset
 #include <cstring>
+// printf
 #include <cstdio>
+// tan
 #include <cmath>
 
 #include "xgk-math/src/mat4/mat4.h"
-
-
-
-#ifndef __wasm__
-	using std::size_t;
-#endif
 
 
 

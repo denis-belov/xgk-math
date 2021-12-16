@@ -1,10 +1,5 @@
-#include <cstdint>
-
-
-
-#ifndef __wasm__
-	using std::size_t;
-#endif
+// size_t
+#include <cstddef>
 
 
 

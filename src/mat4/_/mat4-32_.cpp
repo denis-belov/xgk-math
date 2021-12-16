@@ -110,7 +110,7 @@
 
 
 #ifndef __wasm__
-	using std::size_t;
+	using size_t;
 #endif
 
 

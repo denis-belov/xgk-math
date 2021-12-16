@@ -2,18 +2,13 @@
 
 
 
+// uint8_t
 #include <cstdint>
 #include <cstring>
 #include <cstdio>
 #include <cmath>
 
 #include "xgk-math/src/vec4/vec4.h"
-
-
-
-#ifndef __wasm__
-	using std::size_t;
-#endif
 
 
 

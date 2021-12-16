@@ -2,18 +2,18 @@
 
 
 
+// size_t
+#include <cstddef>
+// uint8_t
 #include <cstdint>
+// memcpy, memset
 #include <cstring>
+// printf
 #include <cstdio>
+// sqrt
 #include <cmath>
 
 #include "xgk-math/src/quat/quat.h"
-
-
-
-#ifndef __wasm__
-	using std::size_t;
-#endif
 
 
 
